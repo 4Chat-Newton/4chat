@@ -1,3 +1,13 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.idea
+/package-lock.json
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
 # Logs
 logs
 *.log
@@ -38,6 +48,7 @@ bower_components
 build/Release
 
 # Dependency directories
+# Ignore node modules
 node_modules/
 jspm_packages/
 
