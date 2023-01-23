@@ -1,13 +1,20 @@
 import React from 'react';
+import SignUp from './formComponent';
 
 function App() {
   return (
-    <div >
+    <body>
+          <div >
       <header >
-        <h1>Hello World</h1>
+
+        <SignUp></SignUp>
 
       </header>
     </div>
+
+    </body>
+
+    
   );
 }
 
