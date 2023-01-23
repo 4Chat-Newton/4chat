@@ -1,3 +1,5 @@
+declare var require: any; //! ta bort innan launch
+
 const express = require('express');
 const app = express();
 const path = require('path');
