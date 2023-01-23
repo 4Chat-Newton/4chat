@@ -1,5 +1,6 @@
 import React from 'react';
 import SignUp from './formComponent';
+import Login from './registerForm';
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
       <header >
 
         <SignUp></SignUp>
+        <Login></Login>
 
       </header>
     </div>
