@@ -1,46 +1,19 @@
 import React from "react";
 import './style.css'
-
-
-
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
 import { LockClosedIcon } from '@heroicons/react/20/solid'
 
-export default function Login() {
+export default function SignUp() {
   return (
     <>
-      {/*
-        This example requires updating your template:
 
-        ```
-        <html class="h-full bg-gray-50">
-        <body class="h-full">
-        ```
-      */}
       <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
           <div>
+
+            <img src="img/4chat.png"className="mx-auto h-20 w-auto" alt="logo" />
             
-            <img
-              /* src={require('./img/4chat.png').default}className="mx-auto h-12 w-auto"
-              alt="logo" */
-              src="img/4chat.png" alt="Logo" className="mx-auto h-20 w-auto"
-            />
             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-              Sign in to your account
+                Create a new account
             </h2>
             <p className="mt-2 text-center text-sm text-gray-600">
               
@@ -67,6 +40,20 @@ export default function Login() {
                 />
               </div>
               <div>
+                <label htmlFor="user-name" className="sr-only">
+                  User Name
+                </label>
+                <input
+                  id="user-name"
+                  name="username"
+                  type="username"
+                  autoComplete="username"
+                  required
+                  className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  placeholder="User Name"
+                />
+              </div>
+              <div>
                 <label htmlFor="password" className="sr-only">
                   Password
                 </label>
@@ -79,6 +66,18 @@ export default function Login() {
                   className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   placeholder="Password"
                 />
+                <label htmlFor="password" className="sr-only">
+                  Password
+                </label>
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autoComplete="current-password"
+                  required
+                  className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  placeholder="Confirm Password"
+                />
               </div>
             </div>
 
@@ -90,15 +89,13 @@ export default function Login() {
                   type="checkbox"
                   className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                 />
-                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                  Remember me
-                </label>
-              </div>
-
-              <div className="text-sm">
-                <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                  Forgot your password?
+                <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
+                  I have read and accept the
+                  <br></br>
+                  <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+                  Terms & Conditions
                 </a>
+                </label>
               </div>
             </div>
 
@@ -110,7 +107,7 @@ export default function Login() {
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                   <LockClosedIcon className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
                 </span>
-                Sign in
+                Sign Up
               </button>
             </div>
           </form>
