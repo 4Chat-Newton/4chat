@@ -1,6 +1,6 @@
-const express = require('express');
+import express from 'express';
 const app = express();
-const path = require('path');
+import path from 'path';
 
 
 // app.use(express.static(__dirname + '../build'))
