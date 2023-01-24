@@ -18,6 +18,7 @@ server.get('/data', (req, res) => {
 
 server.listen(port, () => {
     console.log(`Server running on port ${port}`);
+    console.log(`http://localhost:${port}/data`);
 });
 
 // routes
