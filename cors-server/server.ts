@@ -1,11 +1,11 @@
 import express from "express";
-const app:any = express();
-const port:Number = 3000;
+const server:any = express();
+const port:Number = 8080;
 
-app.get('/', (req, res) => {
+server.get('/', (req, res) => {
     res.send('NodeJS + Express + Typescript App Up! 👍');
 });
 
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
