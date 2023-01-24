@@ -68,6 +68,20 @@ export default function SignUp() {
                 />
               </div>
               <div>
+                <label htmlFor="user-name" className="sr-only">
+                  User Name
+                </label>
+                <input
+                  id="user-name"
+                  name="username"
+                  type="username"
+                  autoComplete="username"
+                  required
+                  className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  placeholder="User Name"
+                />
+              </div>
+              <div>
                 <label htmlFor="password" className="sr-only">
                   Password
                 </label>
@@ -103,15 +117,13 @@ export default function SignUp() {
                   type="checkbox"
                   className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                 />
-                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                  Remember me
-                </label>
-              </div>
-
-              <div className="text-sm">
-                <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                  Forgot your password?
+                <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
+                  I have read and accept the
+                  <br></br>
+                  <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+                  Terms & Conditions
                 </a>
+                </label>
               </div>
             </div>
 
@@ -123,7 +135,7 @@ export default function SignUp() {
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                   <LockClosedIcon className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
                 </span>
-                Sign in
+                Sign Up
               </button>
             </div>
           </form>

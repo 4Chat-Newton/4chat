@@ -1,6 +1,6 @@
 import React from 'react';
-import SignUp from './formComponent';
-import Login from './registerForm';
+import SignUp from './components/forms/FormComponent';
+import Login from './components/forms/RegisterForm';
 
 function App() {
   return (
