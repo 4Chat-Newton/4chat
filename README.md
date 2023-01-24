@@ -1,5 +1,16 @@
 # 4chat
 
+### Setup
+
+* cd 4chat
+* npm i
+* cd cors-server
+* npm i
+* cd ..
+
+### Start react and backend server
+* npm run all
+
 ## Grupp / Förhållningsregler <br>
 Nya funktioner görs i en egen branches <br>
 
