@@ -9,3 +9,7 @@ server.get('/', (req, res) => {
 server.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
+
+server.get('/register', (req, res) => {
+
+})
