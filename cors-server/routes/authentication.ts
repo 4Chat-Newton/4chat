@@ -9,9 +9,9 @@ export const encryptPassword = async function (password: string) {
 export const validateUser = async function (password: string, hash: string) {
     let success: boolean = await bcrypt.compare(password, hash);
     if (success) {
-        console.log("success");
+        console.log("Correct password");
     } else {
-        console.log("failure");
+        console.log("Incorrect password");
     }
 };
 
