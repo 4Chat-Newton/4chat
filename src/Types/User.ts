@@ -5,15 +5,9 @@ import { Room } from "./Room";
 export class User {
     private _username: string;
     private _password: number;
-
     private _email: string;
-
-    private _friends: Array<User>;
-
     private _createdRooms: Array<Room>;
-
     private _moderatedRooms: Array<Room>;
-
     private _reports: Array<Report>;
     private _blockedUsers: Array<User>;
 
@@ -30,7 +24,6 @@ export class User {
         this._username = username;
         this._password = password;
         this._email = email;
-        this._friends = friends;
         this._createdRooms = createdRooms;
         this._moderatedRooms = moderatedRooms;
         this._reports = reports;
@@ -71,13 +64,6 @@ export class User {
     }
     public set email(value: string) {
         this._email = value;
-    }
-
-    public get friends(): Array<User> {
-        return this._friends;
-    }
-    public set friends(value: Array<User>) {
-        this._friends = value;
     }
 
     public get createdRooms(): Array<Room> {
