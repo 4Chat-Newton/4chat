@@ -1,21 +1,13 @@
-import React from 'react';
-import SignUp from './components/login';
-import Login from './components/signUp';
-// import Report from './components/reportForm'
+import { useEffect, useState } from 'react';
 
 function App() {
+
   return (
-    <body>
-      <div>
-        <header>
-          <>
-            <SignUp></SignUp>
-            <Login></Login>
-            {/* <Report></Report> */}
-          </>
-        </header>
-      </div>
-    </body>
+    <div className='App'>
+      <header >
+        <h1>Hello World</h1>
+      </header>
+    </div>
   );
 }
 
