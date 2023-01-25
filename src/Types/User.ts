@@ -46,6 +46,9 @@ export class User {
     // FindUser:User = (userId:number)=>{
     //     return User where id matches the number
     // }
+    // CreateRoom:void = new Room(
+    //     //här ska det komma userinput
+    // );
 
     //------------ Accessors -------------
 
