@@ -21,10 +21,5 @@ server.listen(port, () => {
     console.log(`http://localhost:${port}/data`);
 });
 
-const myPlaintextPassword = 'Hannes420';//Ska laddas från db
-server.get('/auth', async ()=>{
-    await encryptPassword(myPlaintextPassword)
-})
-
 // routes
 require('./routes/register')(server,db)
