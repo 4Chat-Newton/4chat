@@ -3,18 +3,6 @@ import {encryptPassword, validateUser} from "./authentication";
 
 module.exports = function (server, db){
 
-    server.get('/data/register', (req, res) => {
-
-        db.all("SELECT * FROM user", (err, rows) => {
-            if (err) {
-                // console.log(err);
-            } else {
-                res.send(rows);
-                // console.log(rows);
-            }
-        })
-    })
-
     server.post('/data/register', async (request: express.Request, response: express.Response) => {
         const {username, email, password} = request.body;
         const encryptedPassword = await encryptPassword(password);
@@ -32,4 +20,5 @@ module.exports = function (server, db){
             console.log(e)
         }
     });
+    
 }
