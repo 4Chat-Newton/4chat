@@ -1,6 +1,6 @@
 import express from "express";
 import sqlite from "sqlite3";
-
+import {encryptPassword, validateUser} from './authentication';
 const port: Number = 8080;
 export const server: any = express();
 server.use(express.json());
@@ -21,6 +21,10 @@ server.listen(port, () => {
     console.log(`http://localhost:${port}/data`);
 });
 
+const myPlaintextPassword = 'Hannes420';//Ska laddas från db
+server.get('/auth', async ()=>{
+    await encryptPassword(myPlaintextPassword)
+})
+
 // routes
 require('./routes/register')(server,db)
-
