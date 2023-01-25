@@ -2,4 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+body{
+    background: #303030;
+}
 
+.email-address{
+    color: #85e23b;
+}
+#password{
+    background:#1a1a1a;
+    color: aqua;
+}
+#email-address{
+    background:#1a1a1a;
+}
+#user-name{
+    background:#1a1a1a;
+}

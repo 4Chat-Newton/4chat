@@ -1,6 +1,7 @@
 import React from 'react';
-import SignUp from './components/FormComponent';
-import Login from './components/RegisterForm';
+import SignUp from './components/login';
+import Login from './components/signUp';
+// import Report from './components/reportForm'
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
           <>
             <SignUp></SignUp>
             <Login></Login>
+            {/* <Report></Report> */}
           </>
         </header>
       </div>

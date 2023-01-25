@@ -1,7 +1,4 @@
-import React from "react";
 import './style.css'
-import { LockClosedIcon } from '@heroicons/react/20/solid'
-
 export default function SignUp() {
   return (
     <>
@@ -12,9 +9,9 @@ export default function SignUp() {
 
             <img src="img/4chat.png"className="mx-auto h-20 w-auto" alt="logo" />
             
-            <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
+{/*             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
                 Create a new account
-            </h2>
+            </h2> */}
             <p className="mt-2 text-center text-sm text-gray-600">
               
               <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
@@ -35,8 +32,8 @@ export default function SignUp() {
                   type="email"
                   autoComplete="email"
                   required
-                  className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                  placeholder="Email address"
+                  className="mb-3 relative block w-full appearance-none rounded-none rounded-t-md border border-none px-3 py-2 text-lime-400 placeholder-lime-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  placeholder="email"
                 />
               </div>
               <div>
@@ -49,8 +46,8 @@ export default function SignUp() {
                   type="username"
                   autoComplete="username"
                   required
-                  className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                  placeholder="User Name"
+                  className="mb-3 relative block w-full appearance-none rounded-none rounded-t-md border border-none px-3 py-2 text-lime-400 placeholder-lime-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  placeholder="username"
                 />
               </div>
               <div>
@@ -63,8 +60,8 @@ export default function SignUp() {
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                  placeholder="Password"
+                  className="mb-3 relative block w-full appearance-none rounded-none rounded-b-md border border-none px-3 py-2 text-yellow-300 placeholder-yellow-300 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  placeholder="password"
                 />
                 <label htmlFor="password" className="sr-only">
                   Password
@@ -75,8 +72,8 @@ export default function SignUp() {
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                  placeholder="Confirm Password"
+                  className="relative block w-full appearance-none rounded-none rounded-b-md border border-none px-3 py-2 text-yellow-400 placeholder-yellow-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  placeholder="confirm password"
                 />
               </div>
             </div>
@@ -84,15 +81,15 @@ export default function SignUp() {
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <input
-                  id="remember-me"
-                  name="remember-me"
+                  id="terms"
+                  name="terms"
                   type="checkbox"
                   className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                 />
                 <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
                   I have read and accept the
                   <br></br>
-                  <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+                  <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500 text-decoration-line: underline">
                   Terms & Conditions
                 </a>
                 </label>
@@ -100,7 +97,7 @@ export default function SignUp() {
             </div>
 
             <div>
-              <button
+              {/* <button
                 type="submit"
                 className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
@@ -108,7 +105,9 @@ export default function SignUp() {
                   <LockClosedIcon className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
                 </span>
                 Sign Up
-              </button>
+              </button> */}
+              <button className="bg-gray-700 px-7 py-2 text-blue-700 mr-20" type="submit">Cancel</button>
+              <button className="bg-gray-700 px-6 py-2 text-blue-700 ml-40" type="submit">Submit</button>
             </div>
           </form>
         </div>
