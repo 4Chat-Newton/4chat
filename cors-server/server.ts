@@ -1,6 +1,6 @@
 import express from "express";
 import sqlite from "sqlite3";
-import {encryptPassword, validateUser} from './authentication';
+import {encryptPassword, validateUser} from './routes/authentication';
 const port: Number = 8080;
 export const server: any = express();
 server.use(express.json());
