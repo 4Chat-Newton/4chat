@@ -11,6 +11,20 @@
 ### Start react and backend server
 * npm run all
 
+
+### Create user / login Testing
+{
+"username": "normal_user",
+"email": "normal@4chat.com",
+"password": "pass1234"
+}
+
+{
+"username": "admin_user",
+"email": "admin_user@4chat.com",
+"password": "pass1234admin"
+}
+
 ## Grupp / Förhållningsregler <br>
 Nya funktioner görs i en egen branches <br>
 
