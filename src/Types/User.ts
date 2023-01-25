@@ -21,7 +21,7 @@ import { Room } from "./Room";
          reports: Array<Report>,
          blockedUsers: Array<User>
          ){
-         this.username = "Hannes";
+         this.username = username;
          this.password= password;
          this.email= email;
          this.friends = friends;
@@ -31,5 +31,5 @@ import { Room } from "./Room";
          this.blockedUsers= blockedUsers;
      }
 
-     
+
  }
