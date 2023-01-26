@@ -1,5 +1,5 @@
 import express from 'express';
-import {encryptPassword, validateUser} from "./authentication";
+import {encryptPassword, validateUser, signIn} from './authentication';
 
 module.exports = function (server, db){
 
@@ -20,5 +20,8 @@ module.exports = function (server, db){
             console.log(e)
         }
     });
+
+    // server.post('/data/login', signIn(server, db, true));
+    // server.get('/data/login', signIn(server, db, false));
     
 }
