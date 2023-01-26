@@ -16,27 +16,32 @@ export const validateUser = async function (password: string, hash: string) {
 };
 
 export const findUser = async function (email, db) {
-    try {
+    // try {
         const query = "SELECT id, email, password FROM user WHERE email = ?";
-        let result = {}
 
-        await db.get(query, [email], (err, rows) => {
-            if (err) console.log(err);
-            console.log(rows);
-            result = rows
-            return rows;
+        return new Promise(  function (resolve, reject) {
+            db.all(query, [email], function (err, rows) {
+                if (err) {
+                    console.log(err);
+                    return reject(err);
+                } else {
+                    console.log("r24", rows);
+                    resolve(rows);
+                }
+                ;
+            });
         });
-        console.log("r22", result);
 
-        if (!result) {
-            console.log(`No user found with email ${email}`);
-            return null;
-        }
-        return result;
-    } catch (error) {
-        console.error(`Error finding user with email ${email}: ${error}`);
-        return null;
-    }
+        // if (!result) {
+        //     console.log(`No user found with email ${email}`);
+        //     return null;
+        // }
+        // return result;
+
+    // } catch (error) {
+    //     console.error(`Error finding user with email ${email}: ${error}`);
+    //     return null;
+    // }
 };
 
 export const registerUser = async function (server, db: sqlite.Database) {
@@ -91,31 +96,32 @@ export const signIn = async function (
                 }
                 console.log("r99", user);
 
-                const isValid = await validateUser(password, user.password);
-                if (!isValid) {
-                    return res
-                        .status(401)
-                        .json({ error: "Invalid username or password.." });
-                }
-                // Create a new JWT with the user's information
-                const payload = { email: user.email };
-                const options = {
-                    expiresIn: "2h",
-                };
-                const token = jwt.sign(payload, "secret_key", options);
-                console.log("r83", token);
-
-                // Store the JWT in the user's session
-                req.body.session.jwt = token;
-                res.status(200).json({ loggedIn: true });
-
-                return res.json({ token });
+                // const isValid = await validateUser(password, user);
+                // if (!isValid) {
+                //     return res
+                //         .status(401)
+                //         .json({ error: "Invalid username or password.." });
+                // }
+                // // Create a new JWT with the user's information
+                // const payload = { email: user };
+                // const options = {
+                //     expiresIn: "2h",
+                // };
+                // const token = jwt.sign(payload, "secret_key", options);
+                // console.log("r83", token);
+                //
+                // // Store the JWT in the user's session
+                // req.body.session.jwt = token;
+                // res.status(200).json({ loggedIn: true });
+                //
+                // return res.json({ token });
             } catch (err) {
                 // delete req.body.session.jwt;
                 return res
                     .status(500)
                     .json({ error: "R.89 Internal server error" });
             }
+
         });
     } else {
         server.get("/data/login", async (req: Request, res: Response) => {
