@@ -1,29 +1,29 @@
 import { useState, useEffect } from 'react';
 const BACKEND_URL = 'http://localhost:8080';
-interface Response {
-    data: any;
-    error: any;
-    loading: boolean;
-}
-
-const useFetch = (url: string) => {
-    const [response, setResponse] = useState<Response>({ data: null, error: null, loading: true });
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const res = await fetch(url);
-                const json = await res.json();
-                setResponse({ data: json, error: null, loading: false });
-            } catch (error) {
-                setResponse({ data: null, error, loading: false });
-            }
-        };
-        fetchData();
-    }, [url]);
-
-    return response;
-};
+// interface Response {
+//     data: any;
+//     error: any;
+//     loading: boolean;
+// }
+//
+// const useFetch = (url: string) => {
+//     const [response, setResponse] = useState<Response>({ data: null, error: null, loading: true });
+//
+//     useEffect(() => {
+//         const fetchData = async () => {
+//             try {
+//                 const res = await fetch(url);
+//                 const json = await res.json();
+//                 setResponse({ data: json, error: null, loading: false });
+//             } catch (error) {
+//                 setResponse({ data: null, error, loading: false });
+//             }
+//         };
+//         fetchData();
+//     }, [url]);
+//
+//     return response;
+// };
 
 // const BACKEND_URL = 'http://localhost:3333';
 //

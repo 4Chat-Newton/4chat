@@ -32,7 +32,7 @@ export default function Register() {
 
       // <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; frame-ancestors 'self'; form-action 'self'">
       // http://localhost:8080/data/register
-      await fetch('/8080/data/register', {
+      await fetch('http://localhost:8080/data/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

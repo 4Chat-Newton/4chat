@@ -10,8 +10,12 @@ function Test() {
         await fetch('http://localhost:8080/data/register', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
+                'Content-Type': 'application/json'
+                //,
+                // 'key': 'test'
+                // ,
+                // 'key':'Access-Control-Allow-Origin',
+                // 'value': '*'
             },
             // mode: 'cors',
             body: JSON.stringify({
