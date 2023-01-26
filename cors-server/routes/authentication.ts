@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import sqlite from "sqlite3";
+
 import { server } from "../server";
 
 export const encryptPassword = async function (password: string) {
@@ -16,35 +16,25 @@ export const validateUser = async function (password: string, hash: string) {
 };
 
 export const findUser = async function (email, db) {
-    // try {
-        const query = "SELECT id, email, password FROM user WHERE email = ?";
+    try {
 
-        return new Promise(  function (resolve, reject) {
-            db.all(query, [email], function (err, rows) {
-                if (err) {
-                    console.log(err);
-                    return reject(err);
-                } else {
-                    console.log("r24", rows);
-                    resolve(rows);
-                }
-                ;
-            });
-        });
+    const result = db.prepare("SELECT id, email, username FROM user WHERE email = ?").get(email);
+    console.log(result.id, result.username, result.email)
+    return result
 
-        // if (!result) {
-        //     console.log(`No user found with email ${email}`);
-        //     return null;
-        // }
-        // return result;
+        if (!result) {
+            console.log(`No user found with email ${email}`);
+            return null;
+        }
+        return result;
 
-    // } catch (error) {
-    //     console.error(`Error finding user with email ${email}: ${error}`);
-    //     return null;
-    // }
+    } catch (error) {
+        console.error(`Error finding user with email ${email}: ${error}`);
+        return null;
+    }
 };
 
-export const registerUser = async function (server, db: sqlite.Database) {
+export const registerUser = async function (server, db: any) {
     server.post(
         "/data/register",
         async (request: Request, response: Response) => {
@@ -77,7 +67,7 @@ export const registerUser = async function (server, db: sqlite.Database) {
 
 export const signIn = async function (
     server,
-    db: sqlite.Database,
+    db: any,
     newLogin: boolean
 ) {
     if (newLogin) {
