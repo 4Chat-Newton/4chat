@@ -1,6 +1,11 @@
 import {useState} from "react";
 
 function Test() {
+    // let jsonData = {
+    //     "username": "normal_user",
+    //     "email": "normal@4chat.com",
+    //     "password": "pass1234"
+    // }
 
     const [email, setEmail] = useState(null);
     const [username, setUsername] = useState(null);
@@ -24,11 +29,6 @@ function Test() {
         }
     }
 
-    // let jsonData = {
-    //     "username": "normal_user",
-    //     "email": "normal@4chat.com",
-    //     "password": "pass1234"
-    // }
     const handleSubmit = async () => {
         if (password === confirmPassword) {
 
