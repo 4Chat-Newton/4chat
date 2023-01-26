@@ -2,10 +2,14 @@ import express from "express";
 import sqlite from "sqlite3";
 import {encryptPassword, validateUser} from './routes/authentication';
 const port: Number = 8080;
+const host: String = `http://localhost:${port}`;
 export const server: any = express();
 server.use(express.json());
 server.use(express.urlencoded())
-export const db = new sqlite.Database('./database/database.db', (err) => {
+
+const cors = require('cors');
+server.use(cors())
+export const db = new sqlite.Database('./db/database.db', (err) => {
     if (err) {
         return console.error(err.message);
     }
@@ -18,8 +22,9 @@ server.get('/data', (req, res) => {
 
 server.listen(port, () => {
     console.log(`Server running on port ${port}`);
-    console.log(`http://localhost:${port}/data`);
+    console.log(`${host}/data`);
 });
 
 // routes
 require('./routes/register')(server,db)
+// require('./routes/api-description')(host, db)
