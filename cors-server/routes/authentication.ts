@@ -15,19 +15,36 @@ export const validateUser = async function (password: string, hash: string) {
     return success;
 };
 
+// export const findUser = async function (email, db) {
+//     try {
+//         const query = "SELECT id, email, password FROM user WHERE email = ?";
+//         let result
+//         await db.get(query, email, (err, rows) => {
+//             if (err) console.log(err);
+//             console.log(rows);
+
+//             result = rows;
+//         });
+
+//         if (!result) {
+//             console.log(`No user found with email ${email}`);
+//             return null;
+//         }
+//         return result;
+//     } catch (error) {
+//         console.error(`Error finding user with email ${email}: ${error}`);
+//         return null;
+//     }
+// };
 export const findUser = async function (email, db) {
     try {
         const query = "SELECT id, email, password FROM user WHERE email = ?";
-        let result = {}
-
-        await db.get(query, [email], (err, rows) => {
+        let result = await db.get(query, email, (err, rows) => {
             if (err) console.log(err);
             console.log(rows);
-            result = rows
-            return rows;
-        });
-        console.log("r22", result);
 
+            result = rows;
+        });
         if (!result) {
             console.log(`No user found with email ${email}`);
             return null;
@@ -82,14 +99,13 @@ export const signIn = async function (
             // Verify the user's credentials against the database
             try {
                 const user = await findUser(email, db);
-                console.log("r72", user);
 
                 if (!user) {
                     return res
                         .status(401)
                         .json({ error: "R70 Invalid username or password.." });
                 }
-                console.log("r99", user);
+                console.log("r108", user);
 
                 const isValid = await validateUser(password, user.password);
                 if (!isValid) {
@@ -103,7 +119,7 @@ export const signIn = async function (
                     expiresIn: "2h",
                 };
                 const token = jwt.sign(payload, "secret_key", options);
-                console.log("r83", token);
+                console.log("r122", token);
 
                 // Store the JWT in the user's session
                 req.body.session.jwt = token;
