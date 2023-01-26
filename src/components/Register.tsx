@@ -1,10 +1,8 @@
-import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react"
 
 import './style.css'
 export default function Register() {
 
-  const navigate = useNavigate();
   const [email, setEmail] = useState(null);
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
@@ -27,55 +25,50 @@ export default function Register() {
   }
 
   const handleSubmit = async () => {
-
+    console.log("I got Clicked")
     if (password === confirmPassword) {
 
-      // <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; frame-ancestors 'self'; form-action 'self'">
-      // http://localhost:8080/data/register
       await fetch('http://localhost:8080/data/register', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        mode: 'cors',
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
-          email: email,
           username: username,
-          password: password,
-          roles: "user" //add anonymous later
+          email: email,
+          password: password
         })
       })
-          .then(function (response) {
-            console.log(response)
-            if (response.ok == true) {
-              fetch('data/register', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Accept': 'application/json'
-                },
-                body: JSON.stringify({
-                  email: email,
-                  username: username,
-                  password: password,
-                })
-              }).then(function (response) {
-                console.log(response)
+          // .then(function (response) {
+          //   console.log(response)
+          //   if (response.ok == true) {
+          //     fetch('data/register', {
+          //       method: 'POST',
+          //       headers: {
+          //         'Content-Type': 'application/json',
+          //         'Accept': 'application/json'
+          //       },
+          //       body: JSON.stringify({
+          //         email: email,
+          //         username: username,
+          //         password: password,
+          //       })
+          //     }).then(function (response) {
+          //       console.log(response)
+          //
+          //       // if(response.ok == true){
+          //       //   // window.location.reload(true)
+          //       // } else {
+          //       //   console.log("fail")
+          //       // }
+          //     })
+          //   }else {
+          //     console.log("Log in failed")
+          //   }
+          // }) //.then(navigate("/"))
 
-                // if(response.ok == true){
-                //   // window.location.reload(true)
-                // } else {
-                //   console.log("fail")
-                // }
-              })
-            }else {
-              console.log("Log in failed")
-            }
-          }) //.then(navigate("/"))
-
-    } else {
-      alert("Password incorrect!")
     }
+    // else {
+    //   alert("Password incorrect!")
+    // }
   }
 
   return (
@@ -88,15 +81,12 @@ export default function Register() {
 
               <p className="mt-2 text-center text-sm text-gray-600">
 
-                <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-
-                </a>
+                {/*<a href="#" className="font-medium text-indigo-600 hover:text-indigo-500"></a>*/}
               </p>
             </div>
-            <form className="mt-8 space-y-6" action="#" method="POST">
+            <form className="mt-8 space-y-6">
               <input type="hidden" name="remember" defaultValue="true" />
               <div className="-space-y-px rounded-md shadow-sm">
-
                 <div>
                   <label htmlFor="username" className="sr-only">
                     User Name
@@ -105,10 +95,10 @@ export default function Register() {
                       id="username"
                       name="username"
                       type="username"
-                      autoComplete="username"
-                      required
-                      className="mb-3 relative block w-full appearance-none rounded-none rounded-t-md border border-none px-3 py-2 text-lime-400 placeholder-lime-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                       placeholder="Username"
+                      // autoComplete="username"
+                      // required
+                      className="mb-3 relative block w-full appearance-none rounded-none rounded-t-md border border-none px-3 py-2 text-lime-400 placeholder-lime-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                       onChange={(e) =>  handleUserInput(e)}
                   />
                 </div>
@@ -170,9 +160,9 @@ export default function Register() {
                   <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
                     I have read and accept the
                     <br></br>
-                    <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500 text-decoration-line: underline">
-                      Terms & Conditions
-                    </a>
+                    {/*<a href="#" className="font-medium text-indigo-600 hover:text-indigo-500 text-decoration-line: underline">*/}
+                    {/*  Terms & Conditions*/}
+                    {/*</a>*/}
                   </label>
                 </div>
               </div>
