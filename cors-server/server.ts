@@ -1,4 +1,5 @@
 import express from "express";
+import { signIn } from "./routes/authentication";
 
 const port: Number = 8080;
 export const server: any = express();
@@ -18,3 +19,4 @@ server.listen(port, () => {
 });
 
 require("./routes/register")(server, db)
+signIn(server, db, true)

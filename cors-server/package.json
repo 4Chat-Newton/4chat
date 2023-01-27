@@ -21,6 +21,7 @@
     "bcryptjs": "^2.4.3",
     "better-sqlite3": "^8.0.1",
     "express": "^4.17.1",
+    "express-session": "^1.17.3",
     "jsonwebtoken": "^9.0.0"
   }
 }
