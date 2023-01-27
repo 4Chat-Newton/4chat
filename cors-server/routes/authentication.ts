@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import sqlite from "sqlite3";
+
 import { server } from "../server";
 
 export const encryptPassword = async function (password: string) {
@@ -38,10 +38,10 @@ export const validateUser = async function (password: string, hash: string) {
 // };
 export const findUser = async function (email, db) {
     try {
-        const query = "SELECT id, email, password FROM user WHERE email = ?";
-        let result = await db.get(query, email, (err, rows) => {
-            if (err) console.log(err);
-            console.log(rows);
+
+    const result = db.prepare("SELECT id, email, username FROM user WHERE email = ?").get(email);
+    console.log(result.id, result.username, result.email)
+    return result
 
             result = rows;
         });
@@ -50,13 +50,14 @@ export const findUser = async function (email, db) {
             return null;
         }
         return result;
+
     } catch (error) {
         console.error(`Error finding user with email ${email}: ${error}`);
         return null;
     }
 };
 
-export const registerUser = async function (server, db: sqlite.Database) {
+export const registerUser = async function (server, db: any) {
     server.post(
         "/data/register",
         async (request: Request, response: Response) => {
@@ -89,7 +90,7 @@ export const registerUser = async function (server, db: sqlite.Database) {
 
 export const signIn = async function (
     server,
-    db: sqlite.Database,
+    db: any,
     newLogin: boolean
 ) {
     if (newLogin) {
@@ -132,6 +133,7 @@ export const signIn = async function (
                     .status(500)
                     .json({ error: "R.89 Internal server error" });
             }
+
         });
     } else {
         server.get("/data/login", async (req: Request, res: Response) => {
