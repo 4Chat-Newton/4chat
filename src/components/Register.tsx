@@ -1,20 +1,90 @@
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react"
+
 import './style.css'
-export default function SignUp() {
+export default function Register() {
+
+  const navigate = useNavigate();
+  const [email, setEmail] = useState(null);
+  const [username, setUsername] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [confirmPassword, setConfirmPassword] = useState(null);
+
+  const handleUserInput = (e: any) => {
+    const { id, value } = e.target;
+    if (id === "email") {
+      setEmail(value);
+    }
+    if (id === "username") {
+      setUsername(value);
+    }
+    if (id === "password") {
+      setPassword(value);
+    }
+    if (id === "confirmPassword") {
+      setConfirmPassword(value);
+    }
+  }
+
+  const handleSubmit = async () => {
+    if (password == confirmPassword) {
+
+      fetch('/data/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: email,
+          username: username,
+          password: password,
+          // roles: "user" //add anonymous later
+        })
+      })
+          .then(function (response) {
+            console.log(response)
+            if (response.ok == true) {
+              fetch('/data/login', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                  email: email,
+                  username: username,
+                  password: password,
+                })
+              }).then(function (response) {
+                console.log(response)
+
+                // if(response.ok == true){
+                //   // window.location.reload(true)
+                // } else {
+                //   console.log("fail")
+                // }
+              })
+            }else {
+              console.log("Log in failed")
+            }
+          }) //.then(navigate("/"))
+
+    } else {
+      alert("Password incorrect!")
+    }
+  }
+
   return (
     <>
 
       <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
           <div>
+          <a
+                href="/"
+                className="font-medium text-indigo-600 hover:text-indigo-500">
 
             <img src="img/4chat.png"className="mx-auto h-20 w-auto" alt="logo" />
             
-            <p className="mt-2 text-center text-sm text-gray-600">
-              
-              <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-            
-              </a>
-            </p>
+            </a>
           </div>
           <form className="mt-8 space-y-6" action="#" method="POST">
             <input type="hidden" name="remember" defaultValue="true" />
@@ -23,28 +93,31 @@ export default function SignUp() {
                 <label htmlFor="email-address" className="sr-only">
                   Email address
                 </label>
+                {/*<input type="text" className="input-text" value={email} onChange={(e) =>  handleUserInput(e)} id="email" placeholder="Email" /> */}
                 <input
-                  id="email-address"
+                  id="email"
                   name="email"
                   type="email"
                   autoComplete="email"
                   required
                   className="mb-3 relative block w-full appearance-none rounded-none rounded-t-md border border-none px-3 py-2 text-lime-400 placeholder-lime-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   placeholder="email"
+                  onChange={(e) =>  handleUserInput(e)}
                 />
               </div>
               <div>
-                <label htmlFor="user-name" className="sr-only">
+                <label htmlFor="username" className="sr-only">
                   User Name
                 </label>
                 <input
-                  id="user-name"
+                  id="username"
                   name="username"
                   type="username"
                   autoComplete="username"
                   required
                   className="mb-3 relative block w-full appearance-none rounded-none rounded-t-md border border-none px-3 py-2 text-lime-400 placeholder-lime-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                  placeholder="username"
+                  placeholder="Username"
+                  onChange={(e) =>  handleUserInput(e)}
                 />
               </div>
               <div>
@@ -58,19 +131,20 @@ export default function SignUp() {
                   autoComplete="current-password"
                   required
                   className="mb-3 relative block w-full appearance-none rounded-none rounded-b-md border border-none px-3 py-2 text-yellow-300 placeholder-yellow-300 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                  placeholder="password"
+                  placeholder="Password"
+                  onChange={(e) =>  handleUserInput(e)}
                 />
                 <label htmlFor="password" className="sr-only">
                   Password
                 </label>
                 <input
-                  id="password"
+                  id="confirmPassword"
                   name="password"
                   type="password"
-                  autoComplete="current-password"
                   required
                   className="relative block w-full appearance-none rounded-none rounded-b-md border border-none px-3 py-2 text-yellow-400 placeholder-yellow-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                  placeholder="confirm password"
+                  placeholder="Confirm password"
+                  onChange={(e) =>  handleUserInput(e)}
                 />
               </div>
             </div>
@@ -86,7 +160,7 @@ export default function SignUp() {
                 <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
                   I have read and accept the
                   <br></br>
-                  <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500 text-decoration-line: underline">
+                  <a href="/Terms" className="font-medium text-indigo-600 hover:text-indigo-500 text-decoration-line: underline">
                   Terms & Conditions
                 </a>
                 </label>
@@ -104,7 +178,8 @@ export default function SignUp() {
                 Sign Up
               </button> */}
               <button className="bg-gray-700 px-7 py-2 text-blue-700 mr-20" type="submit">Cancel</button>
-              <button className="bg-gray-700 px-6 py-2 text-blue-700 ml-40" type="submit">Submit</button>
+              <button className="bg-gray-700 px-6 py-2 text-blue-700 ml-40" type="submit" onClick={() => handleSubmit()} >Submit</button>
+              {/*<input className="signup-page-btn" type="submit" onClick={() => handleSubmit()} value="Sign up" />*/}
             </div>
           </form>
         </div>
