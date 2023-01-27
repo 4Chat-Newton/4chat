@@ -11,7 +11,10 @@ export const encryptPassword = async function (password: string) {
 };
 
 export const validateUser = async function (password: string, hash: string) {
+    console.log("r14 password ", password," hash ", hash);
+    
     let success: boolean = await bcrypt.compare(password, hash);
+    console.log(success);
     return success;
 };
 
@@ -45,7 +48,7 @@ export const findUser = async function (email, db) {
 
         if (!result) {
             console.log(`No user found with email ${email}`);
-            return null;
+            return result;
         }
         return result;
     } catch (error) {
@@ -97,23 +100,26 @@ export const signIn = async function (server, db: any, newLogin: boolean) {
                 if (!user) {
                     return res
                         .status(401)
-                        .json({ error: "R70 Invalid username or password.." });
+                        .json({ error: "R100 Invalid username or password.." });
                 }
-                console.log("r108", user);
+                console.log("r102", user);
 
                 const isValid = await validateUser(password, user.password);
+                console.log(isValid);
+                
                 if (!isValid) {
                     return res
                         .status(401)
                         .json({ error: "Invalid username or password.." });
                 }
+                console.log("r110", user)
                 // Create a new JWT with the user's information
                 const payload = { email: user.email };
                 const options = {
                     expiresIn: "2h",
                 };
                 const token = jwt.sign(payload, "secret_key", options);
-                console.log("r122", token);
+                console.log("r117", token);
 
                 // Store the JWT in the user's session
                 req.body.session.jwt = token;
@@ -124,7 +130,7 @@ export const signIn = async function (server, db: any, newLogin: boolean) {
                 // delete req.body.session.jwt;
                 return res
                     .status(500)
-                    .json({ error: "R.89 Internal server error" });
+                    .json({ error: "R.129 Internal server error" });
             }
         });
     } else {
