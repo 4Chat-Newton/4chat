@@ -1,7 +1,5 @@
 import express from "express";
 
-// import {registerUser} from "./routes/authentication";
-
 const port: Number = 8080;
 export const server: any = express();
 server.use(express.json());
