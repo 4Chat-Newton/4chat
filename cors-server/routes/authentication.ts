@@ -38,19 +38,16 @@ export const validateUser = async function (password: string, hash: string) {
 // };
 export const findUser = async function (email, db) {
     try {
+        const result = db
+            .prepare("SELECT id, email, username FROM user WHERE email = ?")
+            .get(email);
+        console.log(result.id, result.username, result.email);
 
-    const result = db.prepare("SELECT id, email, username FROM user WHERE email = ?").get(email);
-    console.log(result.id, result.username, result.email)
-    return result
-
-            result = rows;
-        });
         if (!result) {
             console.log(`No user found with email ${email}`);
             return null;
         }
         return result;
-
     } catch (error) {
         console.error(`Error finding user with email ${email}: ${error}`);
         return null;
@@ -88,11 +85,7 @@ export const registerUser = async function (server, db: any) {
     );
 };
 
-export const signIn = async function (
-    server,
-    db: any,
-    newLogin: boolean
-) {
+export const signIn = async function (server, db: any, newLogin: boolean) {
     if (newLogin) {
         server.post("/data/login", async (req: Request, res: Response) => {
             // Extract the user's credentials from the request body
@@ -133,7 +126,6 @@ export const signIn = async function (
                     .status(500)
                     .json({ error: "R.89 Internal server error" });
             }
-
         });
     } else {
         server.get("/data/login", async (req: Request, res: Response) => {
