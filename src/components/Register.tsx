@@ -6,15 +6,13 @@ export default function SignUp() {
       <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
           <div>
+          <a
+                href="/"
+                className="font-medium text-indigo-600 hover:text-indigo-500">
 
             <img src="img/4chat.png"className="mx-auto h-20 w-auto" alt="logo" />
             
-            <p className="mt-2 text-center text-sm text-gray-600">
-              
-              <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-            
-              </a>
-            </p>
+            </a>
           </div>
           <form className="mt-8 space-y-6" action="#" method="POST">
             <input type="hidden" name="remember" defaultValue="true" />
@@ -86,7 +84,7 @@ export default function SignUp() {
                 <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
                   I have read and accept the
                   <br></br>
-                  <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500 text-decoration-line: underline">
+                  <a href="/Terms" className="font-medium text-indigo-600 hover:text-indigo-500 text-decoration-line: underline">
                   Terms & Conditions
                 </a>
                 </label>
