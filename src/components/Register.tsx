@@ -43,7 +43,7 @@ function Register() {
                     // TODO remove when no longer needed after testing
                     console.log(response)
                     if (response.ok == true) {
-
+                        //TODO add online status to body json
                         fetch('http://localhost:8080/data/login', {
                             method: 'POST',
                             headers: {'Content-Type': 'application/json'},
