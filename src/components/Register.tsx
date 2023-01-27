@@ -40,7 +40,8 @@ function Register() {
                 })
             })
             .then(function (response) {
-              console.log(response)
+                // TODO remove when no longer needed after testing
+                console.log(response)
               if (response.ok == true) {
                 alert("User successfully registered!")
 

@@ -1,11 +1,11 @@
 import express from "express";
-
+import cors from "cors";
 const port: Number = 8080;
 const host: string = `http://localhost:${port}`;
 export const server: any = express();
 server.use(express.json());
 server.use(express.urlencoded())
-
+server.use(cors())
 
 export const db = require('better-sqlite3')('./db/database.db');
 
