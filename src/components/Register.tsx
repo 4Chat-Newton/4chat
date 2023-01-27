@@ -80,73 +80,52 @@ function Register() {
             <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
                 <div className="w-full max-w-md space-y-8">
                     <div>
-
                         <img src="img/4chat.png" className="mx-auto h-20 w-auto" alt="logo"/>
-
-                        <p className="mt-2 text-center text-sm text-gray-600">
-
-                            {/*<a href="#" className="font-medium text-indigo-600 hover:text-indigo-500"></a>*/}
-                        </p>
                     </div>
 
-                        {/*<input type="hidden" name="remember" defaultValue="true" />*/}
+
                         <div className="-space-y-px rounded-md shadow-sm">
                             <div>
-                                {/*<label htmlFor="username" className="sr-only">*/}
-                                {/*  User Name*/}
-                                {/*</label>*/}
+                                <label htmlFor="username" className="sr-only">
+                                  User Name
+                                </label>
                                 <input
                                     id="username"
                                     name="username"
                                     type="username"
                                     placeholder="Username"
                                     autoComplete="username"
-                                    required
                                     onChange={(e) => handleUserInput(e)}
                                     className="mb-3 relative block w-full appearance-none rounded-none rounded-t-md border border-none px-3 py-2 text-lime-400 placeholder-lime-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                                 />
                             </div>
 
                             <div>
-                                {/*<label htmlFor="email-address" className="sr-only">*/}
-                                {/*  Email address*/}
-                                {/*</label>*/}
-                                {/*<input type="text" className="input-text" value={email} onChange={(e) =>  handleUserInput(e)} id="email" placeholder="Email" /> */}
                                 <input
                                     id="email"
                                     name="email"
                                     type="email"
                                     placeholder="Email"
                                     autoComplete="email"
-                                    required
                                     onChange={(e) => handleUserInput(e)}
                                     className="mb-3 relative block w-full appearance-none rounded-none rounded-t-md border border-none px-3 py-2 text-lime-400 placeholder-lime-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                                 />
                             </div>
-
                             <div>
-                                {/*<label htmlFor="password" className="sr-only">*/}
-                                {/*  Password*/}
-                                {/*</label>*/}
                                 <input
                                     id="password"
                                     name="password"
                                     type="password"
                                     autoComplete="current-password"
                                     placeholder="Password"
-                                    required
                                     onChange={(e) => handleUserInput(e)}
                                     className="mb-3 relative block w-full appearance-none rounded-none rounded-b-md border border-none px-3 py-2 text-yellow-300 placeholder-yellow-300 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                                 />
-                                {/*<label htmlFor="password" className="sr-only">*/}
-                                {/*  Password*/}
-                                {/*</label>*/}
                                 <input
                                     id="confirmPassword"
                                     name="password"
                                     type="password"
                                     placeholder="Confirm password"
-                                    required
                                     onChange={(e) => handleUserInput(e)}
                                     className="relative block w-full appearance-none rounded-none rounded-b-md border border-none px-3 py-2 text-yellow-400 placeholder-yellow-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                                 />
@@ -162,35 +141,25 @@ function Register() {
                                     className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                 />
 
-                                {/*<label htmlFor="terms" className="ml-2 block text-sm text-gray-900">*/}
-                                {/*  I have read and accept the*/}
-                                {/*  <br></br>*/}
+                                <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
+                                  I have read and accept the
+                                  <br></br>
 
-                                {/*<a href="#" className="font-medium text-indigo-600 hover:text-indigo-500 text-decoration-line: underline">*/}
-                                {/*  Terms & Conditions*/}
-                                {/*</a>*/}
+                                <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500 text-decoration-line: underline">
+                                  Terms & Conditions
+                                </a>
 
-                                {/*</label>*/}
+                                </label>
                             </div>
                         </div>
 
                         <div>
-                            {/* <button
-                type="submit"
-                className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              >
-                <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                  <LockClosedIcon className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
-                </span>
-                Sign Up
-              </button> */}
                             <button className="bg-gray-700 px-7 py-2 text-blue-700 mr-20" type="submit"
                                     name="cancel_btn" id="cancel_btn" onClick={ ()=> console.log("cancel") }>Cancel
                             </button>
                             <button className="bg-gray-700 px-6 py-2 text-blue-700 ml-40" type="submit"
                                     name="submit_btn" id="submit_btn" onClick={ handleSubmit } >Submit
                             </button>
-                            {/*<input className="signup-page-btn" type="submit" onClick={() => handleSubmit()} value="Sign up" />*/}
                         </div>
 
                 </div>
