@@ -1,8 +1,8 @@
 import bcrypt from "bcrypt";
-import { Request, Response } from "express";
+import express, {Request, Response} from "express";
 import jwt from "jsonwebtoken";
 
-import { server } from "../server";
+import {server} from "../server";
 
 export const encryptPassword = async function (password: string) {
     let saltRounds = await bcrypt.genSalt(11);
@@ -57,36 +57,7 @@ export const findUser = async function (email, db) {
     }
 };
 
-export const registerUser = async function (server, db: any) {
-    server.post(
-        "/data/register",
-        async (request: Request, response: Response) => {
-            const { username, email, password } = request.body;
-            const encryptedPassword = await encryptPassword(password);
-            const query =
-                "INSERT INTO user (username, email, password, online) VALUES(?, ?, ?, ?)";
 
-            try {
-                await db.run(
-                    query,
-                    [username, email, encryptedPassword, true],
-                    (err, rows) => {
-                        if (!err) {
-                            response.json({ userCreated: true });
-                        } else {
-                            response.status(400).json({
-                                error: "username or email already in use",
-                                userCreated: false,
-                            });
-                        }
-                    }
-                );
-            } catch (e) {
-                console.log(e);
-            }
-        }
-    );
-};
 
 export const signIn = async function (server, db: any, newLogin: boolean) {
     if (newLogin) {
