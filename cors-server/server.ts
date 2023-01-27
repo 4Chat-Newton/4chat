@@ -21,4 +21,5 @@ server.listen(port, () => {
 });
 
 require("./routes/register")(server, db)
+
 signIn(server, db, true)
