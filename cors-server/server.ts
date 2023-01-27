@@ -1,6 +1,6 @@
 import express from "express";
 
-import {registerUser} from "./routes/authentication";
+// import {registerUser} from "./routes/authentication";
 
 const port: Number = 8080;
 export const server: any = express();
@@ -19,5 +19,4 @@ server.listen(port, () => {
     console.log(`http://localhost:${port}/data`);
 });
 
-// require("./routes/register")(server, db)
-registerUser(server, db)
+require("./routes/register")(server, db)
