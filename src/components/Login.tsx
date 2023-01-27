@@ -8,16 +8,17 @@ export default function Login() {
       <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
           <div>
-          <a
-                href="/"
-                className="font-medium text-indigo-600 hover:text-indigo-500"
-              >
             <img
               src="img/4chat.png"
               alt="Logo"
               className="mx-auto h-20 w-auto"
             />
-            </a>
+            <p className="mt-2 text-center text-sm text-gray-600">
+              <a
+                href="#"
+                className="font-medium text-indigo-600 hover:text-indigo-500"
+              ></a>
+            </p>
           </div>
           <form className="mt-8 space-y-6" action="#" method="POST">
             <input type="hidden" name="remember" defaultValue="true" />
@@ -56,7 +57,7 @@ export default function Login() {
             </div>
             <div className="text-sm">
                 <a
-                  href="/register"
+                  href="#"
                   className="px-7 py-2 text-blue-700 ml-40 bg-transparent text-decoration-line: underline"
                 >
                   Register
