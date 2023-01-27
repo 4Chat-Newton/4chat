@@ -1,4 +1,5 @@
 import {useState} from "react"
+import { Navigate, Link } from "react-router-dom";
 
 import './style.css'
 
@@ -8,6 +9,7 @@ function Register() {
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
     const [confirmPassword, setConfirmPassword] = useState(null);
+    const [acceptTerms, setAcceptTerms] = useState(false);
 
     const handleUserInput = (e: any) => {
         const {id, value} = e.target;
@@ -26,9 +28,7 @@ function Register() {
     }
 
     const handleSubmit = async () => {
-        console.log("I got Clicked")
-
-        if (password === confirmPassword) {
+        if (password === confirmPassword && acceptTerms === true) {
             //TODO fetch should be '/data/register'
             await fetch('http://localhost:8080/data/register', {
                 method: 'POST',
@@ -39,38 +39,42 @@ function Register() {
                     password: password
                 })
             })
-            // .then(function (response) {
-            //   console.log(response)
-            //   if (response.ok == true) {
-            //     fetch('data/register', {
-            //       method: 'POST',
-            //       headers: {
-            //         'Content-Type': 'application/json',
-            //         'Accept': 'application/json'
-            //       },
-            //       body: JSON.stringify({
-            //         email: email,
-            //         username: username,
-            //         password: password,
-            //       })
-            //     }).then(function (response) {
-            //       console.log(response)
-            //
-            //       // if(response.ok == true){
-            //       //   // window.location.reload(true)
-            //       // } else {
-            //       //   console.log("fail")
-            //       // }
-            //     })
-            //   }else {
-            //     console.log("Log in failed")
-            //   }
-            // }) //.then(navigate("/"))
-        }
+            .then(function (response) {
+              console.log(response)
+              if (response.ok == true) {
+                alert("User successfully registered!")
 
-        // else {
-        //   alert("Password incorrect!")
-        // }
+                //TODO needs to be implemented with the login functionality
+
+                // fetch('http://localhost:8080/data/login', {
+                //   method: 'POST',
+                //   headers: {
+                //     'Content-Type': 'application/json',
+                //     'Accept': 'application/json'
+                //   },
+                //   body: JSON.stringify({
+                //     username: username,
+                //     email: email,
+                //     password: password,
+                //   })
+                // }).then(function (response) {
+                //   console.log(response)
+            
+                  // if(response.ok == true){
+                  //   // window.location.reload(true)
+                  // } else {
+                  //   console.log("fail")
+                  // }
+                
+              }else {
+                alert("The username or email is already in use!")
+              }
+            }) //.then(navigate("/"))
+        } else if (password != confirmPassword) {
+            alert("The passwords don't match!")
+        } else {
+            alert("To register an account, you need to accept the Terms & Conditions!")
+        }
     }
 
 
@@ -138,6 +142,8 @@ function Register() {
                                     id="terms"
                                     name="terms"
                                     type="checkbox"
+                                    defaultChecked={acceptTerms}
+                                    onChange={() => setAcceptTerms(!acceptTerms)}
                                     className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                 />
 
@@ -145,7 +151,7 @@ function Register() {
                                   I have read and accept the
                                   <br></br>
 
-                                <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500 text-decoration-line: underline">
+                                <a href="/terms" className="font-medium text-indigo-600 hover:text-indigo-500 text-decoration-line: underline">
                                   Terms & Conditions
                                 </a>
 
@@ -154,9 +160,9 @@ function Register() {
                         </div>
 
                         <div>
-                            <button className="bg-gray-700 px-7 py-2 text-blue-700 mr-20" type="submit"
-                                    name="cancel_btn" id="cancel_btn" onClick={ ()=> console.log("cancel") }>Cancel
-                            </button>
+                            <Link to="/login" className="bg-gray-700 px-7 py-2 text-blue-700 mr-20" type="submit"
+                             id="cancel_btn">Cancel
+                            </Link>
                             <button className="bg-gray-700 px-6 py-2 text-blue-700 ml-40" type="submit"
                                     name="submit_btn" id="submit_btn" onClick={ handleSubmit } >Submit
                             </button>

@@ -7,9 +7,6 @@ export const server: any = express();
 server.use(express.json());
 server.use(express.urlencoded())
 
-// const cors = require('cors');
-// server.use(cors())
-
 server.use((req, res, next) =>{
     res.setHeader("Access-Control-Allow-Origin", "*")
     res.header(
