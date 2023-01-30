@@ -29,6 +29,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "test-ui": "cypress open --browser chrome",
+    "test-cl": "cypress run --browser chrome",
     "all": "concurrently \" npm start \" \" cd cors-server && npm run start\" "
   },
   "eslintConfig": {
@@ -49,7 +51,18 @@
       "last 1 safari version"
     ]
   },
+  "cypress-cucumber-preprocessor": {
+    "json": {
+      "enabled": true
+    },
+    "stepDefinitions": [
+      "/specs/step_definitions/*.js"
+    ]
+ },
   "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "12.2",
+    "@cypress/webpack-preprocessor": "5.12",
+    "cypress": "10.7",
     "tailwindcss": "^3.2.4",
     "typescript": "^4.9.4"
   }
