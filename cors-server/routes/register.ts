@@ -6,6 +6,7 @@ module.exports = function (server, db){
     server.post("/data/register", async (req: express.Request, res: express.Response) => {
             const {username, email, password} = req.body;
             const encryptedPassword = await encryptPassword(password);
+            //TODO get online status from req body
             try {
                 await db.prepare("INSERT INTO user (username, email, password, online) VALUES(?, ?, ?, ?)").run(username, email, encryptedPassword, 1);
                 res.send({message: "New user registered!"})

@@ -1,8 +1,8 @@
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import session from "express-session";
-import { server } from "../server";
+// import session from "express-session";
+// import { server } from "../server";
 
 export const encryptPassword = async function (password: string) {
     let saltRounds = await bcrypt.genSalt(11);
@@ -72,9 +72,7 @@ export const signIn = async function (server, db: any, newLogin: boolean) {
                     //secure: true, // only works on https
                 });
 
-                res.status(200).json({ loggedIn: true });
-
-                return res.json(user);
+                return res.status(200).json({ loggedIn: true, user });
             } catch (err) {
                 // delete req.body.session.jwt;
                 return res
