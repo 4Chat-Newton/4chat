@@ -4,7 +4,8 @@ import { signIn } from "./routes/authentication";
 
 const port: Number = 8080;
 const host: string = `http://localhost:${port}`;
-export const server: any = express();
+
+const server: any = express();
 server.use(express.json());
 server.use(express.urlencoded())
 server.use(cors())
@@ -23,3 +24,4 @@ server.listen(port, () => {
 require("./routes/register")(server, db)
 
 signIn(server, db, true)
+

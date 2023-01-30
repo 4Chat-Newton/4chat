@@ -1,7 +1,7 @@
 import express from 'express';
-import {encryptPassword, validateUser} from './authentication';
+import {encryptPassword, validateUser, findUser} from './authentication';
 
-module.exports = function (server, db){
+module.exports = function (server, db) {
 
     server.post("/data/register", async (req: express.Request, res: express.Response) => {
             const {username, email, password} = req.body;
@@ -13,7 +13,42 @@ module.exports = function (server, db){
             } catch (e) {
                 res.status(400).send({message: "Username or Email already exist!"})
             }
-        }
-    );
-    
+        });
+
+    server.delete("/data/delete", async (req: express.Request, res: express.Response) => {
+            const {email, password} = req.body;
+
+            try {
+                const user = await findUser(email, db);
+
+                if (!user) {
+                    return res
+                        .status(401)
+                        .json({ error: "Invalid credentials!" });
+                }
+
+                const isValid = await validateUser(password, user.password);
+
+                if (!isValid) {
+                    return res
+                        .status(401)
+                        .json({error: "Invalid credentials!"});
+                }
+
+                try {
+                const stmt = await db.prepare("DELETE FROM user WHERE email = ?").run(email)
+                console.log(stmt.changes)
+                }catch(e) {
+                    console.log(e.message("Error: Delete on row 39"))
+                }
+
+
+                return res.status(200).send({message: "User deleted!" });
+            } catch (err) {
+                console.log("Error:", err)
+                return res
+                    .status(500)
+                    .json({ error: "Internal server error" });
+            }
+        });
 }
