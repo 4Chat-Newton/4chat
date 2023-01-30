@@ -15,7 +15,7 @@ const config = defineConfig({
       on('file:preprocessor', webpack({
         webpackOptions: {
           resolve: {
-            extensions: ['.js'],
+            extensions: ['.ts'],
           },
           module: {
             rules: [
