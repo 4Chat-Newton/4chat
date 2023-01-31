@@ -9,8 +9,8 @@
 * cd ..
 
 ### Start react and backend server
-* npm run all
-
+* `npm run all` starts frontend & backend without nodemon  
+* `npm run all-nodemon` starts frontend & backend with nodemon  
 
 ### Create user / login Testing
 {
