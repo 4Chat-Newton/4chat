@@ -18,7 +18,7 @@ module.exports = function (server, db) {
             //TODO get online status from req body
             try {
                 await db.prepare("INSERT INTO user (username, email, password, online) VALUES(?, ?, ?, ?)").run(username, email, encryptedPassword, 1);
-                res.send({message: "New user registered!"})
+                res.status(200).send({message: "New user registered!"})
             } catch (e) {
                 res.status(400).send({message: "Username or Email already exist!"})
             }
