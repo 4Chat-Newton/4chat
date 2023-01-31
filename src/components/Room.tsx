@@ -1,10 +1,13 @@
 import React from "react"
 import "./style.css";
 
+
+
 export default function Room() {
   return (
     <>
-      <section className="msger">
+      <section className="msger " >
+      <meta name="viewport" content="width=500, initial-scale=1" />
         <header className="msger-header bg-black-400">
           <div className="msger-header-title bg-black-400">
             <img src="img/4chat.png" alt="4chat" className="mx-auto h-10 w-auto"/>
@@ -58,7 +61,7 @@ export default function Room() {
               </div>
             </div>
           </div>
-        </main>
+        </main> 
     
         <div></div>
         <form className="msger-inputarea">

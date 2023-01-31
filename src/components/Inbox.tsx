@@ -9,9 +9,10 @@ export default function Inbox() {
       <div className="test!!">
         <div className="msger-inbox">
           <div>
-            <div>Users</div>
-
-            <div className="room">Rooms</div>
+            <div>
+              <button className="users">Users</button>
+              <button className="rooms">Rooms</button>
+            </div>
           </div>
 
           <div>
