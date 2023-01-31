@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import "./style.css";
-import {LockClosedIcon} from "@heroicons/react/20/solid";
 import {Link} from "react-router-dom";
 
 export default function Login() {
@@ -28,7 +27,7 @@ export default function Login() {
                 password: password,
             })
         }).then(function (response) {
-            if (response.ok == true) {
+            if (response.ok === true) {
                 alert("Logged in!")
             } else {
                 alert("Couldn't log in!")
@@ -49,10 +48,6 @@ export default function Login() {
                             className="mx-auto h-20 w-auto"
                         />
                         <p className="mt-2 text-center text-sm text-gray-600">
-                            <a
-                                href="#"
-                                className="font-medium text-indigo-600 hover:text-indigo-500"
-                            ></a>
                         </p>
                     </div>
                     <input type="hidden" name="remember" defaultValue="true"/>
