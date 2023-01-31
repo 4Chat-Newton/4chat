@@ -39,7 +39,6 @@ describe('Testing user functionality', () => {
         cy.intercept("/data/login")
         // cy.intercept("GET", "/data/login")
 
-
         cy.get('#email').click().type("Test_User@gmail.com")
         cy.get('#password').click().type("12345")
         cy.get('#login_btn').click()
@@ -58,10 +57,3 @@ describe('Testing user functionality', () => {
 
 
 })
-
-// describe('Second test', ()=>{
-//     it('Delete user', () => {
-//         cy.visit('http://localhost:8080/data/register')
-//
-//     })
-// })
