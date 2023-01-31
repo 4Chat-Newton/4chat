@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
+import cookieparser from "cookie-parser";
 // import session from "express-session";
 // import { server } from "../server";
 
@@ -86,10 +87,11 @@ export const signIn = async function (server, db: any, newLogin: boolean) {
             const { email, password } = req.body;
 
             //! Check if JWT cookie exists
-            if (req.body.session.jwt) {
+            if (req.cookies.token) {
                 try {
-                    const data = jwt.verify(req.body.session.jwt, "secret_key");
+                    const data = jwt.verify(req.cookies.token, "secret_key");
                     console.log(data);
+                    return res.status(200).json({ loggedIn: true, data });
                 } catch (err) {
                     return res.status(401).json({ error: "Invalid token" });
                 }
@@ -99,5 +101,10 @@ export const signIn = async function (server, db: any, newLogin: boolean) {
         });
     }
 };
+export const signOut = async function (server, db: any) {
+server.delete('/data/login', async (request, response)=>{
+    response.clearCookie('token')
+    response.status(200).json({loggedIn: false})
+})}
 
-export default { encryptPassword, validateUser, signIn };
+export default { encryptPassword, validateUser, signIn, signOut };
