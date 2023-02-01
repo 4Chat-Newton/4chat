@@ -21,7 +21,7 @@
 ### Start only backend
 cd into cors-server/
 * `npm run start` Starts backend without nodemon
-* `npm run start:nodemon` Starts backend with nodemon
+* `npm run start2` Starts backend with nodemon
 
 ### Create user / login Testing
 {
