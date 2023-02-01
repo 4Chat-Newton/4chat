@@ -32,8 +32,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "all": "concurrently \" npm start \" \" cd cors-server && npm run start\" ",
-    "all2": "concurrently \" npm start \" \" cd cors-server && npm run start2\" "
+    "all": "concurrently \" npm start \" \" cd cors-server && npm run start2\" ",
+    "all2": "concurrently \" npm start \" \" cd cors-server && npm run start\" "
   },
   "eslintConfig": {
     "extends": [
