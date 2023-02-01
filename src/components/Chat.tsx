@@ -1,4 +1,6 @@
 import "./style.css";
+
+
 export default function Chat(){
     return<>
     <div className="chatWindow">

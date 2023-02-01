@@ -23,17 +23,9 @@ body {
     
 }
 .text{
-    display: flex;
-    flex-direction: column-reverse;
-    align-content: flex-end;
-    justify-content: flex-end;
-    align-items: stretch;
-    flex-wrap: nowrap; 
-    padding-left:5px;
-    padding-right: 5px;
-/*     position: absolute;
+    position: absolute;
     bottom: 0;
-    left: 0; */
+    left: 0;
 
 }
 
@@ -60,7 +52,11 @@ body {
     display: flex;
     align-items: flex-end;
 }
+.text{
+    padding-left:5px;
+    padding-right: 5px;
 
+}
 
 .send{
     background: #1a1a1a;
