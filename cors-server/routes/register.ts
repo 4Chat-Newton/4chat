@@ -45,8 +45,8 @@ module.exports = function (server, db) {
                 }
 
                 try {
-                const stmt = await db.prepare("DELETE FROM user WHERE email = ?").run(email)
-                console.log(stmt.changes)
+                await db.prepare("DELETE FROM user WHERE email = ?").run(email)
+
                 }catch(e) {
                     console.log(e.message("Error: Delete on row 39"))
                 }
