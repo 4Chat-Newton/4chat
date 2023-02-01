@@ -13,7 +13,7 @@
 
 ### Start react and backend server
 * `npm run all` Starts frontend & backend without nodemon  
-* `npm run all-nodemon` Starts frontend & backend with nodemon  
+* `npm run all2` Starts frontend & backend with nodemon  
 
 ### Start only react
 * `npm run start`
