@@ -1,5 +1,41 @@
 # 4chat
 
+### Setup
+
+* cd 4chat
+* npm i
+* cd cors-server
+* npm i
+* cd ..
+### Start without opening browser
+* go into the .env file
+* change `BROWSER=firefox` to `BROWSER=none`
+
+### Start react and backend server
+* `npm run all2` Starts frontend & backend without nodemon  
+* `npm run all` Starts frontend & backend with nodemon  
+
+### Start only react
+* `npm run start`
+
+### Start only backend
+cd into cors-server/
+* `npm run start` Starts backend without nodemon
+* `npm run start2` Starts backend with nodemon
+
+### Create user / login Testing
+{
+"username": "normal_user",
+"email": "normal@4chat.com",
+"password": "pass1234"
+}
+
+{
+"username": "admin_user",
+"email": "admin_user@4chat.com",
+"password": "pass1234admin"
+}
+
 ## Grupp / Förhållningsregler <br>
 Nya funktioner görs i en egen branches <br>
 
