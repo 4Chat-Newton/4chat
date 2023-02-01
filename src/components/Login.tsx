@@ -27,10 +27,15 @@ export default function Login() {
                 password: password,
             })
         }).then(function (response) {
+            // console.log("Check", response)
             if (response.ok === true) {
+                // console.log("logged in", response.status)
+                // return response
                 alert("Logged in!")
             } else {
                 alert("Couldn't log in!")
+                // console.log("Couldn't log in", response.status)
+                // return response
             }
 
         });//.then(navigate("/room"))
@@ -84,7 +89,8 @@ export default function Login() {
                         </div>
                     </div>
                     <div>
-                        <button className="bg-gray-700 px-7 py-2 text-blue-700 ml-40" type="submit" onClick={handleSubmit}>Login</button>
+                        <button id="login_btn" className="bg-gray-700 px-7 py-2 text-blue-700 ml-40" type="submit" onClick={handleSubmit}>Login</button>
+                        {/**/}
                     </div>
                     <div className="text-sm">
                         <Link to="/register" className="px-7 py-2 text-blue-700 ml-40 bg-transparent text-decoration-line: underline">
