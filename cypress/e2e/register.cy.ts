@@ -1,5 +1,6 @@
 // @ts-ignore
 import * as cypress from "cypress";
+import {expect} from "chai";
 
 describe('Testing user functionality', () => {
 
@@ -19,6 +20,8 @@ describe('Testing user functionality', () => {
         cy.get('#confirmPassword').click().type("12345")
         cy.get('#terms').click()
         cy.get('#submit_btn').click()
+
+        cy.wait(2000)
         cy.get('#cancel_btn').click()
     }) // end of test
 
@@ -34,6 +37,7 @@ describe('Testing user functionality', () => {
             cy.get('#email').click().type("Test_User@gmail.com")
             cy.get('#password').click().type("12345")
             cy.get('#login_btn').click()
+            cy.wait(2000)
 
     })
 
