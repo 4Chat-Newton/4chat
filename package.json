@@ -33,7 +33,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "all": "concurrently \" npm start \" \" cd cors-server && npm run start\" ",
-    "all-nodemon": "concurrently \" npm start \" \" cd cors-server && npm run start:nodemon\" "
+    "all2": "concurrently \" npm start \" \" cd cors-server && npm run start:nodemon\" "
   },
   "eslintConfig": {
     "extends": [
