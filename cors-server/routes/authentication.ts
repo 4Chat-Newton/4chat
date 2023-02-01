@@ -88,7 +88,6 @@ export const signIn = async function (server, db: any, newLogin: boolean) {
             if (req.cookies.token) {
                 try {
                     const data = jwt.verify(req.cookies.token, "secret_key");
-                    // console.log(data);
                     return res.status(200).json({ loggedIn: true, data });
                 } catch (err) {
                     return res.status(401).json({ error: "Invalid token" });
