@@ -2,8 +2,6 @@ import bcrypt from "bcrypt";
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import cookieparser from "cookie-parser";
-// import session from "express-session";
-// import { server } from "../server";
 
 export const encryptPassword = async function (password: string) {
     let saltRounds = await bcrypt.genSalt(11);

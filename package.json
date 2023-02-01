@@ -2,14 +2,6 @@
   "name": "4chat",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "cy:open": "cypress open",
-    "cy:run": "cypress run",
-    "eject": "react-scripts eject",
-    "all": "concurrently \" npm start \" \" cd cors-server && npm run start\" "
-  },
   "dependencies": {
     "@headlessui/react": "^1.7.7",
     "@heroicons/react": "^2.0.13",
@@ -34,6 +26,15 @@
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "all": "concurrently \" npm start \" \" cd cors-server && npm run start\" ",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run"
   },
   "eslintConfig": {
     "extends": [
