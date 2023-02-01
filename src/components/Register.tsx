@@ -1,6 +1,5 @@
 import {useState} from "react"
-import {Navigate, Link} from "react-router-dom";
-
+import {Link} from "react-router-dom"; //TODO add "Navigate" when needed
 import './style.css'
 
 function Register() {
@@ -42,7 +41,7 @@ function Register() {
                 .then(function (response) {
                     // TODO remove when no longer needed after testing
                     console.log(response)
-                    if (response.ok == true) {
+                    if (response.ok === true) {
                         //TODO add online status to body json
                         fetch('http://localhost:8080/data/login', {
                             method: 'POST',
@@ -53,7 +52,7 @@ function Register() {
                             })
                         }).then(function (response) {
                             console.log(response)
-                                if (response.ok == true) {
+                                if (response.ok === true) {
                                     alert("User successfully registered!")
                                 } else {
                                     alert("The username or email is already in use!")
@@ -62,7 +61,7 @@ function Register() {
                         });//.then(navigate("/room"))
                     }
                 });
-        } else if (password != confirmPassword) {
+        } else if (password !== confirmPassword) {
             alert("The passwords don't match!")
         } else {
             alert("To register an account, you need to accept the Terms & Conditions!")
