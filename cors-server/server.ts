@@ -1,4 +1,5 @@
 import express from "express";
+import { Server } from "socket.io"
 import cors from "cors";
 import { signIn, signOut} from "./routes/authentication";
 import cookieparser from "cookie-parser";
@@ -18,10 +19,21 @@ server.get('/data', (req, res) => {
     res.send('NodeJS + Express + Typescript App Up! 👍');
 });
 
-server.listen(port, () => {
+const app = server.listen(port, () => {
     console.log(`Server running on port ${port}`);
     console.log(`${host}/data`);
 });
+
+const io = new Server(3000)
+
+io.on('connection', (socket) => {
+    console.log('a user connected');
+    socket.on('disconnect', () => {
+      console.log('user disconnected');
+    });
+  });
+
+
 
 require("./routes/register")(server, db)
 
