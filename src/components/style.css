@@ -22,7 +22,12 @@ body {
     top: 0;
     
 }
+.chat{
+    overflow-y: auto;
+}
 .text{
+    padding-left:5px;
+    padding-right: 5px;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -34,11 +39,10 @@ body {
     color: white;
     background: #1a1a1a;
     width: 83%;
-    height: 96%;
-    overflow-y: auto;
+    height: 92%;
+    overflow: auto;
     position: fixed;
     margin: 5px;
-    
 }
 .chatWindow::-webkit-scrollbar{
     display: none;
@@ -52,11 +56,7 @@ body {
     display: flex;
     align-items: flex-end;
 }
-.text{
-    padding-left:5px;
-    padding-right: 5px;
 
-}
 
 .send{
     background: #1a1a1a;
@@ -67,6 +67,45 @@ body {
 
 }
 
+.tabs{
+    background-color: #1a1a1a;
+    position: absolute;
+    right: 0;
+    height:94.5%;
+    width:16%;
+    margin: 5px;
+    overflow: hidden;
+}
+.rooms{
+    margin-left: 55px;
+    color: #fff;
+    padding: 3px;
+    font-family: sans-serif;
+    justify-content: center;
+    cursor: pointer;
+    transition-delay: 80ms;
+}
+
+.inbox{
+    color: #fff;
+    background-color: #1a1a1a;
+    align-items: left;
+    font-family: sans-serif;
+    justify-content: center;
+    cursor: pointer;
+    transition-delay: 80ms;
+    margin-right: 50px;
+    margin-left: 40px;
+    padding: 3px;
+
+}
+
+.nav-btn{
+    display: flex;
+    justify-content: space-between;
+    margin-right: 52px;
+    gap: 92px;
+}
 
 
 
@@ -74,6 +113,13 @@ body {
 
 
 
+.msger-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: var(--border);
+    background: #303030;
+    color: #fff;
+}
 
 
 
@@ -191,10 +237,7 @@ html {
     margin-left: 80px;
 }
 
-.rooms{
-    color: #fff;
-    margin-left: 30%;
-}
+
 .users{
     color: #fff;
     margin-left:20%;
@@ -211,16 +254,16 @@ html {
 
 
 
-.settings-btn{
+/* .settings-btn{
 background-color: #303030;
 float: right;
 margin-right: 20px;
-}
-.signOut-btn{
+} */
+/* .signOut-btn{
     background-color: #303030;
     float: right;
     margin-right: 20px;
-}
+} */
 
 /* .container{
     max-width: 1200px;

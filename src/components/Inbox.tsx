@@ -6,27 +6,12 @@ export default function Inbox() {
     
   return (
     <>
-      <div className="test!!">
-        <div className="msger-inbox">
-          <div>
-            <div>
-              <button className="users">Users</button>
-              <button className="rooms">Rooms</button>
-            </div>
-          </div>
-
-          <div>
-            <ul>
-                {/* If users or rooms, Append list <li>*/}
-            {/*     {if(queryselector(".room").hasClass("active")){
-                return UserList
-                }else {return InboxList} */}
-            </ul>
-          </div>
-
-
+      <section className="tabs">
+        <div className="tabsdiv">
+          <button className="inbox">Inbox</button>
+          <button className="rooms">Rooms</button>
         </div>
-      </div>
+      </section>
     </>
   );
 }

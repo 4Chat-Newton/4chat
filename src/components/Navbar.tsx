@@ -13,9 +13,10 @@ return<>
             </span>
           </div>
 
-          <div>
+          <div className="nav-btn">
+          <button className="settings-btn">Settings</button>
             <button className="signOut-btn">Sign out</button>
-            <button className="settings-btn">Settings</button>
+            
           </div>
         </header>
 </>
