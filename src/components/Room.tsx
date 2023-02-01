@@ -31,6 +31,7 @@ export default function Room() {
           <div>
           </div>
         </header>
+        
         <main className="msger-chat">
           <div className="msg left-msg">
             <div className="msg-bubble">
