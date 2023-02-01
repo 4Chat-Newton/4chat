@@ -2,7 +2,8 @@ import express from "express";
 import cors from "cors";
 import { signIn, signOut} from "./routes/authentication";
 import cookieparser from "cookie-parser";
-
+import {wait} from "@testing-library/user-event/dist/utils";
+const { spawn } = require('child_process')
 
 const port: Number = 8080;
 const host: string = `http://localhost:${port}`;
@@ -31,6 +32,8 @@ signOut(server, db)
 
 server.get("/data/exit", async (req, res)=> {
     // console.log(shutdown())
-    setTimeout(process.exit,2000)
+    // setTimeout(process.exit,2000)
     res.json({message: "Done, Exiting in 2 seconds"})
+    await wait(2000)
+    spawn('cd .. && taskkill -F -IM node.exe', [], { shell: true, stdio: 'inherit' })
 })

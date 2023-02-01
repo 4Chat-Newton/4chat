@@ -36,7 +36,8 @@
     "all": "concurrently \" npm start \" \" cd cors-server && npm run start2\" ",
     "all2": "concurrently \" npm start \" \" cd cors-server && npm run start\" ",
     "cy:open": "cypress open",
-    "cy:run": "cypress run"
+    "cy:run": "cypress run",
+    "stop": "taskkill -F -IM node.exe"
   },
   "eslintConfig": {
     "extends": [

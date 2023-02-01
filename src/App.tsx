@@ -1,6 +1,11 @@
 // import { useEffect, useState } from 'react';
 import Kill from "./Kill";
+import {useState} from "react";
+import kill from "./Kill";
+
 function App() {
+
+
 
   return (
     <div className='App' style={ { display: "flex", flexDirection: "column", color: "wheat"}}>
@@ -12,7 +17,7 @@ function App() {
             justifyContent: "center",
             color: "wheat"
         }}>
-        <button onClick={Kill}>Exit</button>
+        <button onClick={kill}>Exit</button>
 
         </div>
     </div>

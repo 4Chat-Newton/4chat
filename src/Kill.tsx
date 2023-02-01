@@ -1,13 +1,23 @@
 // import {root} from "./index";
-
-import * as child_process from "child_process";
+// import {BackHandler} from "react-native"
+import ReactDOM from "react-dom/client";
+import React from "react";
+import {root} from "./index";
 
 function Kill(){
 
 // root.unmount()
-//     child_process.exec("B")
+
+// BackHandler.exitApp()
 //     process.exit()
+//     process.exit(0);
+//     window.close()
+//     process.kill()
+
     console.log("clicked")
+
+
+
     return null
 }
 
