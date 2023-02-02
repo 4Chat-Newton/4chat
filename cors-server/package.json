@@ -2,9 +2,10 @@
   "name": "cors-server",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/server.js",
+  "main": "server.ts",
   "scripts": {
-    "start": "tsc && node dist/server.js",
+    "start": "ts-node server.ts",
+    "start2": "nodemon server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -15,10 +16,18 @@
     "typescript": "^4.9.4"
   },
   "dependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/better-sqlite3": "^7.6.3",
+    "@types/cors": "^2.8.13",
+    "@types/nodemon": "^1.19.2",
     "bcrypt": "^5.1.0",
     "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^8.0.1",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
-    "sqlite3": "^5.1.4",   
-    "@types/bcrypt": "^5.0.0"
+    "express-session": "^1.17.3",
+    "jsonwebtoken": "^9.0.0",
+    "nodemon": "^2.0.20",
+    "ts-node": "^10.9.1"
   }
 }

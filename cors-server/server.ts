@@ -1,16 +1,18 @@
 import express from "express";
-import sqlite from "sqlite3";
-import {encryptPassword, validateUser} from './routes/authentication';
+import cors from "cors";
+import { signIn, signOut} from "./routes/authentication";
+import cookieparser from "cookie-parser";
+
+
 const port: Number = 8080;
+const host: string = `http://localhost:${port}`;
 export const server: any = express();
 server.use(express.json());
 server.use(express.urlencoded())
-export const db = new sqlite.Database('./database/database.db', (err) => {
-    if (err) {
-        return console.error(err.message);
-    }
-    console.log('Connected to SQlite database.')
-});
+server.use(cors())
+server.use(cookieparser())
+
+export const db = require('better-sqlite3')('./db/database.db');
 
 server.get('/data', (req, res) => {
     res.send('NodeJS + Express + Typescript App Up! 👍');
@@ -18,8 +20,11 @@ server.get('/data', (req, res) => {
 
 server.listen(port, () => {
     console.log(`Server running on port ${port}`);
-    console.log(`http://localhost:${port}/data`);
+    console.log(`${host}/data`);
 });
 
-// routes
-require('./routes/register')(server,db)
+require("./routes/register")(server, db)
+
+signIn(server, db, true)
+signIn(server, db, false)
+signOut(server, db)

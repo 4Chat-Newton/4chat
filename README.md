@@ -7,10 +7,21 @@
 * cd cors-server
 * npm i
 * cd ..
+### Start without opening browser
+* go into the .env file
+* change `BROWSER=firefox` to `BROWSER=none`
 
 ### Start react and backend server
-* npm run all
+* `npm run all2` Starts frontend & backend without nodemon  
+* `npm run all` Starts frontend & backend with nodemon  
 
+### Start only react
+* `npm run start`
+
+### Start only backend
+cd into cors-server/
+* `npm run start` Starts backend without nodemon
+* `npm run start2` Starts backend with nodemon
 
 ### Create user / login Testing
 {

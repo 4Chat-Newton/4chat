@@ -1,112 +1,168 @@
+import {useState} from "react"
+import {Link} from "react-router-dom"; //TODO add "Navigate" when needed
 import './style.css'
-export default function SignUp() {
-  return (
-    <>
 
-      <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div className="w-full max-w-md space-y-8">
-          <div>
-          <a
-                href="/"
-                className="font-medium text-indigo-600 hover:text-indigo-500">
+function Register() {
 
-            <img src="img/4chat.png"className="mx-auto h-20 w-auto" alt="logo" />
-            
-            </a>
-          </div>
-          <form className="mt-8 space-y-6" action="#" method="POST">
-            <input type="hidden" name="remember" defaultValue="true" />
-            <div className="-space-y-px rounded-md shadow-sm">
-              <div>
-                <label htmlFor="email-address" className="sr-only">
-                  Email address
-                </label>
-                <input
-                  id="email-address"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  className="mb-3 relative block w-full appearance-none rounded-none rounded-t-md border border-none px-3 py-2 text-lime-400 placeholder-lime-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                  placeholder="email"
-                />
-              </div>
-              <div>
-                <label htmlFor="user-name" className="sr-only">
-                  User Name
-                </label>
-                <input
-                  id="user-name"
-                  name="username"
-                  type="username"
-                  autoComplete="username"
-                  required
-                  className="mb-3 relative block w-full appearance-none rounded-none rounded-t-md border border-none px-3 py-2 text-lime-400 placeholder-lime-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                  placeholder="username"
-                />
-              </div>
-              <div>
-                <label htmlFor="password" className="sr-only">
-                  Password
-                </label>
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="current-password"
-                  required
-                  className="mb-3 relative block w-full appearance-none rounded-none rounded-b-md border border-none px-3 py-2 text-yellow-300 placeholder-yellow-300 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                  placeholder="password"
-                />
-                <label htmlFor="password" className="sr-only">
-                  Password
-                </label>
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="current-password"
-                  required
-                  className="relative block w-full appearance-none rounded-none rounded-b-md border border-none px-3 py-2 text-yellow-400 placeholder-yellow-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                  placeholder="confirm password"
-                />
-              </div>
+    const [email, setEmail] = useState(null);
+    const [username, setUsername] = useState(null);
+    const [password, setPassword] = useState(null);
+    const [confirmPassword, setConfirmPassword] = useState(null);
+    const [acceptTerms, setAcceptTerms] = useState(false);
+
+    const handleUserInput = (e: any) => {
+        const {id, value} = e.target;
+        if (id === "email") {
+            setEmail(value);
+        }
+        if (id === "username") {
+            setUsername(value);
+        }
+        if (id === "password") {
+            setPassword(value);
+        }
+        if (id === "confirmPassword") {
+            setConfirmPassword(value);
+        }
+    }
+
+    const handleSubmit = async () => {
+        if (password === confirmPassword && acceptTerms === true) {
+            //TODO fetch should be '/data/register'
+            await fetch('http://localhost:8080/data/register', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    username: username,
+                    email: email,
+                    password: password
+                })
+            })
+                .then(function (response) {
+                    // TODO remove when no longer needed after testing
+                    console.log(response)
+                    if (response.ok === true) {
+                        //TODO add online status to body json
+                        fetch('http://localhost:8080/data/login', {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify({
+                                email: email,
+                                password: password,
+                            })
+                        }).then(function (response) {
+                            console.log(response)
+                                if (response.ok === true) {
+                                    alert("User successfully registered!")
+                                } else {
+                                    alert("The username or email is already in use!")
+                                }
+
+                        });//.then(navigate("/room"))
+                    }
+                });
+        } else if (password !== confirmPassword) {
+            alert("The passwords don't match!")
+        } else {
+            alert("To register an account, you need to accept the Terms & Conditions!")
+        }
+    }
+
+
+    return (
+        <>
+            <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+                <div className="w-full max-w-md space-y-8">
+                    <div>
+                        <img src="img/4chat.png" className="mx-auto h-20 w-auto" alt="logo"/>
+                    </div>
+
+
+                    <div className="-space-y-px rounded-md shadow-sm">
+                        <div>
+                            <label htmlFor="username" className="sr-only">
+                                User Name
+                            </label>
+                            <input
+                                id="username"
+                                name="username"
+                                type="username"
+                                placeholder="Username"
+                                autoComplete="username"
+                                onChange={(e) => handleUserInput(e)}
+                                className="mb-3 relative block w-full appearance-none rounded-none rounded-t-md border border-none px-3 py-2 text-lime-400 placeholder-lime-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                            />
+                        </div>
+
+                        <div>
+                            <input
+                                id="email"
+                                name="email"
+                                type="email"
+                                placeholder="Email"
+                                autoComplete="email"
+                                onChange={(e) => handleUserInput(e)}
+                                className="mb-3 relative block w-full appearance-none rounded-none rounded-t-md border border-none px-3 py-2 text-lime-400 placeholder-lime-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                            />
+                        </div>
+                        <div>
+                            <input
+                                id="password"
+                                name="password"
+                                type="password"
+                                autoComplete="current-password"
+                                placeholder="Password"
+                                onChange={(e) => handleUserInput(e)}
+                                className="mb-3 relative block w-full appearance-none rounded-none rounded-b-md border border-none px-3 py-2 text-yellow-300 placeholder-yellow-300 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                            />
+                            <input
+                                id="confirmPassword"
+                                name="password"
+                                type="password"
+                                placeholder="Confirm password"
+                                onChange={(e) => handleUserInput(e)}
+                                className="relative block w-full appearance-none rounded-none rounded-b-md border border-none px-3 py-2 text-yellow-400 placeholder-yellow-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-center">
+                            <input
+                                id="terms"
+                                name="terms"
+                                type="checkbox"
+                                defaultChecked={acceptTerms}
+                                onChange={() => setAcceptTerms(!acceptTerms)}
+                                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                            />
+
+                            <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
+                                I have read and accept the
+                                <br></br>
+
+                                <a href="/terms"
+                                   className="font-medium text-indigo-600 hover:text-indigo-500 text-decoration-line: underline">
+                                    Terms & Conditions
+                                </a>
+
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <Link to="/login" className="bg-gray-700 px-7 py-2 text-blue-700 mr-20" type="submit"
+                              id="cancel_btn">Cancel
+                        </Link>
+                        <button className="bg-gray-700 px-6 py-2 text-blue-700 ml-40" type="submit"
+                                name="submit_btn" id="submit_btn" onClick={handleSubmit}>Submit
+                        </button>
+                    </div>
+
+                </div>
             </div>
-
-            <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <input
-                  id="terms"
-                  name="terms"
-                  type="checkbox"
-                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                />
-                <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
-                  I have read and accept the
-                  <br></br>
-                  <a href="/Terms" className="font-medium text-indigo-600 hover:text-indigo-500 text-decoration-line: underline">
-                  Terms & Conditions
-                </a>
-                </label>
-              </div>
-            </div>
-
-            <div>
-              {/* <button
-                type="submit"
-                className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              >
-                <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                  <LockClosedIcon className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
-                </span>
-                Sign Up
-              </button> */}
-              <button className="bg-gray-700 px-7 py-2 text-blue-700 mr-20" type="submit">Cancel</button>
-              <button className="bg-gray-700 px-6 py-2 text-blue-700 ml-40" type="submit">Submit</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </>
-  )
+        </>
+    )
 }
+
+export default Register
