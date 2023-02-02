@@ -28,11 +28,11 @@ jobs:
         cache: 'npm'
         cache-dependency-path: '**/package-lock.json'
     - name: Run npm install in top folder
-      run: npm ci
+      run: npm i
     - name: cd into cors-server and npm install
       run: | 
         cd cors-server
-        npm ci
+        npm i
     - name: Start react frontend
       run: npm run start
     - name: Start backend
