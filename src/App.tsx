@@ -5,53 +5,58 @@ import { io } from "socket.io-client";
 
 const socket = io("http://localhost:8080");
 
-// socket.on('connection', (socket) => {
-//   console.log('hello');
-// });
-
-
 function App() {
+  const [message, setMessage] = useState("");
+  const [messagesList, setMessagesList] = useState<any>([]);
+  const [messageReceived, setMessageReceived] = useState("");
 
 
-  const [message, setMessage] = useState("")
-  const [messageReceived, setMessageReceived] = useState("")
+  const handleSendMessage = (e: any) => {
+    e.preventDefault();
+    console.log(message);
+    // if (message.trim() && //!KOLLA TOKEN OCH HÄMTA('userName')) {
+    if (message.trim()) {
+      socket.emit('message', {
+        text: message,
+        // name: localStorage.getItem('userName'),//! ska kolla JWT token
+        socketID: socket.id,
+      });
+      
+      const newMessage = message;
 
-  let temp:string[] = []
-
-  const sendMessage = () => {
-    socket.emit("send_message", {message})
-    let msg = messageReceived
-    temp.push(msg)
-    console.log(temp)
+      setMessagesList([...messagesList, newMessage])
+    }
+    console.log(messagesList);
+    
+    setMessage('');
   };
+
+let temp;
 
   useEffect(() => {
     socket.on("receive_message", (data) => {
+      temp = messagesList.map((msg:any)=>{
+        <li>{msg}</li>
+      })
       setMessageReceived(data.message);
+    });
+  }, [socket]);
 
-    })
-  }, [socket])
-
-  function showElements() {
-    temp.forEach(element => console.log(element))
-    return temp
-  }
-  
 
   return (
-    <div className='App'>
-      <input placeholder="Message" onChange={(event) => {
-        setMessage(event.target.value)
-
-
-      }}/>
-      <button onClick={sendMessage}>Send message</button>
+    <div className="App">
+      <form className="form" onSubmit={handleSendMessage}>
+        <input
+          type="text"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+        />
+        <button className="sendBtn">SEND</button>
+      </form>
       <h1>Message received:</h1>
-
-      {messageReceived}
-      
-     
-
+      <ul id="message-list">
+        {messagesList.map((msg:string)=>(<li>{msg}</li>))}
+      </ul>
     </div>
   );
 }
