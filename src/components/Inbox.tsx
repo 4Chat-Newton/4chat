@@ -1,7 +1,7 @@
 import "./style.css";
 
 export default function Inbox() {
-    const mockArray = ["Måns", "Sami", "Barkat"]
+    
 
     
   return (
