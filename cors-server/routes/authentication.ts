@@ -45,7 +45,7 @@ export const signIn = async function (server, db: any, newLogin: boolean) {
                 if (!user) {
                     return res
                         .status(401)
-                        .json({ error: "Invalid username or password.." });
+                        .json({ error: "Invalid credentials!" });
                 }
 
                 const isValid = await validateUser(password, user.password);
@@ -53,7 +53,7 @@ export const signIn = async function (server, db: any, newLogin: boolean) {
                 if (!isValid) {
                     return res
                         .status(401)
-                        .json({ error: "Invalid username or password.." });
+                        .json({ error: "Invalid credentials!" });
                 }
                 // Create a new JWT with the user's information
                 const payload = { id: user.id };
@@ -88,7 +88,6 @@ export const signIn = async function (server, db: any, newLogin: boolean) {
             if (req.cookies.token) {
                 try {
                     const data = jwt.verify(req.cookies.token, "secret_key");
-                    console.log(data);
                     return res.status(200).json({ loggedIn: true, data });
                 } catch (err) {
                     return res.status(401).json({ error: "Invalid token" });
