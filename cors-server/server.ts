@@ -23,6 +23,15 @@ server.get('/data', (req, res) => {
 server.listen(port, () => {
     console.log(`Server running on port ${port}`);
     console.log(`${host}/data`);
+
+    process.on('exit', (code) => {
+        console.log(`Exiting with code: ${code}`);
+    });
+
+    process.on('SIGINT', () => {
+        console.log('Received SIGINT. Exiting...');
+        process.exit(0);
+    });
 });
 
 require("./routes/register")(server, db)
@@ -37,11 +46,3 @@ server.get("/data/exit", async (req, res)=> {
     // await wait(2000)
     // spawn('cd .. && pkill node.exe', [], { shell: true, stdio: 'inherit' })
 })
-process.on('exit', (code) => {
-    console.log(`Exiting with code: ${code}`);
-});
-
-process.on('SIGINT', () => {
-    console.log('Received SIGINT. Exiting...');
-    process.exit(0);
-});
