@@ -14,6 +14,7 @@
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "all": "^0.0.0",
+    "bcrypt": "^5.1.0",
     "bootstrap": "^5.2.3",
     "chai": "^4.3.7",
     "concurrently": "^7.6.0",
