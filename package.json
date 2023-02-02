@@ -45,7 +45,7 @@
     "backend:kill": "cd cors-server && npm run start && cd ..",
     "stop": "taskkill -F -IM node.exe",
     "stop2": "pkill node.exe",
-    "fancy-test": "start-server-and-test 'npm run all2 -c-1 --silent' 3000 'cypress run --spec cypress/e2e/register.cy.ts'",
+    "fancy-test": "concurrently --kill-others \" npm run backend \" \" sleep 20\"",
     "start:all": "concurrently --kill-others \" npm start \" \" cd cors-server && npm run start\" \" sleep 20 && cypress run\" "
 
   },

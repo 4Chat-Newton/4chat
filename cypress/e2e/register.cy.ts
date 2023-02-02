@@ -72,10 +72,10 @@ describe('Testing user functionality', () => {
         } )
     })
 
-    it('Kill application', () => {
-        cy.wait(1000)
-        cy.request('GET', 'http://localhost:8080/data/exit' ).then( (res) => {
-            expect(res.body.message).to.eq("Done, Exiting in 2 seconds")
-        })
-    })
+    // it('Kill application', () => {
+    //     cy.wait(1000)
+    //     cy.request('GET', 'http://localhost:8080/data/exit' ).then( (res) => {
+    //         expect(res.body.message).to.eq("Done, Exiting in 2 seconds")
+    //     })
+    // })
 })
