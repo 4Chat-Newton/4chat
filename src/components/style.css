@@ -41,7 +41,7 @@ body {
     width: 83%;
     height: 92%;
     overflow: auto;
-    position: fixed;
+    position: fixed; 
     margin: 5px;
 }
 .chatWindow::-webkit-scrollbar{
