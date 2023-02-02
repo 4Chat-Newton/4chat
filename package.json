@@ -40,7 +40,8 @@
     "all2": "concurrently \" npm start \" \" cd cors-server && npm run start\" ",
     "cy:open": "cypress open --browser chrome",
     "cy:run": "cypress run --browser chrome",
-    "stop": "taskkill -F -IM node.exe"
+    "stop": "taskkill -F -IM node.exe",
+    "fancy-test": "concurrently \"npm run all2 \" \"npx wait-on http://localhost:3000 && npm run cy:run \" "
   },
   "eslintConfig": {
     "extends": [

@@ -36,10 +36,8 @@ jobs:
         npm i
     - name: Start frontend, backend
       run: |
-        npm run all2
-        npx wait-on --timeout 60000
-    - name: Run tests
-      run: npm run cy:run
+        npm run fancy-test
+
 #    - name: Run npm install in top folder
 #      run: npm i
 #    - name: cd into cors-server and npm install
