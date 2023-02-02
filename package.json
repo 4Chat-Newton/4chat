@@ -44,8 +44,8 @@
     "backend": "cd cors-server && npm run start && cd ..",
     "backend:kill": "cd cors-server && npm run start && cd ..",
     "stop": "taskkill -F -IM node.exe",
-    "fancy-test": " start-server-and-test 'npm run all2 -c-1 --silent' 3000 'cypress run --spec cypress/e2e/register.cy.ts'",
-    "start:all": "concurrently \" npm start \" \" cd cors-server && npm run start\" \" sleep 20 && cypress run \" "
+    "fancy-test": "start-server-and-test 'npm run all2 -c-1 --silent' 3000 'cypress run --spec cypress/e2e/register.cy.ts'",
+    "start:all": "concurrently \" npm start \" \" cd cors-server && npm run start\" \" sleep 20 && cypress run  && npm run stop\" "
 
   },
   "eslintConfig": {
