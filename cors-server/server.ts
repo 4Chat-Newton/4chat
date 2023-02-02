@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import { signIn, signOut} from "./routes/authentication";
 import cookieparser from "cookie-parser";
+import userDetails from "./routes/room";
 
 
 const port: Number = 8080;
@@ -28,3 +29,4 @@ require("./routes/register")(server, db)
 signIn(server, db, true)
 signIn(server, db, false)
 signOut(server, db)
+

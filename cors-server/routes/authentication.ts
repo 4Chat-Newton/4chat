@@ -82,6 +82,7 @@ export const signIn = async function (server, db: any, newLogin: boolean) {
     } else {
         server.get("/data/login", async (req: Request, res: Response) => {
             // Extract the user's credentials from the request body
+
             const { email, password } = req.body;
 
             //! Check if JWT cookie exists
