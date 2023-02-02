@@ -28,4 +28,4 @@ jobs:
         cache: 'npm'
         cache-dependency-path: '**/package-lock.json'
     - run: npm i
-    - run: npm run test:cy
+    - run: npm run all2 & cy:run

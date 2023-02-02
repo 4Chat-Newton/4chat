@@ -34,7 +34,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "test:cy": "npm run all2 && npm run cy:run ",
+    "test:cy": "npm run all2",
     "eject": "react-scripts eject",
     "all": "concurrently \" npm start \" \" cd cors-server && npm run start2\" ",
     "all2": "concurrently \" npm start \" \" cd cors-server && npm run start\" ",
