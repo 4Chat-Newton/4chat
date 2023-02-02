@@ -18,24 +18,43 @@ body {
     text-align: center;
     color: #fff;
     font-weight: bold;
-    position: sticky;
-    top: 0;
-    
+    flex-shrink: 0;
 }
 .chat{
     overflow-y: auto;
+    flex: 1;
 }
+
+/* width */
+.chat::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  .chat::-webkit-scrollbar-track {
+    background: #303030;
+  }
+  
+  /* Handle */
+  .chat::-webkit-scrollbar-thumb {
+    background: #1a1a1a;
+  }
+  
+  /* Handle on hover */
+  .chat::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 .text{
+    height:100%;
+    width: 100%;
     padding-left:5px;
     padding-right: 5px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-
 }
 
 
 .chatWindow{
+    display:flex;
+    flex-direction: column;
     color: white;
     background: #1a1a1a;
     width: 83%;
@@ -43,9 +62,6 @@ body {
     overflow: auto;
     position: fixed; 
     margin: 5px;
-}
-.chatWindow::-webkit-scrollbar{
-    display: none;
 }
 .msg{
     width: 84%;
