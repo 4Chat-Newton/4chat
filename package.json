@@ -27,6 +27,7 @@
     "react-hook-form": "^7.42.1",
     "react-router-dom": "^6.7.0",
     "react-scripts": "5.0.1",
+    "wait-on": "^7.0.1",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
   },
@@ -40,8 +41,11 @@
     "all2": "concurrently \" npm start \" \" cd cors-server && npm run start\" ",
     "cy:open": "cypress open --browser chrome",
     "cy:run": "cypress run --browser chrome",
+    "backend": "cd cors-server && npm run start && cd ..",
     "stop": "taskkill -F -IM node.exe",
-    "fancy-test": "concurrently \"npm run all2 \" \"npx wait-on http://localhost:3000 && npm run cy:run \" "
+    "fancy-test": " start-server-and-test 'npm run all2 -c-1 --silent' 3000 'cypress run --spec cypress/e2e/register.cy.ts'",
+    "start:all": "concurrently \" npm start \" \" cd cors-server && npm run start\" \" sleep 15 && cypress run \" "
+
   },
   "eslintConfig": {
     "extends": [
@@ -63,6 +67,7 @@
   },
   "devDependencies": {
     "cypress": "^12.4.1",
+    "start-server-and-test": "^1.15.3",
     "tailwindcss": "^3.2.4",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.4"

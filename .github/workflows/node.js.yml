@@ -34,9 +34,9 @@ jobs:
       run: | 
         cd cors-server
         npm i
-    - name: Start frontend, backend
+    - name: Start frontend, backend and run test
       run: |
-        npm run fancy-test
+        npm run start:all
 
 #    - name: Run npm install in top folder
 #      run: npm i

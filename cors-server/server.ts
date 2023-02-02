@@ -15,6 +15,7 @@ server.use(cookieparser())
 
 export const db = require('better-sqlite3')('./db/database.db');
 
+
 server.get('/data', (req, res) => {
     res.send('NodeJS + Express + Typescript App Up! 👍');
 });
