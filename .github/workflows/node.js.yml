@@ -28,4 +28,5 @@ jobs:
         cache: 'npm'
         cache-dependency-path: '**/package-lock.json'
     - run: npm i
-    - run: npm run all2 & cy:run
+    - run: npm start
+    - run: npm cd cors-server && npm run start
