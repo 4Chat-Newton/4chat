@@ -1,7 +1,7 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
 
-name: Node.js CI
+name: Testing Frontend & Backend
 
 on:
   push:
@@ -27,15 +27,26 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
         cache-dependency-path: '**/package-lock.json'
-    - name: Run npm install in top folder
-      run: npm i
-    - name: cd into cors-server and npm install
+    - name: Install Dependencies
+      run: |
+        npm i
+    - name: Install dependencies in backend
       run: | 
         cd cors-server
         npm i
-    - name: Start react frontend
-      run: npm run start
-    - name: Start backend
-      run: | 
-        cd cors-server
-        npm run start
+    - name: Start frontend, backend
+      run: npm run all2
+    - name: Run tests
+      run: npm run cy:run
+#    - name: Run npm install in top folder
+#      run: npm i
+#    - name: cd into cors-server and npm install
+#      run: |
+#        cd cors-server
+#        npm i
+#    - name: Start react frontend
+#      run: npm run start
+#    - name: Start backend
+#      run: |
+#        cd cors-server
+#        npm run start
