@@ -1,6 +1,7 @@
 // @ts-ignore
 import * as cypress from "cypress";
 import {expect} from "chai";
+import {response} from "express";
 
 describe('Testing user functionality', () => {
 
@@ -71,4 +72,10 @@ describe('Testing user functionality', () => {
         } )
     })
 
+    it('', () => {
+        cy.wait(1000)
+        cy.request('GET', 'http://localhost:8080/data/exit' ).then( (res) => {
+            expect(res.body.message).to.eq("Done, Exiting in 2 seconds")
+        })
+    })
 })

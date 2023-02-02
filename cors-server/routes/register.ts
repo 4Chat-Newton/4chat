@@ -65,7 +65,7 @@ module.exports = function (server, db) {
 
             try {
                 const stmt = await db.prepare("DELETE FROM user WHERE username = @username").run(req.params)
-                console.log(stmt.changes)
+
                 return res.status(200).send({message: "User Deleted!"})
             }catch(e) {
                 console.log(e.message("Error: Delete on row 39"))

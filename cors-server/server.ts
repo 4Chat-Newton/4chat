@@ -31,7 +31,6 @@ signIn(server, db, false)
 signOut(server, db)
 
 server.get("/data/exit", async (req, res)=> {
-    // console.log(shutdown())
     // setTimeout(process.exit,2000)
     res.json({message: "Done, Exiting in 2 seconds"})
     await wait(2000)

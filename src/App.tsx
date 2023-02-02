@@ -1,7 +1,4 @@
 // import { useEffect, useState } from 'react';
-import Kill from "./Kill";
-import {useState} from "react";
-import kill from "./Kill";
 
 function App() {
 
@@ -17,8 +14,6 @@ function App() {
             justifyContent: "center",
             color: "wheat"
         }}>
-        <button onClick={kill}>Exit</button>
-
         </div>
     </div>
   );
