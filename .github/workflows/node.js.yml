@@ -27,6 +27,15 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
         cache-dependency-path: '**/package-lock.json'
-    - run: npm i
-    - run: npm start
-    - run: npm cd cors-server && npm run start
+    - name: Run npm install in top folder
+      run: npm ci
+    - name: cd into cors-server and npm install
+      run: | 
+        cd cors-server
+        npm ci
+    - name: Start react frontend
+      run: npm run start
+    - name: Start backend
+      run: | 
+        cd cors-server
+        npm run start
