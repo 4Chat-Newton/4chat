@@ -38,7 +38,7 @@
     "test:cy": "npm run all2",
     "eject": "react-scripts eject",
     "all": "concurrently \" npm start \" \" cd cors-server && npm run start2\" ",
-    "all2": "concurrently \" npm start \" \" cd cors-server && npm run start\" ",
+    "all2": "concurrently --kill-others \" npm start \" \" cd cors-server && npm run start\" ",
     "cy:open": "cypress open --browser chrome",
     "cy:run": "cypress run --browser chrome",
     "backend": "cd cors-server && npm run start && cd ..",
@@ -46,7 +46,7 @@
     "stop": "taskkill -F -IM node.exe",
     "stop2": "pkill node.exe",
     "fancy-test": "start-server-and-test 'npm run all2 -c-1 --silent' 3000 'cypress run --spec cypress/e2e/register.cy.ts'",
-    "start:all": "concurrently \" npm start \" \" cd cors-server && npm run start\" \" sleep 20 && cypress run  && npm run stop2\" "
+    "start:all": "concurrently --kill-others \" npm start \" \" cd cors-server && npm run start\" \" sleep 20 && cypress run\" "
 
   },
   "eslintConfig": {
