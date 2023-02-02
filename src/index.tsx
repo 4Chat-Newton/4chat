@@ -14,8 +14,3 @@ root.render(
   </Router>
   // </React.StrictMode>
 );
-
-process.on('SIGINT', () => {
-    console.log('Received SIGINT. Exiting...');
-    process.exit(0);
-});
