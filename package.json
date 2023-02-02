@@ -32,12 +32,12 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "test:cy": "concurrently \" npm start \" \" cd cors-server && npm run start\" \"npm run cy:run \"",
+    "test:cy": "concurrently \" npm run all2 \"  \"npm run cy:run \"",
     "eject": "react-scripts eject",
     "all": "concurrently \" npm start \" \" cd cors-server && npm run start2\" ",
     "all2": "concurrently \" npm start \" \" cd cors-server && npm run start\" ",
-    "cy:open": "cypress open",
-    "cy:run": "cypress run",
+    "cy:open": "cypress open --browser chrome",
+    "cy:run": "cypress run --browser chrome",
     "stop": "taskkill -F -IM node.exe"
   },
   "eslintConfig": {
