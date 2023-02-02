@@ -46,7 +46,7 @@
     "stop": "taskkill -F -IM node.exe",
     "stop2": "pkill node.exe",
     "fancy-test": "concurrently --kill-others \" npm run backend \" \" sleep 20\"",
-    "start:all": "concurrently --kill-others \" npm start \" \" cd cors-server && npm run start\" \" sleep 20 && cy:run\" "
+    "start:all": "concurrently --kill-others \" npm start || true \" \" cd cors-server && npm run start || true\" \" sleep 20 && cy:run\" "
 
   },
   "eslintConfig": {

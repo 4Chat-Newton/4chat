@@ -24,14 +24,14 @@ server.listen(port, () => {
     console.log(`Server running on port ${port}`);
     console.log(`${host}/data`);
 
-    process.on('exit', (code) => {
-        console.log(`Exiting with code: ${code}`);
-    });
-
-    process.on('SIGINT', () => {
-        console.log('Received SIGINT. Exiting...');
-        process.exit(0);
-    });
+    // process.on('exit', (code) => {
+    //     console.log(`Exiting with code: ${code}`);
+    // });
+    //
+    // process.on('SIGINT', () => {
+    //     console.log('Received SIGINT. Exiting...');
+    //     process.exit(0);
+    // });
 });
 
 require("./routes/register")(server, db)
