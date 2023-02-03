@@ -6,10 +6,10 @@ import BoxContainer from "../GlobalComponents/BoxContainer";
 export default function Chat() {
   return (
     <>
-    <BoxContainer>
-        <ChatWindow/>
+      <BoxContainer>
+        <ChatWindow />
         <div className="chatSeperator"></div>
-        <ChatMessage/>
+        <ChatMessage />
       </BoxContainer>
     </>
   );

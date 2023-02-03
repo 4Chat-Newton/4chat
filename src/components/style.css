@@ -2,12 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-:root{
+:root {
     --blue: #3763AA;
     --black: #1a1a1a;
     --grey: #303030;
     --white: #fff;
     --green: #85e23B;
+    --yellow: #c39818;
+    --red: #ee2829;
 }
 
 body {
@@ -20,7 +22,8 @@ body {
     background-image: var(--grey);
     font-family: Helvetica, sans-serif;
 }
-.boxContainer{
+
+.boxContainer {
     padding: 5px;
 }
 
@@ -33,7 +36,8 @@ body {
     background: var(--black);
     color: var(--blue);
 }
-#confirmPassword{
+
+#confirmPassword {
     background: var(--black);
     color: var(--blue);
 }

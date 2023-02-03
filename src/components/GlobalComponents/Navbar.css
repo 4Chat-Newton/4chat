@@ -6,7 +6,7 @@
     color: var(--white);
 }
 
-.nav-btn{
+.nav-btn {
     display: flex;
     justify-content: space-between;
     margin-right: 52px;

@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { signIn, signOut} from "./routes/authentication";
+import { signIn, signOut } from "./routes/authentication";
 import cookieparser from "cookie-parser";
 
 
