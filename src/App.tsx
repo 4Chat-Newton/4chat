@@ -10,14 +10,13 @@ function App() {
     text: "",
     time: "12.12",
   });
+
   const [messagesList, setMessagesList] = useState<any>([]);
-  const [messageReceived, setMessageReceived] = useState("");
+  const [responseMessagesList, setResponseMessagesList] = useState<any>([]);
 
   const handleChange = (e:any) => {
     const name = e.target.name
     const value = e.target.value
-
-    // console.log(name, value);
 
     setMessage({...message, [name]: value})
     
@@ -31,7 +30,7 @@ function App() {
       //todo lägg till kontroller för user och time
 
       socket.emit("message", {
-        text: message,
+        msg: message,
         // name: localStorage.getItem('userName'),//! ska kolla JWT token
         socketID: socket.id,
       });
@@ -51,17 +50,18 @@ function App() {
 
   useEffect(() => {
     socket.on("receive_message", (data) => {
-      // setMessage(data);
-      console.log("r38:", data);
+      //alert(data.msg.text);
+      const newMessage = { ...message };
+      setResponseMessagesList([...messagesList, newMessage]);
+      
+      console.log("r73:", data);
+      setMessage({
+        user: "as",
+        text: "",
+        time: "12.12",
+      });
     });
   }, [socket]);
-
-  // useEffect(() => {
-  //   socket.on("message", (data) => {
-  //     // setMessage(data);
-  //     console.log("r62:", data);
-  //   });
-  // }, [socket]);
 
   return (
     <div className="App">
@@ -76,8 +76,13 @@ function App() {
       </form>
       <h1>Message received:</h1>
       <ul id="message-list">
-        {messagesList.map((msg: any) => (
-           (<li>{msg.text}</li>)
+        {messagesList?.map((msg: any) => (
+           (<li key={socket.id}>{msg.text}</li>)
+        ))}
+      </ul>
+      <ul id="message-list">
+        {responseMessagesList?.map((msg: any) => (
+           (<li key={socket.id}>{msg.text}</li>)
         ))}
       </ul>
     </div>
