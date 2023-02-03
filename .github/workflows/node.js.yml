@@ -5,9 +5,9 @@ name: Testing Frontend & Backend
 
 on:
   push:
-    branches: [ "GG-103-Setup-Github-Actions-on-project" ]
+    branches: [ "dev" ]
   pull_request:
-    branches: [ "GG-103-Setup-Github-Actions-on-project" ]
+    branches: [ "dev" ]
 
 jobs:
   build:

@@ -1,7 +1,6 @@
 // @ts-ignore
 import * as cypress from "cypress";
 import {expect} from "chai";
-import {response} from "express";
 
 describe('Testing user functionality', () => {
 
