@@ -1,13 +1,14 @@
+import "./Navbar.css"
 
 export default function Navbar(){
 return<>
 
-<header className="msger-header bg-black-400">
-          <div className="msger-header-title bg-black-400">
+<header className="navbar-header">
+          <div className="nav-head">
             <img src="img/4chat.png" alt="4chat" className="mx-auto h-10 w-auto"/>
           </div>
 
-          <div className="msger-header-options">
+          <div className="navbar-header-options">
             <span>
               <i className="fas fa-cog"></i>
             </span>

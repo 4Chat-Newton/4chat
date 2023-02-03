@@ -1,8 +1,6 @@
-import "../style.css";
+import "./Inbox.css";
 
 export default function Inbox() {
-    
-
     
   return (
     <>

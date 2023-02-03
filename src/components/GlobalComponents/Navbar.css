@@ -1,0 +1,14 @@
+.navbar-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: var(--border);
+    background: var(--grey);
+    color: var(--white);
+}
+
+.nav-btn{
+    display: flex;
+    justify-content: space-between;
+    margin-right: 52px;
+    gap: 92px;
+}

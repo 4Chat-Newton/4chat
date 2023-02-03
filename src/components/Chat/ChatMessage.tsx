@@ -1,4 +1,5 @@
 import "../style.css";
+import "./Chat.css"
 
 export default function ChatMessage() {
   return (
