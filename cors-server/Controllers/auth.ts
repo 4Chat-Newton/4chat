@@ -7,10 +7,8 @@ export const requireSignin = (req: express.Request, res: express.Response) => {
         algorithms: ["HS256"],
     })
     if (!req.cookies.token) {
-        return res.status(401).json({ error: "Token not found!" })
-    }
-    res.status(200);
-
-
+        return res.status(401).json({ error: "Token not found!", status: false })
+    }  
+    return res.status(200).json({ msg: "Token found!", status: true});
+ 
 }
-export default { requireSignin }
