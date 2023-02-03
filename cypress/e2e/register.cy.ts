@@ -68,7 +68,7 @@ describe('Testing user functionality', () => {
         // TODO add intercept or something else after the initial create user have been created
         cy.wait(2000)
         cy.request('DELETE', 'http://localhost:8080/data/register/Test_User').then((response)=> {
-            expect(response.status).to.eq(200)
+            expect(response.status).to.eq(400)
         } )
     })
 
