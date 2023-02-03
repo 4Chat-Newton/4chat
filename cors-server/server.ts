@@ -38,8 +38,17 @@ io.on("connection", (socket) => {
 
   //Listens and logs the message to the console
   socket.on("message", (data) => {
-    console.log("server.ts", data);
-  });
+    io.emit("receive_message", data);
+    // socket.emit("receive_message", data);
+    console.log(data)})
+
+  socket.on("disconnect", (data) => {
+    console.log(`User disconnected: ${socket.id}`);
+  })
+  // socket.on("receive_message", (data) => {
+  //   console.log("server.ts", data);
+  //   socket.broadcast.emit("receive_message", data)
+  // });
 });
 
 require("./routes/register")(app, db);
