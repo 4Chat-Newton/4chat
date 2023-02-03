@@ -27,7 +27,6 @@
     "react-hook-form": "^7.42.1",
     "react-router-dom": "^6.7.0",
     "react-scripts": "5.0.1",
-    "wait-on": "^7.0.1",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
   },
@@ -35,19 +34,14 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "test:cy": "npm run all2",
     "eject": "react-scripts eject",
     "all": "concurrently \" npm start \" \" cd cors-server && npm run start2\" ",
     "all2": "concurrently --kill-others \" npm start \" \" cd cors-server && npm run start\" ",
     "cy:open": "cypress open --browser chrome",
     "cy:run": "cypress run --browser chrome",
-    "backend": "cd cors-server && npm run start && cd ..",
-    "backend:kill": "cd cors-server && npm run start && cd ..",
     "stop": "taskkill -F -IM node.exe",
     "stop2": "pkill node.exe",
-    "fancy-test": "concurrently --kill-others \" npm run backend \" \" sleep 20\"",
-    "start:all": "concurrently --kill-others --success first \" npm start \" \" cd cors-server && npm run start \" \" sleep 20 && npm run cy:run\""
-
+    "test:all": "concurrently --kill-others --success first \" npm start \" \" cd cors-server && npm run start \" \" sleep 20 && npm run cy:run\""
   },
   "eslintConfig": {
     "extends": [

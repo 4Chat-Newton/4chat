@@ -36,17 +36,4 @@ jobs:
         npm i
     - name: Start frontend, backend and run test
       run: |
-        npm run start:all
-
-#    - name: Run npm install in top folder
-#      run: npm i
-#    - name: cd into cors-server and npm install
-#      run: |
-#        cd cors-server
-#        npm i
-#    - name: Start react frontend
-#      run: npm run start
-#    - name: Start backend
-#      run: |
-#        cd cors-server
-#        npm run start
+        npm run test:all
