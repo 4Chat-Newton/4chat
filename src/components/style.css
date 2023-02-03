@@ -12,8 +12,9 @@ body {
     background-image: var(--body-bg);
     font-family: Helvetica, sans-serif;
 }
-#email{}
-
+.boxContainer{
+    padding: 5px;
+}
 .roomName{
     margin: 0;
     text-align: center;
