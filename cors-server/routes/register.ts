@@ -48,7 +48,7 @@ module.exports = function (server, db) {
                 await db.prepare("DELETE FROM user WHERE email = ?").run(email)
 
                 }catch(e) {
-                    console.log(e.message("Error: Delete on row 39"))
+                    console.log("Error: ", e)
                 }
 
 
@@ -64,11 +64,10 @@ module.exports = function (server, db) {
     server.delete("/data/register/:username", async (req: express.Request, res: express.Response) => {
 
             try {
-                const stmt = await db.prepare("DELETE FROM user WHERE username = @username").run(req.params)
-                console.log(stmt.changes)
+                await db.prepare("DELETE FROM user WHERE username = @username").run(req.params)
                 return res.status(200).send({message: "User Deleted!"})
             }catch(e) {
-                console.log(e.message("Error: Delete on row 39"))
+                console.log("Error: ", e)
                 return res.status(400).send({message: "User Not Deleted!"})
             }
     });
