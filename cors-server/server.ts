@@ -3,7 +3,6 @@ import cors from "cors";
 import { signIn, signOut } from "./routes/authentication";
 import cookieparser from "cookie-parser";
 
-
 const port: Number = 8080;
 const host: string = `http://localhost:${port}`;
 export const server: any = express();

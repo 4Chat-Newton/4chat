@@ -1,36 +1,19 @@
 // import { useEffect, useState } from 'react';
-
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 
 function App() {
 
-  return (
-    <div className='App'>
-      <header >
-        <h1>Hello World</h1>
-        <div>
-          <p>
-        <Link to="/login">
-          Login
-        </Link>
-        </p>
-        <p>
-        <Link to="/Register">
-          Register
-        </Link>
-        </p>
-        <p>
-        <Link to="/Chatroom">
-          Chatroom
-        </Link>
-        </p>
-        <Link to="/Terms">
-          Terms
-        </Link>
+
+    return (
+        <div className='App' style={{display: "flex", flexDirection: "column", alignItems: "center", color: "wheat"}}>
+            <header>
+                <h1>Hello 4chat</h1>
+            </header>
+            <span> <br/> </span>
+            <Link to={"/login"}> Login page</Link>
+            <Link to={"/register"}> Register page</Link>
         </div>
-      </header>
-    </div>
-  );
+    );
 }
 
 export default App;
