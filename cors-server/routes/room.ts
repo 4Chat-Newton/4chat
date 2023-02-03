@@ -1,31 +1,12 @@
 import { Room } from "./../../src/Types/Room";
 import { User } from "./../../src/Types/User";
 import requireSignin from "../validators/auth";
-import express from 'express';
+import express, { response, request } from 'express';
 import jwt from "jsonwebtoken";
 
 
-module.exports = function (server, db, validToken : boolean) {
-  if (validToken) {
-    server.put("/room", async (req: express.Request, res: express.Response) => {
-      const {creatorId, roomName} = req.body;
-      try {
-        const user = await roomName(creatorId, db)
-        if (!validToken) {
-          return res
-            .status(401)
-            .json({ error: "Invalid credentials!" });
-        }
-      } catch (error) {
-        
-      }
-    })
-  }
-}
+export const findRoom = async function (creatorId, db) {
 
-
-
-export const roomName = async function (creatorId, db) {
   try {
     const result = db
     .prepare(
@@ -43,6 +24,31 @@ export const roomName = async function (creatorId, db) {
     return null;
   }
 }
+
+module.exports = async function (server, db) {
+  const validToken =  requireSignin;
+ 
+  if (validToken) {
+    server.post("/room", async (req: express.Request, res: express.Response) => {
+      const {creatorId, roomName} = req.body;
+      try {
+        
+        const user = await findRoom(creatorId, db)
+
+        if (!validToken) {
+          return res
+            .status(401)
+            .json({ error: "Invalid credentials!" });
+        }
+      } catch (error) {
+        
+      }
+    })
+  }
+}
+
+
+
 //skapa en endpoint /room 
 
 // function checkJWTCookie() :string {
