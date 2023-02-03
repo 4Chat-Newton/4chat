@@ -1,6 +1,6 @@
 import { Room } from "./../../src/Types/Room";
 import { User } from "./../../src/Types/User";
-import requireSignin from "../validators/auth";
+import requireSignin from "../controllers/auth";
 import express, { response, request } from 'express';
 import jwt from "jsonwebtoken";
 
@@ -15,7 +15,7 @@ export const findRoom = async function (creatorId, db) {
     .get(creatorId);
 
     if (!result) {
-      console.log(`No user found with email ${creatorId}`);
+      console.log(`No user found with creator_id ${creatorId}`);
       return result;
   }
   return result;
@@ -27,22 +27,21 @@ export const findRoom = async function (creatorId, db) {
 
 module.exports = async function (server, db) {
   const validToken =  requireSignin;
- 
-  if (validToken) {
-    server.post("/room", async (req: express.Request, res: express.Response) => {
-      const {creatorId, roomName} = req.body;
-      try {
-        
-        const user = await findRoom(creatorId, db)
 
-        if (!validToken) {
-          return res
-            .status(401)
-            .json({ error: "Invalid credentials!" });
-        }
-      } catch (error) {
+  // if (validToken) {
+    
+    server.post("/room", async (req: express.Request, res: express.Response) => {
+      // try {
+        await db.prepare("INSERT INTO room (creator_id, name) VALUES(?,?)").run();
+
+      //   if (!validToken) {
+      //     return res
+      //       .status(401)
+      //       .json({ error: "Invalid credentials!" });
+      //   }
+      // } catch (error) {
         
-      }
+      // }
     })
   }
 }

@@ -2,8 +2,6 @@ import express from "express";
 import cors from "cors";
 import { signIn, signOut} from "./routes/authentication";
 import cookieparser from "cookie-parser";
-import userDetails from "./routes/room";
-
 
 const port: Number = 8080;
 const host: string = `http://localhost:${port}`;
@@ -30,3 +28,5 @@ signIn(server, db, true)
 signIn(server, db, false)
 signOut(server, db)
 
+
+require("./routes/room")(server, db)
