@@ -1,6 +1,6 @@
 import {useState} from "react"
 import {Link} from "react-router-dom"; //TODO add "Navigate" when needed
-import './style.css'
+import '../style.css'
 
 function Register() {
 

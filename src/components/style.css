@@ -12,7 +12,9 @@ body {
     background-image: var(--body-bg);
     font-family: Helvetica, sans-serif;
 }
-
+.boxContainer{
+    padding: 5px;
+}
 .roomName{
     margin: 0;
     text-align: center;
@@ -139,7 +141,8 @@ body {
 
 
 
-.email-address {
+#email {
+    background: #1a1a1a;
     color: #85e23b;
 }
 
@@ -147,12 +150,12 @@ body {
     background: #1a1a1a;
     color: aqua;
 }
-
-#email-address {
+#confirmPassword{
     background: #1a1a1a;
+    color: aqua;
 }
 
-#user-name {
+#username {
     background: #1a1a1a;
 }
 
