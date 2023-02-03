@@ -6,6 +6,5 @@ export default function ChatRoom(){
     <Navbar/>
     <Inbox/>
     <Chat/>
-    
     </>
 }
