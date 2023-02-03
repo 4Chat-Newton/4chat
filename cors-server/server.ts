@@ -40,9 +40,9 @@ signIn(server, db, true)
 signIn(server, db, false)
 signOut(server, db)
 
-server.get("/data/exit", async (req, res)=> {
-    setTimeout(process.exit,2000)
-    res.json({message: "Done, Exiting in 2 seconds"})
-    // await wait(2000)
-    // spawn('cd .. && pkill node.exe', [], { shell: true, stdio: 'inherit' })
-})
+// server.get("/data/exit", async (req, res)=> {
+//     setTimeout(process.exit,2000)
+//     res.json({message: "Done, Exiting in 2 seconds"})
+//     // await wait(2000)
+//     // spawn('cd .. && pkill node.exe', [], { shell: true, stdio: 'inherit' })
+// })
