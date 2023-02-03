@@ -36,7 +36,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "all": "concurrently \" npm start \" \" cd cors-server && npm run start2\" ",
-    "all2": "concurrently --kill-others \" npm start \" \" cd cors-server && npm run start\" ",
+    "all2": "concurrently \" npm start \" \" cd cors-server && npm run start\" ",
     "cy:open": "cypress open --browser chrome",
     "cy:run": "cypress run --browser chrome",
     "stop": "taskkill -F -IM node.exe",
