@@ -1,11 +1,12 @@
-import { useState } from "react";
 
 function App() {
-  const [message, setMessage] = useState({
-    user: "as",
-    text: "",
-    time: "12.12",
-  });
+  // let timeStamp = Date.now()
+
+  // const [message, setMessage] = useState({
+  //   user: "as",
+  //   text: "",
+  //   time: timeStamp,
+  // });
 
 
   return (

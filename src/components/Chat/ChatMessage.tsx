@@ -2,9 +2,10 @@ import { useState } from "react";
 import "../style.css";
 
 export default function ChatMessage({socket}:any) {
-
+  
   const [message, setMessage] = useState('');
-  const [messagesList, setMessagesList] = useState<any>([]);
+
+  let date = new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
 
   const handleSendMessage = (e:any) => {
     e.preventDefault();
@@ -12,7 +13,8 @@ export default function ChatMessage({socket}:any) {
     if (message.trim()) {
       socket.emit('message', {
         text: message,
-        // name: localStorage.getItem('userName'),//! ska kolla JWT token
+        user: 'signedInUser',//! ska kolla JWT token
+        timeStamp: date,
         id: `${socket.id}${Math.random()}`,
         socketID: socket.id,
       });
