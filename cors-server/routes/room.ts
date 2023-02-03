@@ -44,9 +44,6 @@ module.exports = async function (server, db) {
       // }
     })
   }
-}
-
-
 
 //skapa en endpoint /room 
 
