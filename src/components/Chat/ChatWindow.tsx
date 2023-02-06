@@ -11,7 +11,7 @@ export default function ChatWindow() {
         </section>
         <section className="chat">
           <ul className="text">
-            {Array(50).fill(null).map(() => (<p>oi</p>))}
+            a
           </ul>
         </section>
       </div>

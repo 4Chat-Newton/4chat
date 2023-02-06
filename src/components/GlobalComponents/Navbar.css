@@ -4,6 +4,7 @@
     border-bottom: var(--border);
     background: var(--grey);
     color: var(--white);
+    align-items: center;
 }
 
 .nav-btn {
