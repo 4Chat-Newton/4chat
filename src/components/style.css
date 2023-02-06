@@ -27,6 +27,13 @@ body {
     padding: 5px;
 }
 
+.buttonComponent {
+    color: var(--white);
+    font-family: sans-serif;
+    cursor: pointer;
+    transition-delay: 80ms;
+}
+
 #email {
     background: var(--black);
     color: var(--green);
