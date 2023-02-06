@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import App from "../../App";
-import Login from "../../Pages/Authentication/Login";
-import Register from "../../Pages/Authentication/Register";
-import Terms from "../../Pages/Terms";
-import ChatRoom from "../../Pages/ChatRoom";
+import Login from "../../pages/Authentication/Login";
+import Register from "../../pages/Authentication/Register";
+import Terms from "../../pages/Terms";
+import ChatRoom from "../../pages/ChatRoom";
 
 function ChatRouter() {
   return (
