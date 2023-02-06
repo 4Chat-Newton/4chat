@@ -2,22 +2,22 @@ import { Message } from "./Message";
 import { Report } from "./Report";
 import { User } from "./User";
 
-export class Room{
+export class Room {
     private _name: string;
-    
+
     private _bannedUsers: Array<User>;
-    
+
     private _users: Array<User>;
-    
+
 
     private _moderators: Array<User>;
-    
+
     private _creator: User;
-    
+
     private _log: Array<Message>;
-    
+
     private _reports: Array<Report>;
-    
+
 
     constructor(
         name: string,
@@ -27,9 +27,9 @@ export class Room{
         creator: User,
         log: Array<Message>,
         reports: Array<Report>
-    ){
+    ) {
         this._name = name,
-        this._bannedUsers = bannedUsers
+            this._bannedUsers = bannedUsers
         this._users = users
         this._moderators = moderators
         this._creator = creator

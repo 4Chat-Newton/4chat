@@ -12,6 +12,7 @@ function App() {
             <span> <br/> </span>
             <Link to={"/login"}> Login page</Link>
             <Link to={"/register"}> Register page</Link>
+            <Link to={"/Chatroom"}> Chatroom page</Link>
         </div>
     );
 }
