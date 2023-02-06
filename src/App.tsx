@@ -2,7 +2,13 @@
 import {Link} from "react-router-dom";
 
 function App() {
+  // let timeStamp = Date.now()
 
+  // const [message, setMessage] = useState({
+  //   user: "as",
+  //   text: "",
+  //   time: timeStamp,
+  // });
 
     return (
         <div className='App' style={{display: "flex", flexDirection: "column", alignItems: "center", color: "wheat"}}>
@@ -12,6 +18,7 @@ function App() {
             <span> <br/> </span>
             <Link to={"/login"}> Login page</Link>
             <Link to={"/register"}> Register page</Link>
+            <Link to={"/Chatroom"}> Chatroom page</Link>
         </div>
     );
 }

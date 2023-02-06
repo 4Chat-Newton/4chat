@@ -1,6 +1,5 @@
-import {useState} from "react"
-import {Link} from "react-router-dom"; //TODO add "Navigate" when needed
-import './style.css'
+import { useState } from "react"
+import { Link } from "react-router-dom"; //TODO add "Navigate" when needed
 
 function Register() {
 
@@ -11,7 +10,7 @@ function Register() {
     const [acceptTerms, setAcceptTerms] = useState(false);
 
     const handleUserInput = (e: any) => {
-        const {id, value} = e.target;
+        const { id, value } = e.target;
         if (id === "email") {
             setEmail(value);
         }
@@ -31,7 +30,7 @@ function Register() {
             //TODO fetch should be '/data/register'
             await fetch('http://localhost:8080/data/register', {
                 method: 'POST',
-                headers: {'Content-Type': 'application/json'},
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     username: username,
                     email: email,
@@ -45,18 +44,18 @@ function Register() {
                         //TODO add online status to body json
                         fetch('http://localhost:8080/data/login', {
                             method: 'POST',
-                            headers: {'Content-Type': 'application/json'},
+                            headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({
                                 email: email,
                                 password: password,
                             })
                         }).then(function (response) {
                             console.log(response)
-                                if (response.ok === true) {
-                                    alert("User successfully registered!")
-                                } else {
-                                    alert("The username or email is already in use!")
-                                }
+                            if (response.ok === true) {
+                                alert("User successfully registered!")
+                            } else {
+                                alert("The username or email is already in use!")
+                            }
 
                         });//.then(navigate("/room"))
                     }
@@ -74,7 +73,7 @@ function Register() {
             <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
                 <div className="w-full max-w-md space-y-8">
                     <div>
-                        <img src="img/4chat.png" className="mx-auto h-20 w-auto" alt="logo"/>
+                        <img src="img/4chat.png" className="mx-auto h-20 w-auto" alt="logo" />
                     </div>
 
 
@@ -142,7 +141,7 @@ function Register() {
                                 <br></br>
 
                                 <a href="/terms"
-                                   className="font-medium text-indigo-600 hover:text-indigo-500 text-decoration-line: underline">
+                                    className="font-medium text-indigo-600 hover:text-indigo-500 text-decoration-line: underline">
                                     Terms & Conditions
                                 </a>
 
@@ -152,10 +151,10 @@ function Register() {
 
                     <div>
                         <Link to="/login" className="bg-gray-700 px-7 py-2 text-blue-700 mr-20" type="submit"
-                              id="cancel_btn">Cancel
+                            id="cancel_btn">Cancel
                         </Link>
                         <button className="bg-gray-700 px-6 py-2 text-blue-700 ml-40" type="submit"
-                                name="submit_btn" id="submit_btn" onClick={handleSubmit}>Submit
+                            name="submit_btn" id="submit_btn" onClick={handleSubmit}>Submit
                         </button>
                     </div>
 
