@@ -6,9 +6,8 @@ import BoxContainer from "../GlobalComponents/BoxContainer";
 export default function Chat() {
   return (
     <>
-      <BoxContainer>
+      <BoxContainer className="chatContainer">
         <ChatWindow />
-        <div className="chatSeperator"></div>
         <ChatMessage />
       </BoxContainer>
     </>

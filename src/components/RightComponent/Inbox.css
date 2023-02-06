@@ -6,6 +6,7 @@
     width: 16%;
     margin: 5px;
     overflow: hidden;
+    flex:20;
 }
 
 .inboxBtns{
