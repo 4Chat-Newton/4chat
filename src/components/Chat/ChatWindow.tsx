@@ -1,8 +1,7 @@
 import "./Chat.css"
 
-export default function ChatWindow() {
+export default function ChatWindow({messages: socketRespons}:any) {
   return (
-    <>
       <div className="chatWindow">
         <section className="roomName">
           <div className="roomName-header">
@@ -11,14 +10,11 @@ export default function ChatWindow() {
         </section>
         <section className="chat">
           <ul className="text">
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.imilique
-              autem placeat adipisci voluptatem nam quibusdam?
-            </p>
-            {Array(50).fill(null).map(() => (<p>oi</p>))}
+            {socketRespons.map((msg: any) => (
+           (<li key={msg.id}>{`[${msg.timeStamp}][${msg.user}]: ${msg.text}`}</li>)
+        ))}
           </ul>
         </section>
       </div>
-    </>
   );
 }
