@@ -1,4 +1,3 @@
-import ButtonComponent from "./ButtonComponent"
 import "./Navbar.css"
 
 export default function Navbar() {
@@ -16,8 +15,9 @@ export default function Navbar() {
       </div>
 
       <div className="nav-btn">
-        <ButtonComponent className="settings-btn">Settings</ButtonComponent>
-        <ButtonComponent className="signOut-btn">Sign out</ButtonComponent>
+        <button className="settings-btn">Settings</button>
+        <button className="signOut-btn">Sign out</button>
+
       </div>
     </header>
   </>

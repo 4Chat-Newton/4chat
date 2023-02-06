@@ -1,14 +1,13 @@
-import ButtonComponent from "../GlobalComponents/ButtonComponent";
 import "./Inbox.css";
 
 export default function Inbox() {
 
   return (
     <>
-      <section className="inbox">
-        <div className="inboxBtns">
-          <ButtonComponent className="inboxBtn">Inbox</ButtonComponent>
-          <ButtonComponent className="roomsBtn">Rooms</ButtonComponent>
+      <section className="tabs">
+        <div className="tabsdiv">
+          <button className="inbox">Inbox</button>
+          <button className="rooms">Rooms</button>
         </div>
       </section>
     </>
