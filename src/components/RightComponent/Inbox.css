@@ -1,4 +1,4 @@
-.tabs {
+.inbox {
     background-color: var(--black);
     position: absolute;
     right: 0;
@@ -8,26 +8,7 @@
     overflow: hidden;
 }
 
-.inbox {
-    color: var(--white);
-    background-color: var(--black);
-    align-items: left;
-    font-family: sans-serif;
-    justify-content: space-evenly;
-    cursor: pointer;
-    transition-delay: 80ms;
-
-}
-
-.rooms {
-
-    color: var(--white);
-    font-family: sans-serif;
-    justify-content: center;
-    cursor: pointer;
-    transition-delay: 80ms;
-}
-.tabsdiv{
+.inboxBtns{
     display: flex;
     justify-content: space-evenly;
 }
