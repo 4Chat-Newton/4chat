@@ -54,5 +54,4 @@ signIn(app, db, true);
 signIn(app, db, false);
 signOut(app, db);
 
-
-require("./routes/room")(server, db)
+require("./routes/room")(app, db)
