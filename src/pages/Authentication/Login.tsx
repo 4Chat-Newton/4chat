@@ -1,6 +1,5 @@
-import React, {useState} from "react";
-import "../style.css";
-import {Link} from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Login() {
 
@@ -8,7 +7,7 @@ export default function Login() {
     const [password, setPassword] = useState(null);
 
     const handleUserInput = (e: any) => {
-        const {id, value} = e.target;
+        const { id, value } = e.target;
         if (id === "email") {
             setEmail(value);
         }
@@ -21,7 +20,7 @@ export default function Login() {
         //TODO fetch should be '/data/login'
         await fetch('http://localhost:8080/data/login', {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 email: email,
                 password: password,
@@ -55,7 +54,7 @@ export default function Login() {
                         <p className="mt-2 text-center text-sm text-gray-600">
                         </p>
                     </div>
-                    <input type="hidden" name="remember" defaultValue="true"/>
+                    <input type="hidden" name="remember" defaultValue="true" />
                     <div className="-space-y-px rounded-md shadow-sm">
                         <div>
                             <label htmlFor="email-address" className="sr-only">

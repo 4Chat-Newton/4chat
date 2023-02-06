@@ -1,10 +1,10 @@
-import "../style.css";
+import "./Chat.css"
 
 export default function ChatWindow({messages: socketRespons}:any) {
   return (
       <div className="chatWindow">
         <section className="roomName">
-          <div className="roomName-header bg-blue-700">
+          <div className="roomName-header">
             <h1>#Room</h1>
           </div>
         </section>

@@ -1,9 +1,7 @@
-import "../style.css";
+import "./Inbox.css";
 
 export default function Inbox() {
-    
 
-    
   return (
     <>
       <section className="tabs">

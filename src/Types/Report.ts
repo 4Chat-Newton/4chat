@@ -2,13 +2,13 @@ import { User } from "./User";
 
 export class Report {
     private _reportedUserId: number;
-    
+
     private _message: string;
-    
+
     private _timeStamp: Date;
-    
+
     private _creator: User;
-    
+
 
     constructor(
         reportedUserId: number,
@@ -24,7 +24,7 @@ export class Report {
 
 
     //------------ Accessors -------------
-    
+
     public get reportedUserId_1(): number {
         return this._reportedUserId;
     }
