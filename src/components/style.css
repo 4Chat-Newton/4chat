@@ -21,6 +21,7 @@ body {
     margin-right: 0px;
     background-image: var(--grey);
     font-family: Helvetica, sans-serif;
+    overflow: hidden;
 }
 
 .boxContainer {
