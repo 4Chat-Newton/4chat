@@ -5,9 +5,7 @@
   color: white;
   background: var(--black);
   width: 83%;
-  height: 92%;
   overflow: auto;
-  position: fixed;
   margin: 5px;
 }
 
@@ -21,7 +19,7 @@
 }
 
 .chat {
-  overflow-y: auto;
+  overflow-y: none;
   flex: 1;
 }
 
@@ -50,14 +48,13 @@
   width: 100%;
   padding-left: 5px;
   padding-right: 5px;
+  
 }
 
 /* ChatMessage.tsx */
 .msg {
   width: 84%;
-  position: absolute;
   padding-left: 5px;
-  padding-right: 11px;
   bottom: 0;
   display: flex;
   align-items: flex-end;
@@ -65,7 +62,6 @@
 
 .msg:last-of-type {
   margin: 0;
-  position: absolute;
 
 }
 
@@ -82,3 +78,7 @@
   padding-right: 5px;
 
 }
+.chatBox{
+  display: flex;
+  justify-content:space-evenly;
+} 
