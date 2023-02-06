@@ -4,10 +4,7 @@
   flex-direction: column;
   color: white;
   background: var(--black);
-  width: 83%;
-  height: 92%;
   overflow: auto;
-  position: fixed;
   margin: 5px;
 }
 
@@ -50,23 +47,15 @@
   width: 100%;
   padding-left: 5px;
   padding-right: 5px;
+  
 }
 
 /* ChatMessage.tsx */
 .msg {
-  width: 84%;
-  position: absolute;
   padding-left: 5px;
-  padding-right: 11px;
   bottom: 0;
   display: flex;
   align-items: flex-end;
-}
-
-.msg:last-of-type {
-  margin: 0;
-  position: absolute;
-
 }
 
 .msger-input {
@@ -81,4 +70,16 @@
   cursor: pointer;
   padding-right: 5px;
 
+}
+
+.chatBox{
+  display:flex;
+  width: 83vw;
+  height: 95vh;
+}
+
+.chatContainer{
+flex: 80;
+display: flex;
+flex-direction: column;
 }

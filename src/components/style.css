@@ -21,10 +21,18 @@ body {
     margin-right: 0px;
     background-image: var(--grey);
     font-family: Helvetica, sans-serif;
+    overflow: hidden;
 }
 
 .boxContainer {
     padding: 5px;
+}
+
+.buttonComponent {
+    color: var(--white);
+    font-family: sans-serif;
+    cursor: pointer;
+    transition-delay: 80ms;
 }
 
 #email {

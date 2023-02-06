@@ -1,7 +1,8 @@
 import "./Chat.css"
 
-export default function ChatWindow({messages: socketRespons}:any) {
+export default function ChatWindow() {
   return (
+    <>
       <div className="chatWindow">
         <section className="roomName">
           <div className="roomName-header">
@@ -10,11 +11,10 @@ export default function ChatWindow({messages: socketRespons}:any) {
         </section>
         <section className="chat">
           <ul className="text">
-            {socketRespons.map((msg: any) => (
-           (<li key={msg.id}>{`[${msg.timeStamp}][${msg.user}]: ${msg.text}`}</li>)
-        ))}
+            {Array(50).fill(null).map(() => (<p>oi</p>))}
           </ul>
         </section>
       </div>
+    </>
   );
 }

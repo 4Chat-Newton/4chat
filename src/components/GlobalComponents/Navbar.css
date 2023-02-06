@@ -7,8 +7,9 @@
 }
 
 .nav-btn {
+    width: 16%;
+    position: absolute;
+    right: 0;
     display: flex;
-    justify-content: space-between;
-    margin-right: 52px;
-    gap: 92px;
+    justify-content:space-evenly;
 }
