@@ -24,7 +24,9 @@ server.listen(port, () => {
 });
 
 require("./routes/register")(server, db)
+require("./routes/settings")(server, db)
 
 signIn(server, db, true)
 signIn(server, db, false)
 signOut(server, db)
+
