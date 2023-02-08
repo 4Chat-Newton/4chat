@@ -63,6 +63,8 @@
   flex: 1;
   background: var(--black);
   padding:10px;
+  color: var(--white);
+  outline: none;
 }
 
 .send {
