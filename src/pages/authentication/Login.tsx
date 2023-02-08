@@ -29,12 +29,12 @@ export default function Login() {
             // console.log("Check", response)
             if (response.ok === true) {
                 // console.log("logged in", response.status)
-                // return response
                 alert("Logged in!")
+                return response.status
             } else {
                 alert("Couldn't log in!")
                 // console.log("Couldn't log in", response.status)
-                // return response
+                return response
             }
 
         });//.then(navigate("/room"))
