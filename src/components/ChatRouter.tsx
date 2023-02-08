@@ -2,6 +2,7 @@ import {Routes, Route} from "react-router-dom" //TODO add "BrowserRouter as Rout
 import App from "../App";
 import Login from "./Login";
 import Register from "./Register"
+//import Settings from "./Settings"
 
 function ChatRouter() {
 
@@ -10,6 +11,7 @@ function ChatRouter() {
         <Route path="/" element={ <App /> } />
         <Route path="/login" element={ <Login /> } />
         <Route path="/register" element={ <Register /> } />
+        <Route path="/settings" element={<></> } />
     </Routes>
     </>
 

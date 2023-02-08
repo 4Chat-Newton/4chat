@@ -26,19 +26,13 @@ export default function Login() {
                 email: email,
                 password: password,
             })
-        }).then(function (response) {
-            // console.log("Check", response)
-            if (response.ok === true) {
-                // console.log("logged in", response.status)
-                // return response
+        }).then(function (response) {         
+            if (response.ok === true) {             
                 alert("Logged in!")
             } else {
                 alert("Couldn't log in!")
-                // console.log("Couldn't log in", response.status)
-                // return response
             }
-
-        });//.then(navigate("/room"))
+        });
 
     }
 
