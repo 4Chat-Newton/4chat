@@ -31,8 +31,8 @@ const io = new Server(server, {
 });
 
 server.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-    console.log(`${host}/data`);
+  console.log(`Server running on port ${port}`);
+  console.log(`${host}/data`);
 });
 
 io.on('connection', (socket)=>{
@@ -49,11 +49,12 @@ io.on('connection', (socket)=>{
   });
 
 })
-require("./routes/register")(server, db)
 
-signIn(server, db, true)
-signIn(server, db, false)
-signOut(server, db)
+require("./routes/register")(app, db);
+
+signIn(app, db, true);
+signIn(app, db, false);
+signOut(app, db);
 
 // require("./routes/room")(app, db)
 createRoom(app, db)
