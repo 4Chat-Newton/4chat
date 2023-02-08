@@ -1,21 +1,30 @@
 import { useState } from "react";
-import ButtonComponent from "../GlobalComponents/ButtonComponent";
 import "./Inbox.css";
+import InboxTab from "./Tabs/InboxTab";
+import RoomTab from "./Tabs/RoomTab";
 
 export default function Inbox() {
 
-  const [isActive, setActive] = useState(true);
-  const toggleClass = () => {
-    setActive(!isActive);
+  const[activeTab, setActiveTab] = useState("inbox")
+
+  const handleInbox = () =>{
+    setActiveTab("inbox")
+  }
+  
+  const handleRoom = () =>{
+    setActiveTab("rooms")
   }
 
 
   return (
     <>
       <section className="inbox">
-        <div className="inboxBtns">
-      <ButtonComponent onClick={()=> setActive(!isActive)} className={isActive ? "active" : null}>Inbox</ButtonComponent>
-          <ButtonComponent className="roomsBtn">Rooms</ButtonComponent>
+        <ul className="inboxBtns">
+          <li className={activeTab === "inbox" ? "active" : ""} onClick={handleInbox}>Inbox</li>
+          <li className={activeTab === "rooms" ? "active" : ""} onClick={handleRoom}>Rooms</li>
+        </ul>
+        <div className="outlet">
+          {activeTab === "inbox" ? <InboxTab /> : <RoomTab />}
         </div>
       </section>
     </>

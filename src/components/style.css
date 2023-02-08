@@ -11,7 +11,8 @@
     --yellow: #c39818;
     --red: #ee2829;
 }
-*{
+
+* {
     margin: 0px;
 }
 
@@ -35,16 +36,21 @@ body {
     color: var(--white);
     font-family: sans-serif;
     cursor: pointer;
-    /* transition-delay: 80ms; */
     transition: .3s;
     width: 100%;
     padding: 10px;
 }
-/* .buttonComponent:active{
-    background-color: red;
-} */
-.buttonComponent:hover{
+
+.buttonComponent:hover {
     background-color: var(--blue);
+}
+
+.tabComponent {
+    background-color: var(--black);
+    height: 100%;
+    width: 16%;
+    overflow: hidden;
+    color: var(--white);
 }
 
 #email {

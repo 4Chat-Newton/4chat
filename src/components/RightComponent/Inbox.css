@@ -1,15 +1,32 @@
 .inbox {
     background-color: var(--black);
-    /* position: absolute; */
-    /* right: 0; */
     height: 100%;
     width: 16%;
-    /* margin: 5px; */
     overflow: hidden;
-    /* flex:20; */
 }
 
 .inboxBtns{
     display: flex;
     justify-content: space-evenly;
+}
+
+.inboxBtns li {
+    color: var(--white);
+    font-family: sans-serif;
+    cursor: pointer;
+    transition: .3s;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+}
+
+ .inboxBtns li:active{
+    background-color: var(--blue);
+} 
+.inboxBtns li:hover {
+    background-color: var(--blue);
+}
+
+.tab{
+    display: none;
 }
