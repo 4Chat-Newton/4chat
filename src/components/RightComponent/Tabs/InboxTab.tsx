@@ -5,7 +5,7 @@ const InboxTab = () =>{
     return (
         <TabComponent className="InboxTab">
             <h2>DM</h2>
-            {Array(50).fill(null).map(() => (<p>HelloHelloHelloHello</p>))}
+            Establish database connection 
         </TabComponent>
     );
 };
