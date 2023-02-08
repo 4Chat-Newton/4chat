@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import ChatRouter from "./components/ChatRouter"
+import ChatRouter from "./components/GlobalComponents/ChatRouter"
 import { BrowserRouter as Router } from "react-router-dom";
 
 const root = ReactDOM.createRoot(
@@ -9,7 +9,7 @@ const root = ReactDOM.createRoot(
 root.render(
   // <React.StrictMode>
   <Router>
-    < ChatRouter/>
+    < ChatRouter />
   </Router>
   // </React.StrictMode>
 );

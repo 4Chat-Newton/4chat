@@ -26,7 +26,7 @@ export class Message {
     }
 
     // -------------- Accessors -------------
-    
+
     public get roomId(): number {
         return this._roomId;
     }
