@@ -1,7 +1,7 @@
 import {Request, Response} from "express";
 import jwt from "jsonwebtoken";
 import cookieparser from "cookie-parser";
-import {findUser, requireSignin, validateUser} from "../controllers/authentication";
+import {cookieJwtAuth, findUser, requireSignin, validateUser} from "../controllers/authentication";
 
 // export const signIn = async function (server, db: any) {
 //
@@ -91,12 +91,15 @@ export const signIn = async function (server, db: any) {
     }
     // const isLoggedIn = db.prepare("SELECT online FROM user WHERE id = ?")
     server.post("/data/login", async (req: Request, res: Response) => {
-        isLoggedIn = requireSignin(req, res)
+        // isLoggedIn = requireSignin(req, res)
+
+        // const data = jwt.verify(req.cookies.token, "secret_key");
 
         console.log("isLoggedIn.status: ", isLoggedIn.status)
         console.log("isLoggedIn.id: ", isLoggedIn.id)
-        if (!isLoggedIn.status && isLoggedIn.id !== null) {
 
+        // if (!isLoggedIn.status) {
+            console.log("Try to log in User")
             // Extract the user's credentials from the request body
             const {email, password} = req.body;
             // Verify the user's credentials against the database
@@ -143,12 +146,12 @@ export const signIn = async function (server, db: any) {
                     .json({error: "Internal server error"});
             }
 
-        } else {
-            console.log("User already logged in")
-            return res
-                .status(400)
-                .json({message: "User already logged in", loggedIn: true});
-        }
+        // } else {
+        //     console.log("User already logged in")
+        //     return res
+        //         .status(400)
+        //         .json({message: "User already logged in", loggedIn: true});
+        // }
 
 
     });
@@ -187,4 +190,21 @@ export const signOut = async function (server, db: any) {
     })
 }
 
-export default {signIn, signOut};
+export const getSignInUser = async function (server, db:any) {
+    let isLoggedIn = {
+        id: "",
+        status: false
+    }
+    server.get('/data/login', async (req, res) => {
+        isLoggedIn = requireSignin(req, res)
+
+        console.log("Get user Cookie: ", req.cookie.token )
+        if( isLoggedIn.status) {
+            return res.status(200).json({ message: `User ${isLoggedIn.id} is logged in`, loggedIn: true})
+        } else {
+            return res.status(200).json({ message: `User is not logged in`, loggedIn: false})
+        }
+    })
+}
+
+export default {signIn, signOut, getSignInUser};
