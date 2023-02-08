@@ -22,22 +22,6 @@
   flex: 1;
 }
 
-.chat::-webkit-scrollbar {
-  width: 10px;
-}
-
-.chat::-webkit-scrollbar-track {
-  background: var(--grey);
-}
-
-.chat::-webkit-scrollbar-thumb {
-  background: var(--black);
-}
-
-
-.chat::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
 
 .text {
   height: 100%;

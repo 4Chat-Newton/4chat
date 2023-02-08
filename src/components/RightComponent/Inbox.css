@@ -2,7 +2,7 @@
     background-color: var(--black);
     height: 100%;
     width: 16%;
-    overflow: hidden;
+    overflow: auto;
 }
 
 .inboxBtns{
@@ -11,6 +11,7 @@
 }
 
 .inboxBtns li {
+    background-color: var(--grey);
     color: var(--white);
     font-family: sans-serif;
     cursor: pointer;
@@ -20,8 +21,8 @@
     text-align: center;
 }
 
- .inboxBtns li:active{
-    background-color: var(--blue);
+ .inboxBtns li.active{
+    background-color: var(--black);
 } 
 .inboxBtns li:hover {
     background-color: var(--blue);

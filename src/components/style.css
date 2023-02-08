@@ -25,6 +25,11 @@ body {
     overflow: hidden;
 }
 
+h2{
+    font-weight: bold;
+    font-size: x-large;
+}
+
 .buttonComponent {
     color: var(--white);
     font-family: sans-serif;
@@ -41,9 +46,9 @@ body {
 .tabComponent {
     background-color: var(--black);
     height: 100%;
-    width: 16%;
-    overflow: hidden;
+    width: 100%;
     color: var(--white);
+    text-align: center;
 }
 
 #email {
@@ -68,3 +73,20 @@ body {
 html {
     box-sizing: border-box;
 }
+
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: var(--grey);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: var(--black);
+  }
+  
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
