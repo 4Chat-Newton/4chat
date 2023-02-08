@@ -1,4 +1,3 @@
-/* ChatWindow.tsx */
 .chatWindow {
   display: flex;
   flex-direction: column;
@@ -23,22 +22,19 @@
   flex: 1;
 }
 
-/* width */
 .chat::-webkit-scrollbar {
   width: 10px;
 }
 
-/* Track */
 .chat::-webkit-scrollbar-track {
   background: var(--grey);
 }
 
-/* Handle */
 .chat::-webkit-scrollbar-thumb {
   background: var(--black);
 }
 
-/* Handle on hover */
+
 .chat::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
@@ -51,10 +47,7 @@
   
 }
 
-/* ChatMessage.tsx */
 .msg {
-  /* padding-left: 5px; */
-  /* bottom: 0; */
   display: flex;
   align-items: flex-end;
 }
@@ -71,7 +64,6 @@
   color: #fff;
   font-weight: bold;
   cursor: pointer;
-  /* padding-right: 5px; */
   width:10%;
   height: 100%;
   background-color: var(--blue);

@@ -20,17 +20,10 @@ body {
     background: var(--grey);
     height: 100%;
     width: 100%;
-    /* margin-top: 0px;
-    margin-left: 0px;
-    margin-right: 0px; */
     background-image: var(--grey);
     font-family: Helvetica, sans-serif;
     overflow: hidden;
 }
-
-/* .boxContainer {
-    padding: 5px;
-} */
 
 .buttonComponent {
     color: var(--white);
