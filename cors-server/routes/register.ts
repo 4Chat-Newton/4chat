@@ -1,5 +1,5 @@
 import express from 'express';
-import {encryptPassword, validateUser, findUser} from '../controllers/authentication';
+import {encryptPassword, validateUser, findUser} from './authentication';
 
 module.exports = function (server, db) {
 

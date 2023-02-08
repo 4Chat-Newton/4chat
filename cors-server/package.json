@@ -25,7 +25,6 @@
     "better-sqlite3": "^8.0.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "express-jwt": "^8.4.0",
     "express-session": "^1.17.3",
     "jsonwebtoken": "^9.0.0",
     "nodemon": "^2.0.20",
