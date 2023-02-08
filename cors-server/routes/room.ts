@@ -1,5 +1,6 @@
 import { requireSignin } from "../controllers/authentication";
 import express, { response, request } from 'express';
+import { stat } from "fs";
 
 export const findExistingRoom = async function (name, db) {
   try {
@@ -22,7 +23,7 @@ export const findExistingRoom = async function (name, db) {
 
 export const createRoom = async function (server, db) {
   server.post("/data/room", async (req: express.Request, res: express.Response) => {
-    const {id, status} = requireSignin(req, res);
+    const { id, status } = requireSignin(req, res);
     const { name } = req.body;
     const existingRoom = await findExistingRoom(name, db)
 
@@ -32,39 +33,62 @@ export const createRoom = async function (server, db) {
         if (!existingRoom) {
 
           await db.prepare("INSERT INTO room (creator_id, name) VALUES(?,?)").run(id, name);
-          return res.status(200).json({msg: "Room created"})
+          return res.status(200).json({ msg: "Room created" })
         } else {
-          return res.status(400).json({error: `Room "${name}" already exists!`})
+          return res.status(400).json({ error: `Room "${name}" already exists!` })
         }
       } catch (e) {
         return res
-            .status(400)
-            .json({ error: "Failed to create room" });
+          .status(400)
+          .json({ error: "Failed to create room" });
       }
     } else {
       return res
-          .status(400)
-          .json({ error: "Invalid Credentials!" });
+        .status(400)
+        .json({ error: "Invalid Credentials!" });
     }
   })
 }
 
-export const getAllRooms = async function (server, db){
+export const getAllRooms = async function (server, db) {
   server.get("/data/room", async (req: express.Request, res: express.Response) => {
     try {
       const result = await db
-          .prepare(
-              "SELECT * FROM room"
-          )
-          .get();
+        .prepare(
+          "SELECT * FROM room"
+        )
+        .all();
       return res.status(200).send(result)
-    } catch(e) {
+    } catch (e) {
       return res.status(400).send("Failed to retrieve rooms!")
     }
-})
+  })
 }
 
-export const deleteRoom = async function (server, db){
+export const joinRoom = async function (server, db) {
+  server.post("/data/room/join", async (req: express.Request, res: express.Response) => {
+    const { id, status } = requireSignin(req, res);
+    const { room_id } = req.body;
+    const roomCheck = await db.prepare("SELECT * FROM joined_room WHERE user_id = ? AND room_id = ?").get(id, room_id);
+    
+    if (status && roomCheck == undefined) {
+      try {
+          await db.prepare("INSERT INTO joined_room (user_id, room_id) VALUES(?,?)").run(id, room_id);
+          return res.status(200).json({ msg: "Room joined" })
+      } catch (e) {
+        return res
+          .status(400)
+          .json({ error: "Failed to join room" });
+      }
+    } else {
+      return res
+        .status(400)
+        .json({ error: "Room already joined !" });
+    }
+  })
+}
+
+export const deleteRoom = async function (server, db) {
   server.delete("/data/room", async (req: express.Request, res: express.Response) => {
 
     const existingRoom = await findExistingRoom(req.body.name, db)
@@ -74,7 +98,7 @@ export const deleteRoom = async function (server, db){
       try {
         await db.prepare("DELETE FROM room WHERE name = ?").run(req.body.name);
         return res.status(200).send(`Room '${req.body.name}' has been deleted!`)
-      } catch(e) {
+      } catch (e) {
         return res.status(400).send(`Failed to delete room '${req.body.name}'!`)
       }
     }
