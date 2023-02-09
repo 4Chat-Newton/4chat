@@ -7,6 +7,8 @@ export default function ChatMessage({socket}: any) {
 
     let date = new Date().toLocaleTimeString("en-GB", {hour: "2-digit", minute: "2-digit"});
 
+
+    
     const handleSendMessage = (e: any) => {
         e.preventDefault();
         console.log({message});
