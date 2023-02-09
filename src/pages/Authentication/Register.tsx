@@ -1,8 +1,9 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"; //TODO add "Navigate" when needed
+import { Link, useNavigate } from "react-router-dom"; //TODO add "Navigate" when needed
 
 function Register() {
 
+    const navigate = useNavigate();
     const [email, setEmail] = useState(null);
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
@@ -53,11 +54,12 @@ function Register() {
                             console.log(response)
                             if (response.ok === true) {
                                 alert("User successfully registered!")
+                                navigate("/login")
                             } else {
                                 alert("The username or email is already in use!")
                             }
 
-                        });//.then(navigate("/room"))
+                        });
                     }
                 });
         } else if (password !== confirmPassword) {

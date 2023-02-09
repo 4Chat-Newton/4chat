@@ -7,19 +7,27 @@ export default function Navbar() {
   const navigate = useNavigate();
 
   const handleSignout = async () => {
-    //TODO fetch should be '/data/login'
-    await fetch('http://localhost:8080/data/login', {
-        method: 'DELETE'
-    })
-    navigate("/login");
-    }
 
+    await fetch('/data/login', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+
+    }).then(() => {
+      navigate("/login");
+    }).catch(err => {
+      console.error(err);
+    });
+  }
+
+  const handleHome = () => {
+    navigate("/")
+  }
 
   return <>
 
     <header className="navbar-header">
       <div className="nav-head">
-        <img src="img/4chat.png" alt="4chat" className="mx-auto h-10 w-auto" />
+        <img src="img/4chat.png" alt="4chat" className="mx-auto h-10 w-auto" onClick={handleHome} />
       </div>
 
       <div className="navbar-header-options">
