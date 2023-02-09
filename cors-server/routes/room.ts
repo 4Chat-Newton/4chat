@@ -29,7 +29,6 @@ export const createRoom = async function (server, db) {
 
     if (status) {
       try {
-
         if (!existingRoom) {
 
           await db.prepare("INSERT INTO room (creator_id, name) VALUES(?,?)").run(id, name);
@@ -88,19 +87,25 @@ export const joinRoom = async function (server, db) {
   })
 }
 
-export const deleteRoom = async function (server, db) {
+/* export const deleteRoom = async function (server, db) {
   server.delete("/data/room", async (req: express.Request, res: express.Response) => {
-
     const existingRoom = await findExistingRoom(req.body.name, db)
-    if (!existingRoom) {
-      return res.status(400).send(`Room '${req.body.name}' doesn't exist!`)
-    } else {
-      try {
-        await db.prepare("DELETE FROM room WHERE name = ?").run(req.body.name);
-        return res.status(200).send(`Room '${req.body.name}' has been deleted!`)
-      } catch (e) {
-        return res.status(400).send(`Failed to delete room '${req.body.name}'!`)
+    const { id, status } = requireSignin(req, res);
+    const { creator_id } = req.body;
+
+    if (status) {
+      if (!existingRoom) {
+        return res.status(400).send(`Room '${req.body.name}' doesn't exist!`)
+      }
+      if (id == creator_id) {
+        try {
+          await db.prepare("DELETE FROM room WHERE name = ?").run(req.body.name);
+          return res.status(200).send(`Room '${req.body.name}' has been deleted!`)
+        } catch (e) {
+          return res.status(400).send(`Failed to delete room '${req.body.name}'!`)
+        }
       }
     }
   })
-}
+} */
+
