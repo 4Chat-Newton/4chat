@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { Link } from "react-router-dom";
+import {response} from "express";
 
 export default function Login() {
 
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
+    const [user, setUser] = useState("");
 
     const handleUserInput = (e: any) => {
         const { id, value } = e.target;
@@ -16,29 +18,72 @@ export default function Login() {
         }
     }
 
+    // const handleSubmit = async () => {
+    //     //TODO fetch should be '/data/login'
+    //     await fetch('http://localhost:8080/data/login', {
+    //         method: 'POST',
+    //         headers: { 'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({
+    //             email: email,
+    //             password: password,
+    //         })
+    //     }).then(function ( response) {
+    //         if (response.ok === true) {
+    //
+    //             // setUser(response.body)
+    //             // localStorage.setItem("user", "")
+    //             // console.log("logged in", response.status)
+    //             alert("Logged in!")
+    //             return response.status
+    //         } else {
+    //             alert("Couldn't log in!")
+    //             // console.log("Couldn't log in", response.status)
+    //             return response
+    //         }
+    //
+    //     });//.then(navigate("/room"))
+    // }
+
+
+    useEffect( ()=> {
+        TestGet();
+    }, []);
+
     const handleSubmit = async () => {
         //TODO fetch should be '/data/login'
         await fetch('http://localhost:8080/data/login', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json',
-            'Accept': "application/json"},
+            headers: { 'Content-Type': 'application/json'
+            },
             body: JSON.stringify({
                 email: email,
                 password: password,
             })
-        }).then(function (response) {
-            if (response.ok === true) {
-                // console.log("logged in", response.status)
-                alert("Logged in!")
-                return response.status
-            } else {
-                alert("Couldn't log in!")
-                // console.log("Couldn't log in", response.status)
-                return response
-            }
+        }).then((response) => response.json())
+            .then( data => setUser( data.token))
+            .catch((err)=>{
+            console.log(err)
+        })
+        console.log("user: ", user)
+        localStorage.setItem("user", user)
+        alert("Logged in!")
+    }
 
-        });//.then(navigate("/room"))
 
+    const TestGet = async () => {
+            await fetch('http://localhost:8080/data/login', {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json'}
+            }).then(function (response) {
+                if (response.ok === true) {
+
+                    console.log("response.body: ", response)
+                    alert(`Got user: ${response.body}`)
+                } else {
+                    alert("Error")
+                }
+            });
     }
 
     return (
@@ -89,6 +134,8 @@ export default function Login() {
                     </div>
                     <div>
                         <button id="login_btn" className="bg-gray-700 px-7 py-2 text-blue-700 ml-40" type="submit" onClick={handleSubmit}>Login</button>
+                        <div> <br/></div>
+                        <button id="test_btn" className="bg-gray-700 px-7 py-2 text-blue-700 ml-40" type="submit" onClick={TestGet}>Get logged in User</button>
                         {/**/}
                     </div>
                     <div className="text-sm">

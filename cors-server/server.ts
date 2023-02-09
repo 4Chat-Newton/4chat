@@ -4,7 +4,7 @@ import cors from "cors";
 import http from "http";
 import {getSignInUser, signIn, signOut} from "./routes/login";
 import cookieparser from "cookie-parser";
-import {createRoom, deleteRoom, getAllRooms} from "./routes/room";
+// import {createRoom, deleteRoom, getAllRooms} from "./routes/room";
 import {requireSignin} from "./controllers/authentication";
 import {expressjwt} from "express-jwt";
 
@@ -57,9 +57,10 @@ signIn(app, db);
 // signIn(app, db, true);
 // signIn(app, db, false);
 signOut(app, db);
-getSignInUser(app, db)
 
+
+getSignInUser(app, db)
 // require("./routes/room")(app, db)
-createRoom(app, db)
-getAllRooms(app, db)
-deleteRoom(app, db)
+// createRoom(app, db)
+// getAllRooms(app, db)
+// deleteRoom(app, db)

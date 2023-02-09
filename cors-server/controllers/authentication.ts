@@ -33,45 +33,43 @@ export const findUser = async function (email, db) {
     }
 };
 
+// export const requireSignin = (req: express.Request, res: express.Response) => {
+//     expressjwt({
+//         secret: "secret_key",
+//         algorithms: ["HS256"],
+//     })
+//     let result = {
+//         id: "",
+//         status: false
+//     }
+//
+//     if (!req.cookies.token) {
+//         return result
+//     } else {
+//         try {
+//             const data = jwt.verify(req.cookies.token, "secret_key");
+//             result.id = Object(data)["id"]
+//             result.status = true
+//
+//             return result
+//
+//         } catch (e) {
+//
+//             result.status = false
+//             return result
+//         }
+//     }
+// }
+
 export const requireSignin = (req: express.Request, res: express.Response) => {
     expressjwt({
         secret: "secret_key",
         algorithms: ["HS256"],
     })
-    let result = {
-        id: "",
-        status: false
-    }
-
+    jwt.verify(req.cookies.token, "secret_key")
     if (!req.cookies.token) {
-        return result
+        return res.status(401).send("No token found")
     } else {
-        try {
-            const data = jwt.verify(req.cookies.token, "secret_key");
-            result.id = Object(data)["id"]
-            result.status = true
-
-            return result
-
-        } catch (e) {
-
-            result.status = false
-            return result
-        }
-
+        return res.status(200).send("Found Token!")
     }
 }
-
-export const cookieJwtAuth = (req, res, next) => {
-    const token = req.cookies.token;
-    try {
-        const user = jwt.verify(token, "secret_key");
-        req.user = user;
-        next();
-    } catch (err) {
-        res.clearCookie("token");
-        return res.redirect("/");
-    }
-}
-
-
