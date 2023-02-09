@@ -21,16 +21,12 @@ export default function Login() {
         await fetch('http://localhost:8080/data/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json',
-            'Authorization': "Bearer {token}"},
+            'Accept': "application/json"},
             body: JSON.stringify({
                 email: email,
                 password: password,
             })
         }).then(function (response) {
-            // console.log("Check", response)
-            console.log("response.headers.values(): ", response.body)
-            // response.headers.values()
-
             if (response.ok === true) {
                 // console.log("logged in", response.status)
                 alert("Logged in!")

@@ -1,7 +1,7 @@
 import {Request, Response} from "express";
 import jwt from "jsonwebtoken";
 import cookieparser from "cookie-parser";
-import {cookieJwtAuth, findUser, requireSignin, validateUser} from "../controllers/authentication";
+import {findUser, requireSignin, validateUser} from "../controllers/authentication";
 
 // export const signIn = async function (server, db: any) {
 //
@@ -198,7 +198,6 @@ export const getSignInUser = async function (server, db:any) {
     server.get('/data/login', async (req, res) => {
         isLoggedIn = requireSignin(req, res)
 
-        console.log("Get user Cookie: ", req.cookie.token )
         if( isLoggedIn.status) {
             return res.status(200).json({ message: `User ${isLoggedIn.id} is logged in`, loggedIn: true})
         } else {
