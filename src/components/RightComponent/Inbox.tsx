@@ -1,13 +1,30 @@
+import { useState } from "react";
 import "./Inbox.css";
+import InboxTab from "./Tabs/InboxTab";
+import RoomTab from "./Tabs/RoomTab";
 
 export default function Inbox() {
 
+  const[activeTab, setActiveTab] = useState("inbox")
+
+  const handleInbox = () =>{
+    setActiveTab("inbox")
+  }
+  
+  const handleRoom = () =>{
+    setActiveTab("rooms")
+  }
+
+
   return (
     <>
-      <section className="tabs">
-        <div className="tabsdiv">
-          <button className="inbox">Inbox</button>
-          <button className="rooms">Rooms</button>
+      <section className="inbox">
+        <ul className="inboxBtns">
+          <li className={activeTab === "inbox" ? "active" : ""} onClick={handleInbox}>Inbox</li>
+          <li className={activeTab === "rooms" ? "active" : ""} onClick={handleRoom}>Rooms</li>
+        </ul>
+        <div className="outlet">
+          {activeTab === "inbox" ? <InboxTab /> : <RoomTab />}
         </div>
       </section>
     </>

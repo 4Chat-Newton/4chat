@@ -3,22 +3,22 @@ import express, { response, request } from 'express';
 import { stat } from "fs";
 
 export const findExistingRoom = async function (name, db) {
-  try {
-    const result = await db
-      .prepare(
-        "SELECT name FROM room WHERE name = ?"
-      )
-      .get(name);
+    try {
+        const result = await db
+            .prepare(
+                "SELECT name FROM room WHERE name = ?"
+            )
+            .get(name);
 
-    if (!result) {
-      console.log(`No room found with the following name: ${name}`);
-      return null;
+        if (!result) {
+            console.log(`No room found with the following name: ${name}`);
+            return null;
+        }
+        return result;
+    } catch (error) {
+        console.error(`${error}`)
+        return null;
     }
-    return result;
-  } catch (error) {
-    console.error(`${error}`)
-    return null;
-  }
 }
 
 export const createRoom = async function (server, db) {
@@ -29,6 +29,7 @@ export const createRoom = async function (server, db) {
 
     if (status) {
       try {
+
         if (!existingRoom) {
 
           await db.prepare("INSERT INTO room (creator_id, name) VALUES(?,?)").run(id, name);
@@ -107,5 +108,4 @@ export const joinRoom = async function (server, db) {
       }
     }
   })
-} */
-
+}
