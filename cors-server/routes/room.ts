@@ -25,8 +25,9 @@ export const createRoom = async function (server, db) {
     const {id, status} = requireSignin(req, res);
     const { name } = req.body;
     const existingRoom = await findExistingRoom(name, db)
-
+    console.log(status)
     if (status) {
+      
       try {
 
         if (!existingRoom) {

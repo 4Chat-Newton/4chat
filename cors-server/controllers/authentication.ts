@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import express from "express";
 import {expressjwt, Request as JWTRequest} from "express-jwt";
 import jwt from "jsonwebtoken";
@@ -61,4 +61,17 @@ export const requireSignin = (req: express.Request, res: express.Response) => {
 
     }
 }
+
+export const cookieJwtAuth = (req, res, next) => {
+    const token = req.cookies.token;
+    try {
+        const user = jwt.verify(token, "secret_key");
+        req.user = user;
+        next();
+    } catch (err) {
+        res.clearCookie("token");
+        return res.redirect("/");
+    }
+}
+
 

@@ -2,10 +2,11 @@ import express from "express";
 import { Server } from "socket.io";
 import cors from "cors";
 import http from "http";
-import { signIn, signOut } from "./routes/login";
+import {getSignInUser, signIn, signOut} from "./routes/login";
 import cookieparser from "cookie-parser";
 import {createRoom, deleteRoom, getAllRooms} from "./routes/room";
 import {requireSignin} from "./controllers/authentication";
+import {expressjwt} from "express-jwt";
 
 const port: Number = 8080;
 const host: string = `http://localhost:${port}`;
@@ -52,9 +53,11 @@ io.on('connection', (socket)=>{
 
 require("./routes/register")(app, db);
 
-signIn(app, db, true);
-signIn(app, db, false);
+signIn(app, db);
+// signIn(app, db, true);
+// signIn(app, db, false);
 signOut(app, db);
+getSignInUser(app, db)
 
 // require("./routes/room")(app, db)
 createRoom(app, db)

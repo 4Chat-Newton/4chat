@@ -20,21 +20,21 @@ export default function Login() {
         //TODO fetch should be '/data/login'
         await fetch('http://localhost:8080/data/login', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json',
+            'Accept': "application/json"},
             body: JSON.stringify({
                 email: email,
                 password: password,
             })
         }).then(function (response) {
-            // console.log("Check", response)
             if (response.ok === true) {
                 // console.log("logged in", response.status)
-                // return response
                 alert("Logged in!")
+                return response.status
             } else {
                 alert("Couldn't log in!")
                 // console.log("Couldn't log in", response.status)
-                // return response
+                return response
             }
 
         });//.then(navigate("/room"))
