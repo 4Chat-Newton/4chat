@@ -51,6 +51,7 @@ io.on('connection', (socket)=>{
 })
 
 require("./routes/register")(app, db);
+require("./routes/settings")(app, db);
 
 signIn(app, db, true);
 signIn(app, db, false);
