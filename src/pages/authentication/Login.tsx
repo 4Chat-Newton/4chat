@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {response} from "express";
 
@@ -45,11 +45,6 @@ export default function Login() {
     //     });//.then(navigate("/room"))
     // }
 
-
-    useEffect( ()=> {
-        TestGet();
-    }, []);
-
     const handleSubmit = async () => {
         //TODO fetch should be '/data/login'
         await fetch('http://localhost:8080/data/login', {
@@ -60,8 +55,9 @@ export default function Login() {
                 email: email,
                 password: password,
             })
+
         }).then((response) => response.json())
-            .then( data => setUser( data.token))
+            .then( data => setUser( data.user_id))
             .catch((err)=>{
             console.log(err)
         })
@@ -85,6 +81,7 @@ export default function Login() {
                 }
             });
     }
+
 
     return (
         <>
