@@ -53,8 +53,8 @@ function Register() {
                         }).then(function (response) {
                             console.log(response)
                             if (response.ok === true) {
-                                alert("User successfully registered!")
-                                navigate("/login")
+                                alert("User successfully registered!")//todo om tid finns skapa popup för detta istället som tas automatiskt bort efter typ 2sek
+                                navigate("/chatroom")
                             } else {
                                 alert("The username or email is already in use!")
                             }
