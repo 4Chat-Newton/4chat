@@ -12,13 +12,16 @@
 * change `BROWSER=firefox` to `BROWSER=none`
 
 ### Start react and backend server
-* `npm run all2` Starts frontend & backend without nodemon  
 * `npm run all` Starts frontend & backend with nodemon  
+* `npm run all2` Starts frontend & backend without nodemon  
 
 ### Start only react
 * `npm run start`
 
 ### Start only backend
+* `npm run backend`  Starts backend with nodemon from 4chat/ folder
+
+### Start only backend in cors-server/ folder
 cd into cors-server/
 * `npm run start` Starts backend without nodemon
 * `npm run start2` Starts backend with nodemon

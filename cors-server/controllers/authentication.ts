@@ -33,6 +33,38 @@ export const findUser = async function (email, db) {
     }
 };
 
+export const updateUserName = async function (id, username, db) {
+    console.log(username, id)
+    try {
+        const result = await db.prepare("UPDATE user SET username = ? WHERE id = ?").run(username, id)
+        console.log(result)
+        if (!result) {
+            console.log(`No user found with username ${username}`);
+            return result;
+        }
+        return result;
+    } catch (error) {
+        console.error(`Error updating username ${username}: ${error}`);
+        return null;
+    }
+};
+
+export const updateUserPassword = async function (id, encryptedPassword, db) {
+    console.log(encryptedPassword, id)
+    try {
+        const result = await db.prepare("UPDATE user SET password = ? WHERE id = ?").run(encryptedPassword, id)
+        console.log(result)
+        if (!result) {
+            console.log(`Wrong password ${encryptedPassword}`);
+            return result;
+        }
+        return result;
+    } catch (error) {
+        console.error(`Error updating password ${encryptedPassword}: ${error}`);
+        return null;
+    }
+};
+
 export const requireSignin = (req: express.Request, res: express.Response) => {
     expressjwt({
         secret: "secret_key",
@@ -61,4 +93,3 @@ export const requireSignin = (req: express.Request, res: express.Response) => {
 
     }
 }
-
