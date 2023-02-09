@@ -82,12 +82,12 @@ export const deleteRoom = async function (server, db){
 
 export const leaveChatRoom =async (server ,db) => {
   server.delete("/data/room/leave", async (req: express.Request, res: express.Response) => {
-    const { id, status } = requireSignin(req, res);
+    const { id } = requireSignin(req, res);
     const { room_id } = req.body;
-    const roomCheck = await db.prepare("SELECT * FROM joined_room WHERE user_id = ? AND room_id = ?").get(id, room_id);
+    const roomCheck = await db.prepare("SELECT * FROM joined_room WHERE user_id = ? AND room_id = ?").all(id, room_id);
 
-    if (roomCheck == undefined) {
-      return res.status(400).send(`Room'${req.body.room_id}' doesn't exist!`)
+    if (!roomCheck || !roomCheck.user_id || !roomCheck.room_id)  {
+      return res.status(400).send(`Room '${req.body.room_id}' doesn't exist!`)
     } else {
       try {
         await db.prepare("DELETE FROM joined_room WHERE room_id = ? ").run(req.body.room_id);
