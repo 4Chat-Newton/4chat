@@ -4,7 +4,7 @@ import cors from "cors";
 import http from "http";
 import { signIn, signOut } from "./routes/login";
 import cookieparser from "cookie-parser";
-import {createRoom, deleteRoom, getAllRooms} from "./routes/room";
+import {createRoom, deleteRoom, getAllRooms, leaveChatRoom} from "./routes/room";
 import {requireSignin} from "./controllers/authentication";
 
 const port: Number = 8080;
@@ -60,3 +60,4 @@ signOut(app, db);
 createRoom(app, db)
 getAllRooms(app, db)
 deleteRoom(app, db)
+leaveChatRoom(app, db)
