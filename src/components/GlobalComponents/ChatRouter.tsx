@@ -13,7 +13,7 @@ function ChatRouter() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/terms" element={<Terms />} />
-        <Route path="/ChatRoom" element={<ChatRoom />} />
+        <Route path="/chatroom" element={<ChatRoom />} />
       </Routes>
     </>
   );

@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+
+    const navigate = useNavigate();
 
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
@@ -31,13 +34,14 @@ export default function Login() {
                 // console.log("logged in", response.status)
                 // return response
                 alert("Logged in!")
+                navigate("/chatroom");
             } else {
                 alert("Couldn't log in!")
                 // console.log("Couldn't log in", response.status)
                 // return response
             }
 
-        });//.then(navigate("/room"))
+})
 
     }
 
