@@ -1,16 +1,12 @@
 export default function Setup(data:string) {
-    //const data = jwt.verify(req.cookies.token, "secret_key");
-    console.log("")
     if (data.startsWith("/create", 0)) {
         let name = data.replace("/create ", "")
-        console.log("room to create:", name)
-        console.log("Create room token: ", localStorage.getItem("token"))
         let token = localStorage.getItem("token")
         fetch('http://localhost:8080/data/room', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                authorization: `${ token }`
+                authorization: `${ localStorage.getItem("token") }`
             },
             body: JSON.stringify( {
                 name: name
@@ -21,7 +17,6 @@ export default function Setup(data:string) {
             } else {
                 alert("Error creating room!")
             }
-
         });
     }
 }

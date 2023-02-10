@@ -23,8 +23,6 @@ export default function Navbar() {
         })
     }
 
-
-
     const handleHome = () => {
         navigate("/")
     }
@@ -45,7 +43,6 @@ export default function Navbar() {
             <div className="nav-btn">
                 <button className="settings-btn">Settings</button>
                 <button className="signOut-btn" onClick={logOut}>Sign out</button>
-
             </div>
         </header>
     </>
