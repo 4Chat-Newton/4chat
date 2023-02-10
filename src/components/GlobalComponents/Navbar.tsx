@@ -10,9 +10,8 @@ export default function Navbar() {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
-                authorization: `${ localStorage.getItem("token") }`
-            },
-            credentials: "same-origin"
+                'Authorization': `Bearer ${ localStorage.getItem("token") }`
+            }
         }).then(function (response) {
             if (response.status === 200) {
                 localStorage.clear()

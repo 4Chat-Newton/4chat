@@ -6,7 +6,7 @@ export default function Setup(data:string) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                authorization: `${ localStorage.getItem("token") }`
+                'authorization': `Bearer ${localStorage.getItem("token")}`
             },
             body: JSON.stringify( {
                 name: name

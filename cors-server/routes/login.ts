@@ -31,8 +31,6 @@ export const signIn = async function (server, db: any) {
                 //secure: true, // only works on https
             });
             await db.prepare("UPDATE user SET online = 1 WHERE id = ?").run(user.id)
-
-            console.log("Logged in token: ", token)
             return res.status(200).json({loggedIn: true, user_id: user.id, token: token});
         } catch (err) {
             // delete req.body.session.jwt;

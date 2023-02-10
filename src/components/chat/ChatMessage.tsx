@@ -24,6 +24,7 @@ export default function ChatMessage({socket}: any) {
     };
 
     const handleInput = async () => {
+        //TODO remove console.log
         console.log("handleInput data:", message)
         Setup(message)
     }

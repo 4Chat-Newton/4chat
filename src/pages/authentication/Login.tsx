@@ -36,13 +36,11 @@ export default function Login() {
             })
         }).then((response) => {
             if (response.status === 200){
-                console.log("User logged in!")
                 localStorage.setItem("isloggedIn", "true")
                 return response.json()
             } else {
                 alert("Couldn't log in!")
-                console.log("Couldn't log in!", response.status)
-                return response.json()
+                return response.status
             }
         })
             .then(data => {
@@ -65,9 +63,8 @@ export default function Login() {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                authorization: `${ localStorage.getItem("token") }`
-            },
-            credentials: "same-origin"
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+            }
         }).then(function (response) {
             if (response.status === 200) {
                 return response.json()

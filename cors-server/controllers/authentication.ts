@@ -45,7 +45,8 @@ export const returnUser = (req: express.Request, res: express.Response) => {
         isLoggedIn: false,
         username: ""
     }
-    const token = req.headers['authorization']
+    let bearerToken = req.headers['authorization']
+    let token  = bearerToken.replace("Bearer ", "");
 
     if (!token) {
         return result
@@ -69,11 +70,12 @@ export const verifyJWT = (req: express.Request, res: express.Response, next) => 
         secret: "secret_key",
         algorithms: ["HS256"],
     })
-    const authHeader = req.headers['authorization']
-    console.log("verifyJWT", authHeader)
-    jwt.verify(authHeader, "secret_key")
+    let bearerToken = req.headers['authorization']
+    let token  = bearerToken.replace("Bearer ", "");
 
-    if (!authHeader) {
+    jwt.verify(token, "secret_key")
+
+    if (!token) {
         return res.status(401).send("No token found!")
     } else {
         next();
