@@ -1,15 +1,18 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, {useContext, useState} from "react";
+import {Link} from "react-router-dom";
 import {response} from "express";
+import jwt_decode from "jwt-decode";
 
+import GlobalContext from "../../GlobalContext";
 export default function Login() {
 
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
-    const [user, setUser] = useState("");
+
+    const { isLoggedIn } = useContext(GlobalContext) || { isLoggedIn: false}
 
     const handleUserInput = (e: any) => {
-        const { id, value } = e.target;
+        const {id, value} = e.target;
         if (id === "email") {
             setEmail(value);
         }
@@ -44,42 +47,52 @@ export default function Login() {
     //
     //     });//.then(navigate("/room"))
     // }
-
     const handleSubmit = async () => {
         //TODO fetch should be '/data/login'
         await fetch('http://localhost:8080/data/login', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json'
+            headers: {
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 email: email,
                 password: password,
             })
-
-        }).then((response) => response.json())
-            .then( data => setUser( data.user_id))
-            .catch((err)=>{
-            console.log(err)
+        }).then((response) => {
+            if (response.status === 200){
+                return response.json()
+            } else {
+                return response.json()
+            }
         })
-        console.log("user: ", user)
-        localStorage.setItem("user", user)
+            .then(data => {
+                localStorage.setItem("token", data.token)
+                let temp = localStorage.getItem("token")
+                console.log("Frontend token: ", temp)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
         alert("Logged in!")
     }
 
 
-    const TestGet = async () => {
-            await fetch('http://localhost:8080/data/login', {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json'}
-            }).then(function (response) {
-                if (response.ok === true) {
-
-                    console.log("response.body: ", response)
-                    alert(`Got user: ${response.body}`)
-                } else {
-                    alert("Error")
-                }
-            });
+    const authenticateUser = async () => {
+        await fetch('http://localhost:8080/data/login', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                authorization: `${ localStorage.getItem("token") }`
+            },
+            credentials: "same-origin"
+        }).then(function (response) {
+            if (response.status === 200) {
+                console.log("response.body: ", response)
+                alert(`Got user`)
+            } else {
+                alert("Error")
+            }
+        });
     }
 
 
@@ -96,7 +109,7 @@ export default function Login() {
                         <p className="mt-2 text-center text-sm text-gray-600">
                         </p>
                     </div>
-                    <input type="hidden" name="remember" defaultValue="true" />
+                    <input type="hidden" name="remember" defaultValue="true"/>
                     <div className="-space-y-px rounded-md shadow-sm">
                         <div>
                             <label htmlFor="email-address" className="sr-only">
@@ -130,13 +143,18 @@ export default function Login() {
                         </div>
                     </div>
                     <div>
-                        <button id="login_btn" className="bg-gray-700 px-7 py-2 text-blue-700 ml-40" type="submit" onClick={handleSubmit}>Login</button>
-                        <div> <br/></div>
-                        <button id="test_btn" className="bg-gray-700 px-7 py-2 text-blue-700 ml-40" type="submit" onClick={TestGet}>Get logged in User</button>
+                        <button id="login_btn" className="bg-gray-700 px-7 py-2 text-blue-700 ml-40" type="submit"
+                                onClick={handleSubmit}>Login
+                        </button>
+                        <div><br/></div>
+                        <button id="test_btn" className="bg-gray-700 px-7 py-2 text-blue-700 ml-40" type="submit"
+                                onClick={authenticateUser}>Get logged in User
+                        </button>
                         {/**/}
                     </div>
                     <div className="text-sm">
-                        <Link to="/register" className="px-7 py-2 text-blue-700 ml-40 bg-transparent text-decoration-line: underline">
+                        <Link to="/register"
+                              className="px-7 py-2 text-blue-700 ml-40 bg-transparent text-decoration-line: underline">
                             Register
                         </Link>
                     </div>

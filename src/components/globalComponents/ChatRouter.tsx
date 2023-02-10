@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "../../App";
 import Terms from "../../pages/Terms";
 import ChatRoom from "../../pages/ChatRoom";

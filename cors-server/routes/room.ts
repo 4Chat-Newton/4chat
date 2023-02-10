@@ -49,7 +49,7 @@ import express, { response, request } from 'express';
 //     }
 //   })
 // }
-//
+
 // export const getAllRooms = async function (server, db){
 //   server.get("/data/room", async (req: express.Request, res: express.Response) => {
 //     try {
@@ -64,7 +64,7 @@ import express, { response, request } from 'express';
 //     }
 // })
 // }
-//
+
 // export const deleteRoom = async function (server, db){
 //   server.delete("/data/room", async (req: express.Request, res: express.Response) => {
 //

@@ -61,15 +61,31 @@ export const findUser = async function (email, db) {
 //     }
 // }
 
-export const requireSignin = (req: express.Request, res: express.Response) => {
+// export const requireSignin = (req: express.Request, res: express.Response, next) => {
+//     expressjwt({
+//         secret: "secret_key",
+//         algorithms: ["HS256"],
+//     })
+//     jwt.verify(req.cookies.token, "secret_key")
+//     if (!req.cookies.token) {
+//         return res.status(401).send("No token found")
+//     } else {
+//         next();
+//     }
+// }
+
+export const requireSignin = (req: express.Request, res: express.Response, next) => {
     expressjwt({
         secret: "secret_key",
         algorithms: ["HS256"],
     })
-    jwt.verify(req.cookies.token, "secret_key")
-    if (!req.cookies.token) {
+
+    const authHeader = req.headers['authorization']
+    console.log("requireSignin: ", authHeader)
+    jwt.verify(authHeader, "secret_key")
+    if (!authHeader) {
         return res.status(401).send("No token found")
     } else {
-        return res.status(200).send("Found Token!")
+        next();
     }
 }

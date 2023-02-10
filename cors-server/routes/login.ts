@@ -123,7 +123,7 @@ export const signOut = async function (server, db: any) {
 
 export const getSignInUser = async function (server, db: any) {
 
-    server.get('/data/login', requireSignin , async (req, res) => {
+    server.get('/data/login', requireSignin, async (req, res) => {
             return res.send("Get sign in user")
     })
 }
@@ -166,8 +166,9 @@ export const signIn = async function (server, db: any) {
 
             await db.prepare("UPDATE user SET online = 1 WHERE id = ?").run(user.id)
             // isLoggedIn = true
+            console.log("Backend token: ", token)
 
-            return res.status(200).json({loggedIn: true, user_id: user.id});
+            return res.status(200).json({loggedIn: true, user_id: user.id, token: token});
         } catch (err) {
             // delete req.body.session.jwt;
             return res
