@@ -1,7 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {response} from "express";
-import jwt_decode from "jwt-decode";
 
 import GlobalContext from "../../GlobalContext";
 export default function Login() {
@@ -122,9 +120,6 @@ export default function Login() {
                     </div>
                     <div>
                         <button id="login_btn" className="bg-gray-700 px-7 py-2 text-blue-700 ml-40" type="submit" onClick={handleSubmit}>Login</button>
-                        <div> <br/></div>
-                        <button id="test_btn" className="bg-gray-700 px-7 py-2 text-blue-700 ml-40" type="submit" onClick={authenticateUser}>Get logged in User</button>
-                        {/**/}
                     </div>
                     <div className="text-sm">
                         <Link to="/register"

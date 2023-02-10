@@ -1,33 +1,29 @@
-.tabs {
-    background-color: var(--black);
-    position: absolute;
-    right: 0;
-    height: 94.5%;
-    width: 16%;
-    margin: 5px;
-    overflow: hidden;
-}
-
 .inbox {
-    color: var(--white);
     background-color: var(--black);
-    align-items: left;
-    font-family: sans-serif;
-    justify-content: center;
-    cursor: pointer;
-    transition-delay: 80ms;
-    margin-right: 50px;
-    margin-left: 40px;
-    padding: 3px;
-
+    height: 100%;
+    width: 16%;
+    overflow: auto;
 }
 
-.rooms {
-    margin-left: 55px;
+.inboxBtns{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.inboxBtns li {
+    background-color: var(--grey);
     color: var(--white);
-    padding: 3px;
     font-family: sans-serif;
-    justify-content: center;
     cursor: pointer;
-    transition-delay: 80ms;
+    transition: .3s;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+}
+
+ .inboxBtns li.active{
+    background-color: var(--black);
+} 
+.inboxBtns li:hover {
+    background-color: var(--blue);
 }

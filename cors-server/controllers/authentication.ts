@@ -35,7 +35,7 @@ export const findUser = async function (email, db) {
 
 
 //TODO Fix so it returns a user
-export const returnId = (req: express.Request, res: express.Response) => {
+export const returnUser = (req: express.Request, res: express.Response) => {
     expressjwt({
         secret: "secret_key",
         algorithms: ["HS256"],
@@ -63,8 +63,6 @@ export const returnId = (req: express.Request, res: express.Response) => {
         }
     }
 }
-
-
 
 export const verifyJWT = (req: express.Request, res: express.Response, next) => {
     expressjwt({

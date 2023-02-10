@@ -1,4 +1,4 @@
-import {returnId, verifyJWT} from "../controllers/authentication";
+import {returnUser, verifyJWT} from "../controllers/authentication";
 import express, { response, request } from 'express';
 
 export const findExistingRoom = async function (name, db) {
@@ -23,7 +23,7 @@ export const findExistingRoom = async function (name, db) {
 export const createRoom = async function (server, db) {
   server.post("/data/room", verifyJWT, async (req: express.Request, res: express.Response) => {
     let result = {id: "", isLoggedIn: false, username: ""}
-    result = returnId(req, res)
+    result = returnUser(req, res)
     const { name } = req.body;
     const existingRoom = await findExistingRoom(name, db)
     console.log(result.isLoggedIn)
@@ -70,7 +70,7 @@ export const getAllRooms = async function (server, db){
 export const deleteRoom = async function (server, db){
   server.delete("/data/room", verifyJWT, async (req: express.Request, res: express.Response) => {
     let result = {id: "", isLoggedIn: false, username: ""}
-    result = returnId(req, res)
+    result = returnUser(req, res)
     const existingRoom = await findExistingRoom(req.body.name, db)
     if (!existingRoom) {
       return res.status(400).send(`Room '${req.body.name}' doesn't exist!`)
@@ -84,3 +84,24 @@ export const deleteRoom = async function (server, db){
     }
   })
 }
+
+export const leaveChatRoom =async (server ,db) => {
+  server.delete("/data/room/leave", async (req: express.Request, res: express.Response) => {
+    let result = {id: "", isLoggedIn: false, username: ""}
+    result = returnUser(req, res)
+    const { room_id } = req.body;
+    const roomCheck = await db.prepare("SELECT * FROM joined_room WHERE user_id = ? AND room_id = ?").get(result.id, room_id);
+
+    if (roomCheck == undefined) {
+      return res.status(400).send(`Room'${req.body.room_id}' doesn't exist!`)
+    } else {
+      try {
+        await db.prepare("DELETE FROM joined_room WHERE room_id = ? ").run(req.body.room_id);
+        return res.status(200).send(`Room '${req.body.room_id}' has been left!`)
+      } catch (e) {
+        return res.status(400).send(`Failed to leave room '${req.body.room_id}'!`)
+      }
+    }
+  })
+}
+

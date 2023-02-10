@@ -1,7 +1,7 @@
 import {Request, Response} from "express";
 import jwt from "jsonwebtoken";
 import cookieparser from "cookie-parser";
-import {findUser, verifyJWT, validateUser, returnId} from "../controllers/authentication";
+import {findUser, verifyJWT, validateUser, returnUser} from "../controllers/authentication";
 
 export const signIn = async function (server, db: any) {
     server.post("/data/login", async (req: Request, res: Response) => {
@@ -10,10 +10,6 @@ export const signIn = async function (server, db: any) {
             const user = await findUser(email, db);
             const isValid = await validateUser(password, user.password);
 
-
-            //TODO Test if jonatan is right or simon !!!
-            // (!isValid && !user)
-            // (!isValid || !user)
             if (!isValid && !user) {
                 return res
                     .status(401)
@@ -38,7 +34,6 @@ export const signIn = async function (server, db: any) {
 
             await db.prepare("UPDATE user SET online = 1 WHERE id = ?").run(user.id)
             // isLoggedIn = true
-            console.log("Backend token: ", token)
 
             return res.status(200).json({loggedIn: true, user_id: user.id, token: token});
         } catch (err) {
@@ -53,7 +48,7 @@ export const signIn = async function (server, db: any) {
 export const signOut = async function (server, db: any) {
     server.delete('/data/login', verifyJWT, async (req, res) => {
         let result = {id: "", isLoggedIn: false, username: ""}
-        result = returnId(req, res)
+        result = returnUser(req, res)
         if (result.isLoggedIn) {
             await db.prepare("UPDATE user SET online = 0 WHERE id = ?").run(result.id)
             res.clearCookie('token')
@@ -71,8 +66,7 @@ export const getSignedInUser = async function (server, db: any) {
             isLoggedIn: false,
             username: ""
         }
-        result = returnId(req, res)
-        console.log(" result backend: ", result.id)
+        result = returnUser(req, res)
         return res.status(200).json({id: result.id, username: result.username, isLoggedIn: result.isLoggedIn})
     })
 }

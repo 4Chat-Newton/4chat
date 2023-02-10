@@ -2,37 +2,33 @@ import { useState } from "react";
 import Setup from "../commandHandler/Setup";
 import "../style.css";
 
-export default function ChatMessage({socket}:any) {
-  
-  const [message, setMessage] = useState('');
+export default function ChatMessage({socket}: any) {
 
-  let date = new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+    const [message, setMessage] = useState('');
 
-  /* const handleSendMessage = async (e:any) =>{
-    setMessage(e)
-  } */
+    let date = new Date().toLocaleTimeString("en-GB", {hour: "2-digit", minute: "2-digit"});
 
-  const handleMessage = (e:any) => {
-    e.preventDefault();
-    console.log({ message });
-    if (message.trim()) {
-      socket.emit('message', {
-        text: message,
-        user: 'signedInUser',//! ska kolla JWT token
-        timeStamp: date,
-        id: `${socket.id}${Math.random()}`,
-        socketID: socket.id,
-      });
+    const handleMessage = (e: any) => {
+        e.preventDefault();
+        console.log({message});
+        if (message.trim()) {
+            socket.emit('message', {
+                text: message,
+                user: 'signedInUser',//! ska kolla JWT token
+                timeStamp: date,
+                id: `${socket.id}${Math.random()}`,
+                socketID: socket.id,
+            });
+        }
+        setMessage('');
+    };
+
+    const handleInput = async () => {
+        console.log("handleInput data:", message)
+        Setup(message)
     }
-    
-    setMessage('');
-  };
 
-  const handleInput = async () => {
-    console.log("handleInput data:", message)
-    Setup(message)
-  }
-  
+
   return (
         <form className="msg" onSubmit={handleMessage}>
         <input
