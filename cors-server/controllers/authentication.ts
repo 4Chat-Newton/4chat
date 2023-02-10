@@ -33,42 +33,53 @@ export const findUser = async function (email, db) {
     }
 };
 
-// export const requireSignin = (req: express.Request, res: express.Response) => {
-//     expressjwt({
-//         secret: "secret_key",
-//         algorithms: ["HS256"],
-//     })
-//     let result = {
-//         id: "",
-//         status: false
-//     }
-//
-//     if (!req.cookies.token) {
-//         return result
-//     } else {
-//         try {
-//             const data = jwt.verify(req.cookies.token, "secret_key");
-//             result.id = Object(data)["id"]
-//             result.status = true
-//
-//             return result
-//
-//         } catch (e) {
-//
-//             result.status = false
-//             return result
-//         }
-//     }
-// }
-
-export const requireSignin = (req: express.Request, res: express.Response) => {
+export const returnId = (req: express.Request, res: express.Response) => {
     expressjwt({
         secret: "secret_key",
         algorithms: ["HS256"],
     })
-    jwt.verify(req.cookies.token, "secret_key")
-    if (!req.cookies.token) {
-        return res.status(401).send("No token found")
+    let result = {
+        id: "",
+        status: false
+    }
+
+    const data:any = req.headers["x-access-token"]
+    const token = JSON.parse(data).slice(1, -1)
+    console.log("returnID: ", token)
+
+    if (!token) {
+        return result
+    } else {
+        try {
+            const data = jwt.verify(token, "secret_key");
+            result.id = Object(data)["id"]
+            result.status = true
+
+            return result
+
+        } catch (e) {
+
+            result.status = false
+            return result
+        }
+    }
+}
+
+export const verifyJWT = (req: express.Request, res: express.Response) => {
+    expressjwt({
+        secret: "secret_key",
+        algorithms: ["HS256"],
+    })
+
+    const token:any = req.headers["x-access-token"]
+    const result = JSON.parse(token).slice(1, -1)
+
+    console.log(token)
+
+    jwt.verify(result, "secret_key")
+
+    if (!token) {
+        return res.status(401).send("No token found!")
     } else {
         return res.status(200).send("Found Token!")
     }

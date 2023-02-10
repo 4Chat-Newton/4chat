@@ -1,12 +1,17 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {response} from "express";
+
 
 export default function Login() {
 
+    const navigate = useNavigate();
+
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
+    const [token, setToken] = useState("");
     const [user, setUser] = useState("");
+
 
     const handleUserInput = (e: any) => {
         const { id, value } = e.target;
@@ -17,6 +22,12 @@ export default function Login() {
             setPassword(value);
         }
     }
+
+    useEffect(() => {
+        //userAuthenticate()
+        // localStorage.getItem("userId")
+        // localStorage.getItem("token")
+      }, [token]);
 
     // const handleSubmit = async () => {
     //     //TODO fetch should be '/data/login'
@@ -45,6 +56,10 @@ export default function Login() {
     //     });//.then(navigate("/room"))
     // }
 
+    const tokenSet = async (data:any) => {
+        await setToken(data.token)
+    }
+
     const handleSubmit = async () => {
         //TODO fetch should be '/data/login'
         await fetch('http://localhost:8080/data/login', {
@@ -56,32 +71,53 @@ export default function Login() {
                 password: password,
             })
 
-        }).then((response) => response.json())
-            .then( data => setUser( data.user_id))
+        }).then((response) =>{ 
+            if(response.ok === true){
+                return response.json()
+            } else {
+                alert("Couldn't log in!")
+                console.log("Couldn't log in!", response.status)
+                return response.json()
+            }
+        }).then( data => {
+            if (data.token) {
+                setToken(JSON.stringify(data.token))
+            }
+                userAuthenticate()
+                //navigate("/chatroom")    
+            }).then( ()=>{
+                localStorage.setItem("token", token)
+            })
             .catch((err)=>{
             console.log(err)
         })
-        console.log("user: ", user)
-        localStorage.setItem("user", user)
-        alert("Logged in!")
+        console.log("Token:", token)
     }
 
 
-    const TestGet = async () => {
+
+
+    const userAuthenticate = async () => {
+        const token = JSON.stringify(localStorage.getItem("token"))
+        if (token) {
             await fetch('http://localhost:8080/data/login', {
                 method: 'GET',
-                headers: { 'Content-Type': 'application/json'}
-            }).then(function (response) {
-                if (response.ok === true) {
-
-                    console.log("response.body: ", response)
-                    alert(`Got user: ${response.body}`)
-                } else {
-                    alert("Error")
-                }
-            });
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'x-access-token': token}
+            }).then((response) => response.json())
+            .then( data => {
+                setUser(JSON.stringify(data.id))
+            })
+            .catch((err)=>{
+            console.log("userAuthenticate: ", err)
+        })
+        }
+        localStorage.setItem("userId", user)
+        console.log("User: ", user)
+            
     }
-
+    
 
     return (
         <>
@@ -132,7 +168,7 @@ export default function Login() {
                     <div>
                         <button id="login_btn" className="bg-gray-700 px-7 py-2 text-blue-700 ml-40" type="submit" onClick={handleSubmit}>Login</button>
                         <div> <br/></div>
-                        <button id="test_btn" className="bg-gray-700 px-7 py-2 text-blue-700 ml-40" type="submit" onClick={TestGet}>Get logged in User</button>
+                        <button id="test_btn" className="bg-gray-700 px-7 py-2 text-blue-700 ml-40" type="submit" onClick={userAuthenticate}>Get logged in User</button>
                         {/**/}
                     </div>
                     <div className="text-sm">
@@ -145,3 +181,7 @@ export default function Login() {
         </>
     );
 }
+function GlobalContext(GlobalContext: any): { globalState: any; setGlobalState: any; } {
+    throw new Error("Function not implemented.");
+}
+
