@@ -1,5 +1,6 @@
 import { requireSignin } from "../controllers/authentication";
 import express, { response, request } from 'express';
+import { ECDH } from "crypto";
 
 
 export const findExistingRoom = async function (name, db) {
@@ -12,6 +13,25 @@ export const findExistingRoom = async function (name, db) {
 
     if (!result) {
       console.log(`No room found with the following name: ${name}`);
+      return null;
+    }
+    return result;
+  } catch (error) {
+    console.error(`${error}`)
+    return null;
+  }
+}
+
+
+export const checkCreatorId = async (creator_id, db) => {
+  try {
+    const result = await db
+      .prepare(
+        "SELECT creator_id FROM room WHERE creator_id = ?"
+      )
+      .get(creator_id);
+    if (!result) {
+      console.log(`No room found with the following creator_id: ${creator_id}`);
       return null;
     }
     return result;
@@ -90,8 +110,8 @@ export const deleteRoom = async function (server, db) {
     try {
       const existingRoom = await findExistingRoom(req.body.name, db);
       const { id, status } = requireSignin(req, res);
-      const { creator_id, name } = req.body;
-      console.log(creator_id)
+      const { name } = req.body;
+      const { creator_id } = await checkCreatorId(id , db);
 
       if (!status) {
         return res.status(401).send({ error: "Unauthorized" });
