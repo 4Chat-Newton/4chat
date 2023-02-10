@@ -1,12 +1,15 @@
 import React, {useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import {response} from "express";
+import { useJwt } from "../../jwt-context";
+import { log } from "console";
 
 export default function Login() {
 
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
     const [user, setUser] = useState("");
+    const {jwt, setJwt} = useJwt();
 
     const handleUserInput = (e: any) => {
         const { id, value } = e.target;
@@ -18,37 +21,9 @@ export default function Login() {
         }
     }
 
-    // const handleSubmit = async () => {
-    //     //TODO fetch should be '/data/login'
-    //     await fetch('http://localhost:8080/data/login', {
-    //         method: 'POST',
-    //         headers: { 'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({
-    //             email: email,
-    //             password: password,
-    //         })
-    //     }).then(function ( response) {
-    //         if (response.ok === true) {
-    //
-    //             // setUser(response.body)
-    //             // localStorage.setItem("user", "")
-    //             // console.log("logged in", response.status)
-    //             alert("Logged in!")
-    //             return response.status
-    //         } else {
-    //             alert("Couldn't log in!")
-    //             // console.log("Couldn't log in", response.status)
-    //             return response
-    //         }
-    //
-    //     });//.then(navigate("/room"))
-    // }
-
-
-    useEffect( ()=> {
-        TestGet();
-    }, []);
+    // useEffect( ()=> {
+    //     TestGet();
+    // }, []);
 
     const handleSubmit = async () => {
         //TODO fetch should be '/data/login'
@@ -61,7 +36,12 @@ export default function Login() {
                 password: password,
             })
         }).then((response) => response.json())
-            .then( data => setUser( data.token))
+            .then( data => {
+                setUser( data.token)
+                console.log(JSON.stringify(data.token))
+                setJwt(data.token)
+                console.log(jwt);
+            })
             .catch((err)=>{
             console.log(err)
         })
