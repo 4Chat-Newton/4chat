@@ -1,10 +1,12 @@
-import React, {useContext, useState} from "react";
-import {Link} from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {response} from "express";
 import jwt_decode from "jwt-decode";
 
 import GlobalContext from "../../GlobalContext";
 export default function Login() {
+
+    const navigate = useNavigate();
 
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
@@ -20,33 +22,6 @@ export default function Login() {
             setPassword(value);
         }
     }
-
-    // const handleSubmit = async () => {
-    //     //TODO fetch should be '/data/login'
-    //     await fetch('http://localhost:8080/data/login', {
-    //         method: 'POST',
-    //         headers: { 'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({
-    //             email: email,
-    //             password: password,
-    //         })
-    //     }).then(function ( response) {
-    //         if (response.ok === true) {
-    //
-    //             // setUser(response.body)
-    //             // localStorage.setItem("user", "")
-    //             // console.log("logged in", response.status)
-    //             alert("Logged in!")
-    //             return response.status
-    //         } else {
-    //             alert("Couldn't log in!")
-    //             // console.log("Couldn't log in", response.status)
-    //             return response
-    //         }
-    //
-    //     });//.then(navigate("/room"))
-    // }
     const handleSubmit = async () => {
         //TODO fetch should be '/data/login'
         await fetch('http://localhost:8080/data/login', {
@@ -62,20 +37,21 @@ export default function Login() {
             if (response.status === 200){
                 return response.json()
             } else {
+                alert("Couldn't log in!")
+                console.log("Couldn't log in!", response.status)
                 return response.json()
             }
         })
             .then(data => {
                 localStorage.setItem("token", data.token)
-                let temp = localStorage.getItem("token")
-                console.log("Frontend token: ", temp)
+            }).then( ()=> {
+                authenticateUser();
+                navigate("/chatroom");
             })
             .catch((err) => {
                 console.log(err)
             })
-        alert("Logged in!")
     }
-
 
     const authenticateUser = async () => {
         await fetch('http://localhost:8080/data/login', {
@@ -87,14 +63,16 @@ export default function Login() {
             credentials: "same-origin"
         }).then(function (response) {
             if (response.status === 200) {
-                console.log("response.body: ", response)
-                alert(`Got user`)
+                return response.json()
             } else {
-                alert("Error")
+                alert(`Error ${response.status}`)
             }
-        });
+        }).then(data => {
+            localStorage.setItem("user_id", data.id)
+            localStorage.setItem("username", data.username)
+            // localStorage.setItem("isLoggedIn", data.isLoggedIn)
+        })
     }
-
 
     return (
         <>
@@ -143,13 +121,9 @@ export default function Login() {
                         </div>
                     </div>
                     <div>
-                        <button id="login_btn" className="bg-gray-700 px-7 py-2 text-blue-700 ml-40" type="submit"
-                                onClick={handleSubmit}>Login
-                        </button>
-                        <div><br/></div>
-                        <button id="test_btn" className="bg-gray-700 px-7 py-2 text-blue-700 ml-40" type="submit"
-                                onClick={authenticateUser}>Get logged in User
-                        </button>
+                        <button id="login_btn" className="bg-gray-700 px-7 py-2 text-blue-700 ml-40" type="submit" onClick={handleSubmit}>Login</button>
+                        <div> <br/></div>
+                        <button id="test_btn" className="bg-gray-700 px-7 py-2 text-blue-700 ml-40" type="submit" onClick={authenticateUser}>Get logged in User</button>
                         {/**/}
                     </div>
                     <div className="text-sm">

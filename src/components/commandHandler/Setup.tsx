@@ -7,9 +7,12 @@ const Setup = async (data:string) => {
         let name = data.replace("/create ", "")
         console.log("room to create:", name)
 
+        console.log("Createroom token: ", localStorage.getItem("token"))
         await fetch('http://localhost:8080/data/room', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify( {
                 name: name
             })

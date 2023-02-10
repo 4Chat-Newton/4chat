@@ -1,6 +1,30 @@
 import "./Navbar.css"
+import {useNavigate} from "react-router-dom";
 
 export default function Navbar() {
+
+  const navigate = useNavigate()
+  const logOut = async () => {
+    await fetch('http://localhost:8080/data/login', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: `${ localStorage.getItem("token") }`
+      },
+      credentials: "same-origin"
+    }).then(function (response) {
+      if (response.status === 200) {
+        localStorage.removeItem("token")
+        localStorage.removeItem("user_id")
+        localStorage.removeItem("username")
+
+        navigate("/login")
+      } else {
+        alert(`Error couldn't sign out`)
+      }
+    })
+  }
+
   return <>
 
     <header className="navbar-header">
@@ -16,7 +40,7 @@ export default function Navbar() {
 
       <div className="nav-btn">
         <button className="settings-btn">Settings</button>
-        <button className="signOut-btn">Sign out</button>
+        <button className="signOut-btn" onClick={logOut}>Log out</button>
 
       </div>
     </header>

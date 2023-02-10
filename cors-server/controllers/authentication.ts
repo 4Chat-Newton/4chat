@@ -33,58 +33,49 @@ export const findUser = async function (email, db) {
     }
 };
 
-// export const requireSignin = (req: express.Request, res: express.Response) => {
-//     expressjwt({
-//         secret: "secret_key",
-//         algorithms: ["HS256"],
-//     })
-//     let result = {
-//         id: "",
-//         status: false
-//     }
-//
-//     if (!req.cookies.token) {
-//         return result
-//     } else {
-//         try {
-//             const data = jwt.verify(req.cookies.token, "secret_key");
-//             result.id = Object(data)["id"]
-//             result.status = true
-//
-//             return result
-//
-//         } catch (e) {
-//
-//             result.status = false
-//             return result
-//         }
-//     }
-// }
 
-// export const requireSignin = (req: express.Request, res: express.Response, next) => {
-//     expressjwt({
-//         secret: "secret_key",
-//         algorithms: ["HS256"],
-//     })
-//     jwt.verify(req.cookies.token, "secret_key")
-//     if (!req.cookies.token) {
-//         return res.status(401).send("No token found")
-//     } else {
-//         next();
-//     }
-// }
-
-export const requireSignin = (req: express.Request, res: express.Response, next) => {
+//TODO Fix so it returns a user
+export const returnId = (req: express.Request, res: express.Response) => {
     expressjwt({
         secret: "secret_key",
         algorithms: ["HS256"],
     })
+    let result = {
+        id: "",
+        isLoggedIn: false,
+        username: ""
+    }
+    const token = req.headers['authorization']
 
+    if (!token) {
+        return result
+    } else {
+        try {
+            const data = jwt.verify(token, "secret_key");
+            result.id = Object(data)["id"]
+            result.username = Object(data)["username"]
+            result.isLoggedIn = true
+
+            return result
+        } catch (e) {
+            result.isLoggedIn = false
+            return result
+        }
+    }
+}
+
+
+
+export const verifyJWT = (req: express.Request, res: express.Response, next) => {
+    expressjwt({
+        secret: "secret_key",
+        algorithms: ["HS256"],
+    })
     const authHeader = req.headers['authorization']
-    console.log("requireSignin: ", authHeader)
     jwt.verify(authHeader, "secret_key")
+
     if (!authHeader) {
-        return res.status(401).send("No token found")
+        return res.status(401).send("No token found!")
     } else {
         next();
     }
