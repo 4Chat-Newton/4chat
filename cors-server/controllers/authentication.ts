@@ -52,6 +52,8 @@ export const updateUserName = async function (id, username, db) {
 export const updateUserPassword = async function (id, encryptedPassword, db) {
     console.log(encryptedPassword, id)
     try {
+        requireSignin
+        console.log("1")
         const result = await db.prepare("UPDATE user SET password = ? WHERE id = ?").run(encryptedPassword, id)
         console.log(result)
         if (!result) {
