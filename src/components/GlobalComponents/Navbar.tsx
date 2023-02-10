@@ -40,8 +40,8 @@ export default function Navbar() {
             </div>
 
             <div className="nav-btn">
-                <button className="settings-btn">Settings</button>
-                <button className="signOut-btn" onClick={logOut}>Sign out</button>
+                <button id="settings-btn">Settings</button>
+                <button id="signOut-btn" onClick={logOut}>Sign out</button>
             </div>
         </header>
     </>

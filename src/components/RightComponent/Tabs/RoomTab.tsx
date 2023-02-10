@@ -1,12 +1,12 @@
-import TabComponent from "../../globalComponents/TabComponent";
+import TabsComponent from "../../globalComponents/TabsComponent";
 
 const RoomTab = () =>{
 
     return (
-        <TabComponent className="RoomTab">
+        <TabsComponent className="RoomTab">
             <h2>Rooms</h2>
             <p>Establish database connection </p>
-        </TabComponent>
+        </TabsComponent>
     );
 };
 export default RoomTab

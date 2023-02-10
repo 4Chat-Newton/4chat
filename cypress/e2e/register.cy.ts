@@ -21,14 +21,14 @@ describe('Testing user functionality', () => {
         cy.get('#terms').click()
         cy.get('#submit_btn').click()
 
-        cy.wait(2000)
-        cy.get('#cancel_btn').click()
+        // cy.wait(2000)
+        // cy.get('#cancel_btn').click()
     }) // end of test
 
     it('Login a user', () => {
 
         cy.visit('http://localhost:3000/login')
-        cy.intercept("DELETE", "/data/login", (req)=>{
+        cy.intercept("POST", "/data/login", (req)=>{
             req.continue((res)=>{
                 expect(res.statusCode).to.eq(200)
                 expect(res.body.loggedIn).to.have.eq(true)
@@ -37,29 +37,19 @@ describe('Testing user functionality', () => {
             cy.get('#email').click().type("Test_User@gmail.com")
             cy.get('#password').click().type("12345")
             cy.get('#login_btn').click()
-            cy.wait(2000)
+            // cy.wait(2000)
     })
 
     it('Sign out a user', () => {
 
-        cy.visit('http://localhost:3000/login')
+        cy.visit('http://localhost:3000/chatroom')
         cy.intercept("DELETE", "/data/login", (req)=>{
             req.continue((res)=>{
                 expect(res.statusCode).to.eq(200)
                 expect(res.body.loggedIn).to.have.eq(false)
             })
         })
-
-        cy.request({
-            method: "DELETE",
-            url: "http://localhost:8080/data/login",
-            form: false,
-            body: {
-                email: "Test_User@gmail.com",
-                password: "12345"
-            },
-        })
-        cy.wait(2000)
+        cy.get('#signOut-btn').click()
 
     })
 
