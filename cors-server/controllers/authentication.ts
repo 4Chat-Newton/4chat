@@ -72,11 +72,10 @@ export const verifyJWT = (req: express.Request, res: express.Response) => {
     })
 
     const token:any = req.headers["x-access-token"]
-    const result = JSON.parse(token).slice(1, -1)
 
     console.log(token)
 
-    jwt.verify(result, "secret_key")
+    jwt.verify(token, "secret_key")
 
     if (!token) {
         return res.status(401).send("No token found!")

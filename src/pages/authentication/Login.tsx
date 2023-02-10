@@ -81,30 +81,31 @@ export default function Login() {
             }
         }).then( data => {
             if (data.token) {
-                setToken(JSON.stringify(data.token))
+                localStorage.setItem("token", data.token)
             }
                 userAuthenticate()
                 //navigate("/chatroom")    
             }).then( ()=>{
-                localStorage.setItem("token", token)
+                //const tokenItem = JSON.stringify(localStorage.getItem("token"))
+                //setToken(JSON.stringify(tokenItem))
             })
             .catch((err)=>{
             console.log(err)
         })
-        console.log("Token:", token)
+        console.log("Token:", localStorage.getItem("token"))
     }
 
 
 
 
     const userAuthenticate = async () => {
-        const token = JSON.stringify(localStorage.getItem("token"))
+        const token = localStorage.getItem("token")
         if (token) {
             await fetch('http://localhost:8080/data/login', {
                 method: 'GET',
                 headers: { 
                     'Content-Type': 'application/json',
-                    'x-access-token': token}
+                    "x-access-token": token}
             }).then((response) => response.json())
             .then( data => {
                 setUser(JSON.stringify(data.id))
