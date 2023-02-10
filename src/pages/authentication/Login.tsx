@@ -9,7 +9,10 @@ export default function Login() {
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
 
-    const { isLoggedIn } = useContext(GlobalContext) || { isLoggedIn: false}
+    // const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+
+    // const { isLoggedIn } = useContext(GlobalContext) || { isLoggedIn: false}
 
     const handleUserInput = (e: any) => {
         const {id, value} = e.target;
@@ -20,7 +23,7 @@ export default function Login() {
             setPassword(value);
         }
     }
-    const handleSubmit = async () => {
+    const signIn = async () => {
         //TODO fetch should be '/data/login'
         await fetch('http://localhost:8080/data/login', {
             method: 'POST',
@@ -33,6 +36,8 @@ export default function Login() {
             })
         }).then((response) => {
             if (response.status === 200){
+                console.log("User logged in!")
+                localStorage.setItem("isloggedIn", "true")
                 return response.json()
             } else {
                 alert("Couldn't log in!")
@@ -42,16 +47,20 @@ export default function Login() {
         })
             .then(data => {
                 localStorage.setItem("token", data.token)
-            }).then( ()=> {
-                authenticateUser();
-                navigate("/chatroom");
             })
             .catch((err) => {
                 console.log(err)
             })
+
+        //TODO swap for a useState, needs some work
+        if(localStorage.getItem("isloggedIn") === "true"){
+            authenticateUser();
+            navigate("/chatroom");
+        }
     }
 
     const authenticateUser = async () => {
+
         await fetch('http://localhost:8080/data/login', {
             method: 'GET',
             headers: {
@@ -119,7 +128,7 @@ export default function Login() {
                         </div>
                     </div>
                     <div>
-                        <button id="login_btn" className="bg-gray-700 px-7 py-2 text-blue-700 ml-40" type="submit" onClick={handleSubmit}>Login</button>
+                        <button id="login_btn" className="bg-gray-700 px-7 py-2 text-blue-700 ml-40" type="submit" onClick={signIn}>Login</button>
                     </div>
                     <div className="text-sm">
                         <Link to="/register"

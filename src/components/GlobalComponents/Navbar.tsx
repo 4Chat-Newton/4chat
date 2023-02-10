@@ -15,10 +15,7 @@ export default function Navbar() {
             credentials: "same-origin"
         }).then(function (response) {
             if (response.status === 200) {
-                localStorage.removeItem("token")
-                localStorage.removeItem("user_id")
-                localStorage.removeItem("username")
-
+                localStorage.clear()
                 navigate("/login")
             } else {
                 alert(`Error couldn't sign out`)

@@ -70,6 +70,7 @@ export const verifyJWT = (req: express.Request, res: express.Response, next) => 
         algorithms: ["HS256"],
     })
     const authHeader = req.headers['authorization']
+    console.log("verifyJWT", authHeader)
     jwt.verify(authHeader, "secret_key")
 
     if (!authHeader) {
