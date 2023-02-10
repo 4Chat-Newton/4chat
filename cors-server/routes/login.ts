@@ -1,7 +1,7 @@
 import {Request, Response} from "express";
 import jwt from "jsonwebtoken";
 import cookieparser from "cookie-parser";
-import {findUser, requireSignin, validateUser} from "../controllers/authentication";
+import {findUser, verifyJWT, validateUser, returnId} from "../controllers/authentication";
 import {ok} from "assert";
 
 export const signOut = async function (server, db: any) {
@@ -11,10 +11,16 @@ export const signOut = async function (server, db: any) {
     })
 }
 
-export const getSignInUser = async function (server, db: any) {
+export const getSignedInUser = async function (server, db: any) {
 
-    server.get('/data/login', requireSignin , async (req, res) => {
-            return res.status(200).send("Get sign in user")
+    server.get('/data/login', async (req, res) => {
+        let result = {
+            id: "",
+            status: false
+        }
+            result = returnId(req, res)
+            console.log( " result backend: ", result.id)
+            return res.json({id: result.id})
     })
 }
 
@@ -23,16 +29,9 @@ export const signIn = async function (server, db: any) {
         const {email, password} = req.body;
         try {
             const user = await findUser(email, db);
-
-            if (!user) {
-                return res
-                    .status(401)
-                    .json({error: "Invalid credentials!"});
-            }
-
             const isValid = await validateUser(password, user.password);
 
-            if (!isValid) {
+            if (!isValid || !user) {
                 return res
                     .status(401)
                     .json({error: "Invalid credentials!"});
@@ -57,9 +56,8 @@ export const signIn = async function (server, db: any) {
             await db.prepare("UPDATE user SET online = 1 WHERE id = ?").run(user.id)
             // isLoggedIn = true
 
-            console.log("user_id: ", user.id)
-            console.log("token: ", token)
-            // setJwt(token)
+            console.log("login ", token)
+
             return res.status(200).json({loggedIn: true, user_id: user.id, token: token});
         } catch (err) {
             // delete req.body.session.jwt;
@@ -69,4 +67,4 @@ export const signIn = async function (server, db: any) {
         }
     });
 };
-export default {signIn, signOut, getSignInUser};
+export default {signIn, signOut, getSignedInUser};

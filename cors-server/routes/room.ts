@@ -1,4 +1,4 @@
-import { requireSignin } from "../controllers/authentication";
+import { verifyJWT } from "../controllers/authentication";
 import express, { response, request } from 'express';
 //
 // export const findExistingRoom = async function (name, db) {
