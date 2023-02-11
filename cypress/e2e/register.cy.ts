@@ -1,7 +1,6 @@
 // @ts-ignore
 import * as cypress from "cypress";
 import {expect} from "chai";
-
 describe('Testing user functionality', () => {
 
     it('Registering a new user', () => {
