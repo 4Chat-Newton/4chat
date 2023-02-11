@@ -5,6 +5,7 @@ import Register from "../../pages/Authentication/Register";
 import Terms from "../../pages/Terms";
 import ChatRoom from "../../pages/ChatRoom";
 import Settings from "../Settings";
+import DeleteAccount from "../DeleteAccount";
 function ChatRouter() {
   return (
     <>
@@ -15,6 +16,7 @@ function ChatRouter() {
         <Route path="/terms" element={<Terms />} />
         <Route path="/ChatRoom" element={<ChatRoom />} />
         <Route path="/Settings" element={<Settings />} />
+        <Route path="/DeleteAccount" element={<DeleteAccount />} />
       </Routes>
     </>
   );
