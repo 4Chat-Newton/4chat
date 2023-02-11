@@ -11,9 +11,10 @@ const host: string = `http://localhost:${port}`;
 export const app: any = express();
 app.use(express.json());
 app.use(express.urlencoded());
-app.use(cors({
-  origin: ["http://localhost:3000"]
-}));
+// app.use(cors({
+//   origin: ["http://localhost:3000"]
+// }));
+app.use(cors());
 app.use(cookieparser());
 
 export const db = require("better-sqlite3")("./db/database.db");

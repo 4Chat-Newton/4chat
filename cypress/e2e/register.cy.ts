@@ -18,7 +18,6 @@ describe('Testing user functionality', () => {
         cy.get('#password').click().type("12345")
         cy.get('#confirmPassword').click().type("12345")
         cy.get('#terms').click()
-
         cy.get('#submit_btn').click()
 
         // cy.wait(2000)
