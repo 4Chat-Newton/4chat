@@ -44,7 +44,7 @@
     "cy:run": "cypress run --browser chrome",
     "stop": "taskkill -F -IM node.exe",
     "stop2": "pkill node.exe",
-    "test:all": "concurrently --kill-others --success first \" npm start \" \" cd cors-server && npm run start \" \" sleep 20 && npm run cy:run\""
+    "test:all": "concurrently --kill-others --success first \" npm start \" \" cd cors-server && npm run start \" \" sleep 30 && npm run cy:run\""
   },
   "eslintConfig": {
     "extends": [
