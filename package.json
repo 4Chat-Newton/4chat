@@ -40,8 +40,8 @@
     "all": "concurrently \" npm start \" \" cd cors-server && npm run start2\" ",
     "all2": "concurrently \" npm start \" \" cd cors-server && npm run start\" ",
     "backend": "cd cors-server && npm run start2 && cd ..",
-    "cy:open": "cypress open --browser chrome",
-    "cy:run": "cypress run --browser chrome",
+    "cy:open": "cypress open --browser electron",
+    "cy:run": "cypress run --browser electron",
     "stop": "taskkill -F -IM node.exe",
     "stop2": "pkill node.exe",
     "test:all": "concurrently --kill-others --success first \" npm start \" \" cd cors-server && npm run start \" \" sleep 30 && npm run cy:run\""
@@ -66,7 +66,6 @@
   },
   "devDependencies": {
     "cypress": "^12.4.1",
-    "start-server-and-test": "^1.15.3",
     "tailwindcss": "^3.2.4",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.4"

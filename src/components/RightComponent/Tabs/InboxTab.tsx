@@ -1,15 +1,13 @@
-// import TabsComponent from "../../globalComponents/TabsComponent";
-//
-// function InboxTab(){
-//
-//     return (
-//         <TabsComponent className="InboxTab">
-//             <h2>DM</h2>
-//             Establish database connection
-//         </TabsComponent>
-//     );
-// };
-//
-// export default InboxTab
+import TabComponent from "../../globalComponents/TabComponent";
 
-export {}
+function InboxTab(){
+
+    return (
+        <TabComponent className="InboxTab">
+            <h2>DM</h2>
+            Establish database connection
+        </TabComponent>
+    );
+};
+
+export default InboxTab
