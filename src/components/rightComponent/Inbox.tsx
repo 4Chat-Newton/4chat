@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./Inbox.css";
-import InboxTab from "./tabs/InboxTab";
+import InboxTab from "./InboxTab";
 import RoomTab from "./tabs/RoomTab";
 
 export default function Inbox() {

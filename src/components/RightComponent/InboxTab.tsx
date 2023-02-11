@@ -1,4 +1,4 @@
-import TabsComponent from "../../globalComponents/TabsComponent";
+import TabsComponent from "../globalComponents/TabsComponent";
 
  export default function InboxTab(){
 
