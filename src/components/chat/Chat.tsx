@@ -12,7 +12,7 @@ const Chat = () => {
 
     useEffect(() => {
         socket.on('messageResponse', (data) => setMessages([...messages, data]));
-    }, [socket, messages]);
+    }, [messages]);
 
     return (
         <>
