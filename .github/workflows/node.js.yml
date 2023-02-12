@@ -5,9 +5,9 @@ name: Testing Frontend & Backend
 
 on:
   push:
-    branches: [ "test-github-action-2" ]
+    branches: [ "dev" ]
   pull_request:
-    branches: [ "GG-120-Fix-token-assignment-through-frontend" ]
+    branches: [ "dev" ]
 
 jobs:
   build:
