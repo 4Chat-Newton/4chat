@@ -6,11 +6,12 @@ export default function Navbar() {
   const navigate = useNavigate();
 
   const logOut = async () => {
+    let token = await localStorage.getItem("token")
     await fetch('http://localhost:8080/data/login', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${ localStorage.getItem("token") }`
+        'Authorization': `Bearer ${ token }`
       }
     }).then(function (response) {
       if (response.status === 200) {
