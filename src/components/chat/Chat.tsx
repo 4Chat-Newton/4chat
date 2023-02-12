@@ -18,9 +18,9 @@ const Chat = () => {
 
   return (
     <>
-    <BoxContainer>
+    <BoxContainer className="chatContainer">
         <ChatWindow messages={messages}/>
-        <div className="chatSeperator"></div>
+        {/*<div className="chatSeperator"></div>*/}
         <ChatMessage socket={socket}/>
       </BoxContainer>
     </>

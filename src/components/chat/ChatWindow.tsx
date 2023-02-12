@@ -1,7 +1,7 @@
 import "./Chat.css"
 
 export default function ChatWindow({messages: socketRespons}:any) {
-  return (
+  return (<>
       <div className="chatWindow">
         <section className="roomName">
           <div className="roomName-header">
@@ -16,5 +16,6 @@ export default function ChatWindow({messages: socketRespons}:any) {
           </ul>
         </section>
       </div>
+      </>
   );
 }
