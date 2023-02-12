@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../style.css";
+import Setup from "../commandHandler/Setup";
 
 export default function ChatMessage({socket}:any) {
   
@@ -21,7 +22,13 @@ export default function ChatMessage({socket}:any) {
     }
     setMessage('');
   };
-  
+
+    const handleInput = async () => {
+        //TODO remove console.log
+        console.log("handleInput data:", message)
+        Setup(message)
+    }
+
   return (
         <form className="msg" onSubmit={handleSendMessage}>
         <input
@@ -31,7 +38,7 @@ export default function ChatMessage({socket}:any) {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
         />
-        <button type="submit" className="send">
+        <button type="submit" className="send" onClick={handleInput}>
           Send
         </button>
         </form>
