@@ -1,4 +1,4 @@
-import TabComponent from "../../GlobalComponents/TabComponent";
+import TabComponent from "../../globalComponents/TabComponent";
 
 const InboxTab = () =>{
 
