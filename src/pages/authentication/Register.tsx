@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom";
 
-function Register() {
+export default function Register() {
 
     const navigate = useNavigate();
     const [email, setEmail] = useState(null);
@@ -27,7 +27,7 @@ function Register() {
     }
 
     const handleSubmit = async () => {
-        if (password === confirmPassword && acceptTerms === true) {
+        if (password === confirmPassword && acceptTerms) {
             //TODO fetch should be '/data/register'
             await fetch('http://localhost:8080/data/register', {
                 method: 'POST',
@@ -128,7 +128,7 @@ function Register() {
                                 <br></br>
 
                                 <a href="/terms"
-                                    className="font-medium text-indigo-600 hover:text-indigo-500 text-decoration-line: underline">
+                                   className="font-medium text-indigo-600 hover:text-indigo-500 text-decoration-line: underline">
                                     Terms & Conditions
                                 </a>
 
@@ -138,10 +138,10 @@ function Register() {
 
                     <div>
                         <Link to="/login" className="bg-gray-700 px-7 py-2 text-blue-700 mr-20" type="submit"
-                            id="cancel_btn">Cancel
+                              id="cancel_btn">Cancel
                         </Link>
                         <button className="bg-gray-700 px-6 py-2 text-blue-700 ml-40" type="submit"
-                            name="submit_btn" id="submit_btn" onClick={handleSubmit}>Submit
+                                name="submit_btn" id="submit_btn" onClick={handleSubmit}>Submit
                         </button>
                     </div>
 
@@ -150,5 +150,3 @@ function Register() {
         </>
     )
 }
-
-export default Register
