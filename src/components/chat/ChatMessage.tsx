@@ -32,6 +32,7 @@ export default function ChatMessage({socket}:any) {
   return (
         <form className="msg" onSubmit={handleSendMessage}>
         <input
+            // style={{color:"lightgreen"}}
           type="text"
           className="msger-input"
           placeholder="Enter your message..."
