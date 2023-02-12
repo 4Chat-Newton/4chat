@@ -15,8 +15,8 @@ export default function Navbar() {
       </div>
 
       <div className="nav-btn">
-        <button className="settings-btn">Settings</button>
-        <button className="signOut-btn">Sign out</button>
+        <button id={"settings-btn"} className="settings-btn">Settings</button>
+        <button id={"signOut-btn"} className="signOut-btn">Sign out</button>
 
       </div>
     </header>
