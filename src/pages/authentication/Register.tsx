@@ -1,8 +1,9 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"; //TODO add "Navigate" when needed
+import { Link, useNavigate } from "react-router-dom";
 
 function Register() {
 
+    const navigate = useNavigate();
     const [email, setEmail] = useState(null);
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
@@ -40,24 +41,11 @@ function Register() {
                 .then(function (response) {
                     // TODO remove when no longer needed after testing
                     console.log(response)
-                    if (response.ok === true) {
-                        //TODO add online status to body json
-                        fetch('http://localhost:8080/data/login', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                email: email,
-                                password: password,
-                            })
-                        }).then(function (response) {
-                            console.log(response)
-                            if (response.ok === true) {
-                                alert("User successfully registered!")
-                            } else {
-                                alert("The username or email is already in use!")
-                            }
-
-                        });//.then(navigate("/room"))
+                    if (response.ok) {
+                        alert("User successfully registered!")//todo om tid finns skapa popup för detta istället som tas automatiskt bort efter typ 2sek
+                        navigate("/login")
+                    }else {
+                        alert("The username or email is already in use!")
                     }
                 });
         } else if (password !== confirmPassword) {
@@ -66,7 +54,6 @@ function Register() {
             alert("To register an account, you need to accept the Terms & Conditions!")
         }
     }
-
 
     return (
         <>
