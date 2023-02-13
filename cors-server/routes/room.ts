@@ -113,12 +113,12 @@ export const deleteRoom = async function (server, db) {
   server.delete("/data/room",verifyJWT, async (req: express.Request, res: express.Response) => {
     try {
       const existingRoom = await findExistingRoom(req.body.name, db);
-      let user = {id: "", isLoggedIn: false, username:
-      user = returnUser(req,res);
+      let user = {id: "", isLoggedIn: false, username: "" }
+      user = returnUser(req, res);
       const { name } = req.body;
       const { creator_id } = await checkCreatorId(user.id , db);
 
-      if (!result.isLoggedIn) {
+      if (!user.isLoggedIn) {
         return res.status(401).send({ error: "Unauthorized" });
       }
 
@@ -141,3 +141,21 @@ export const deleteRoom = async function (server, db) {
     }
   });
 };
+
+export const checkCreatorId = async (creator_id, db) => {
+  try {
+    const result = await db
+      .prepare(
+        "SELECT creator_id FROM room WHERE creator_id = ?"
+      )
+      .get(creator_id);
+    if (!result) {
+      console.log(`No room found with the following creator_id: ${creator_id}`);
+      return null;
+    }
+    return result;
+  } catch (error) {
+    console.error(`${error}`)
+    return null;
+  }
+}
