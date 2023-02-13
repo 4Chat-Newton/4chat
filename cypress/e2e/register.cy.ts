@@ -33,7 +33,10 @@ describe('Testing user functionality', () => {
                 req.continue((res) => {
                     expect(res.statusCode).to.eq(200)
                     expect(res.body.loggedIn).to.have.eq(true)
-                    window.localStorage.setItem('token', req.body.token)
+
+                    //TODO undersök varför token inte hämtas
+
+                    // window.localStorage.setItem('token', res.body.token)
 
                     window.localStorage.getItem('token')
                 })
@@ -47,6 +50,10 @@ describe('Testing user functionality', () => {
             cy.visit('http://localhost:3000/chatroom')
             cy.url().should('contain', '/chatroom')
             cy.wait(1000)
+
+            //TODO checka så den inte hämtar null
+
+            // expect(localStorage.getItem('token')).not.null
 
             cy.intercept("DELETE", "/data/login", (req) => {
                 req.continue((res) => {
