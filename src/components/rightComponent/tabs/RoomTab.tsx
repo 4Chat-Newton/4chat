@@ -1,6 +1,6 @@
 import { useState } from "react";
-import ListComponent from "../../GlobalComponents/ListComponent";
-import TabComponent from "../../GlobalComponents/TabComponent";
+import ListComponent from "../../globalComponents/ListComponent";
+import TabComponent from "../../globalComponents/TabComponent";
 
 const RoomTab = () =>{
     const[rooms, setRooms] = useState([])
