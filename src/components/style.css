@@ -12,19 +12,43 @@
     --red: #ee2829;
 }
 
+* {
+    margin: 0px;
+}
+
 body {
     background: var(--grey);
     height: 100%;
     width: 100%;
-    margin-top: 0px;
-    margin-left: 0px;
-    margin-right: 0px;
     background-image: var(--grey);
     font-family: Helvetica, sans-serif;
+    overflow: hidden;
 }
 
-.boxContainer {
-    padding: 5px;
+h2{
+    font-weight: bold;
+    font-size: x-large;
+}
+
+.buttonComponent {
+    color: var(--white);
+    font-family: sans-serif;
+    cursor: pointer;
+    transition: .3s;
+    width: 100%;
+    padding: 10px;
+}
+
+.buttonComponent:hover {
+    background-color: var(--blue);
+}
+
+.tabComponent {
+    background-color: var(--black);
+    height: 100%;
+    width: 100%;
+    color: var(--white);
+    text-align: center;
 }
 
 #email {
@@ -48,4 +72,21 @@ body {
 
 html {
     box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--grey);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--black);
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }

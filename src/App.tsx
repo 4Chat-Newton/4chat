@@ -2,13 +2,7 @@
 import { Link } from "react-router-dom";
 
 function App() {
-  // let timeStamp = Date.now()
 
-  // const [message, setMessage] = useState({
-  //   user: "as",
-  //   text: "",
-  //   time: timeStamp,
-  // });
 
   return (
     <div
