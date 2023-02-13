@@ -67,5 +67,4 @@ describe('Testing user functionality', () => {
             expect(response.status).to.eq(200)
         })
     })
-
 })
