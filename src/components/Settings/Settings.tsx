@@ -107,10 +107,10 @@ export default function Settings() {
                     </div>
 
                     <div>
-                        <Link to="/login" className="bg-gray-700 px-7 py-2 text-blue-700 mr-20" type="submit"
+                        <Link to="/login" className="bg-gray-700 px-7 py-2 text-blue-700 mr-40 pl-10" type="submit"
                             id="update_btn">Update
                         </Link>
-                        <Link to="/DeleteAccount" className="bg-gray-700 px-7 py-2 text-blue-700 mr-20" type="submit"
+                        <Link to="/DeleteAccount" className="bg-gray-700 px-7 py-2 text-blue-700 ml-" type="submit"
                             id="delete_btn">Delete Account
                         </Link>
                     </div>
