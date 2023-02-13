@@ -4,6 +4,7 @@ const ProtectedRoutes = () => {
 
     const getToken = () => {
         const jwtToken = localStorage.getItem('token');
+        console.log(jwtToken)
         if (jwtToken !== null) {
             return true
         } else {
