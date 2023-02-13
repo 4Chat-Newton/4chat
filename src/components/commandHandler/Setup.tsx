@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import GlobalContext from "../../GlobalContext";
+
 
 export default function Setup(data: string) {
-    // const [room, setRoom] = useState('');
+    //const [room, setRoom] = useState(null);
+    const { isLoggedIn } = useContext(GlobalContext) || { isLoggedIn: false}
+    const { room } = useContext(GlobalContext) || { findRoom: [] }
 
     const findTerm = (term: string) => {
         if (data.startsWith(term)) {
@@ -9,17 +13,22 @@ export default function Setup(data: string) {
         }
     };
 
-    const findRoom = async (roomName: string) => {
+    useEffect(() => {
         fetch("http://localhost:8080/data/room/" + roomName)
             .then((res) => res.json())
             .then((data) => {
                 // console.log('r10',data)
                 //let room = data.find(roomName);
                 // setRoom(rum)
-                //console.log(data.id);
-                return data.id
+                console.log(data.id)
+
+                //setRoom(data.id)
+                localStorage.setItem("room", data.id)
+                //setRoom(result)
             });
-    };
+
+      }, []) 
+      
 
     switch (data) {
         case findTerm("/create #"):
@@ -37,7 +46,8 @@ export default function Setup(data: string) {
                 }),
             }).then(function (response) {
                 if (response.ok) {
-                    alert(`Room ${name} created!`);
+                    alert(`Room #${name} created!`);
+                    
                 } else {
                     alert("Error creating room!");
                 }
@@ -45,17 +55,20 @@ export default function Setup(data: string) {
             break;
         case findTerm("/join #"):
             let roomToJoin = data.replace("/join #", "");
-            const roomId = findRoom(roomToJoin)
+            findRoom()
+            const roomId = localStorage.getItem("room")
+            console.log("keifjiej: ", roomId)
 
-            fetch("http://localhost:8080/data/room/join", {
+            if (roomId) {
+                fetch("http://localhost:8080/data/room/join", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                     authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
                 body: JSON.stringify({
-                    user_id: localStorage.getItem("userId"),
-                    room_id: roomId
+                    user_id: localStorage.getItem("user_id"),
+                    room_id: room
                 }),
             }).then(function (response) {
                 if (response.ok) {
@@ -64,6 +77,12 @@ export default function Setup(data: string) {
                     alert("Error joining room!");
                 }
             });
+
+            } else {
+                alert("Room doesn't exist!")
+            }
+
+            
 
             
 

@@ -77,6 +77,24 @@ export const getAllRooms = async function (server, db){
 })
 }
 
+export const getAllJoinedRooms = async function (server, db){
+  server.get("/data/room/join", async (req: express.Request, res: express.Response) => {
+    let user = returnUser(req, res);
+    console.log("jvnjir")
+    try {
+      const result = await db
+          .prepare(
+              "SELECT * FROM joined_room WHERE user_id = ?"
+          )
+          .all(user.id);
+      console.log(result)
+      return res.status(200).send(result)
+    } catch(e) {
+      return res.status(400).send("Failed to retrieve rooms!")
+    }
+})
+}
+
 export const joinRoom = async function (server, db) {
   server.post("/data/room/join", async (req: express.Request, res: express.Response) => {
     let user = returnUser(req, res);

@@ -1,16 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ListComponent from "../../globalComponents/ListComponent";
 import TabComponent from "../../globalComponents/TabComponent";
 
 const RoomTab = () =>{
     const[rooms, setRooms] = useState([])
-
-    fetch('http://localhost:8080/data/room')
+    
+    useEffect(()=>{
+        fetch('http://localhost:8080/data/room')
         .then(res => res.json())
         .then(data => {
-            // console.log('r10',data)
             setRooms(data)
         })
+      },[])
 
         if(rooms.length > 0) return (<ListComponent rooms={rooms}/>)
 

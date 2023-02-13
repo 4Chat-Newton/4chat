@@ -2,6 +2,7 @@ import { useState } from "react";
 import "../style.css";
 import Setup from "../commandHandler/Setup";
 
+
 export default function ChatMessage({socket}:any) {
 
   const [message, setMessage] = useState('');
