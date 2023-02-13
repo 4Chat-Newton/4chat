@@ -11,33 +11,19 @@
 }
 
 .inboxBtns li {
-    background-color: #222;
+    background-color: var(--grey);
     color: var(--white);
     font-family: sans-serif;
     cursor: pointer;
-    transition: .15s;
+    transition: .3s;
     width: 100%;
     padding: 10px;
     text-align: center;
 }
 
- .inboxBtns li.active{
+.inboxBtns li.active{
     background-color: var(--black);
-    /* font-weight: bold; */
-    text-decoration: underline;
-} 
+}
 .inboxBtns li:hover {
     background-color: var(--blue);
-}
-.listComponent{
-    color: var(--white);
-}
-.listComponent > li {
-    width: 100%;
-    padding: 5px;
-    transition: .15s;
-}
-.listComponent > li:hover{
-    cursor: cell;
-   background-color: var(--blue);
 }

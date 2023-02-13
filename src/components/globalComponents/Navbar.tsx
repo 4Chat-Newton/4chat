@@ -1,4 +1,3 @@
-import ButtonComponent from "./ButtonComponent"
 import "./Navbar.css"
 import { useNavigate } from "react-router";
 
@@ -6,17 +5,21 @@ export default function Navbar() {
 
   const navigate = useNavigate();
 
-  const handleSignout = async () => {
-
-    await fetch('/data/login', {
+  const logOut = async () => {
+    await fetch('http://localhost:8080/data/login', {
       method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-
-    }).then(() => {
-      navigate("/login");
-    }).catch(err => {
-      console.error(err);
-    });
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${ localStorage.getItem("token") }`
+      }
+    }).then(function (response) {
+      if (response.status === 200) {
+        localStorage.clear()
+        navigate("/login")
+      } else {
+        alert(`Error couldn't sign out`)
+      }
+    })
   }
 
   const handleHome = () => {
@@ -37,8 +40,8 @@ export default function Navbar() {
       </div>
 
       <div className="nav-btn">
-        <ButtonComponent className="settings-btn">Settings</ButtonComponent>
-        <ButtonComponent className="signOut-btn" onClick={handleSignout}>Sign out</ButtonComponent>
+        <button id="settings-btn">Settings</button>
+        <button id="signOut-btn" onClick={logOut}>Sign out</button>
       </div>
     </header>
   </>
