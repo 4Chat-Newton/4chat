@@ -16,7 +16,7 @@ function ChatRouter() {
         <Route path="/register" element={<Register />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/settings" element={<Settings />} />
-        <Route path="/delete_account" element={<DeleteAccount />} />
+        <Route path="/deleteaccount" element={<DeleteAccount />} />
         <Route path="/chatroom" element={<ChatRoom />} />
         <Route path="/*" element={<NoPage />} />
       </Routes>

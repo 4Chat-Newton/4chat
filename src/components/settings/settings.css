@@ -1,5 +1,63 @@
-#confirm-btn{
+.confirm{
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
+.settingsWindow {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  color: white;
+  background: var(--black);
+  overflow: auto;
+  flex-grow: 1;
+}
+
+.settingsheader {
+  margin: 0;
+  background-color: var(--blue);
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.settingsContainer{
+  flex: 80;
+  display: flex;
+  flex-direction: column;
+  padding-right: 10px;
+}
+
+.settingsBox {
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+.settingsH1{
+  padding-top: 10px;
+  padding-left: 20px;
+  padding-bottom: 10px;
+}
+
+.settingsFields {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 10px;
+}
+
+.Update_btn{
+  border-radius: 5px;
+  max-width: 20vh;
+  background-color: rgb(72, 107, 249);
+}
+
+#SettingsEmail, #SettingsPassword, #SettingsConfirmPassword{
+  background-color: #303030;
+  border-radius: 5px;
+  padding-left: 5px;
+  text-align: center;
+}
+

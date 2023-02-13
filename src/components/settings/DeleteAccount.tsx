@@ -1,5 +1,7 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"; //TODO add "Navigate" when needed
+import "./settings.css"
+import ButtonComponent from "../globalComponents/ButtonComponent";
 
 export default function DeleteAccount() {
 
@@ -60,49 +62,30 @@ export default function DeleteAccount() {
     }
 
 
-    return (
-      <>
-        <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-          <div className="w-full max-w-md space-y-8">
-            <div>
-              <img
-                src="img/4chat.png"
-                className="mx-auto h-20 w-auto"
-                alt="logo"
-              />
-            </div>
-            <div>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                placeholder="Password"
-                onChange={(e) => handleUserInput(e)}
-                className="mb-3 relative block w-full appearance-none rounded-none rounded-b-md border border-none px-3 py-2 text-yellow-300 placeholder-yellow-300 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-              />
-              <input
-                id="confirmPassword"
-                name="password"
-                type="password"
-                placeholder="Confirm password"
-                onChange={(e) => handleUserInput(e)}
-                className="relative block w-full appearance-none rounded-none rounded-b-md border border-none px-3 py-2 text-yellow-400 placeholder-yellow-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-              />
-            </div>
-          </div>
+    return (<>
 
-          {/* Behöver en check som kollar att confirm inte länkar vidare om lösen inte stämmer */}
-          <div>
-            <Link
-              to="/login"
-              className="bg-gray-700 px-7 py-2 text-blue-700 mr-20"
-              type="submit"
-              id="confirm_btn"
-            > Confirm
-            </Link>
-          </div>
-        </div>
-      </>
-    );
+<div className="settingsBox">
+
+                        <h1 className="settingsH1">Delete Profile</h1>
+
+                        <div className="settingsFields">
+                                <input className="settingsInputFields"
+                                        id="SettingsPassword"
+                                        name="password"
+                                        type="password"
+                                        autoComplete="current-password"
+                                        placeholder="Password"
+                                        onChange={(e) => handleUserInput(e)}
+                                />
+                                <input className="settingsInputFields"
+                                        id="SettingsConfirmPassword"
+                                        name="password"
+                                        type="password"
+                                        placeholder="Confirm password"
+                                        onChange={(e) => handleUserInput(e)}
+                                />
+                                <ButtonComponent id="editUpdate_btn" className="Update_btn">Delete Account</ButtonComponent>
+                        </div>
+                </div>
+</>);
 }
