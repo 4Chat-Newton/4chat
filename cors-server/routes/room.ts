@@ -65,22 +65,25 @@ export const getAllRooms = async function (server, db){
 })
 }
 
+export const joinRoom = async function (server, db) {
+  server.post("/data/room/join", async (req: express.Request, res: express.Response) => {
+    let user = returnUser(req, res);
+    const { room_id } = req.body;
+    const roomCheck = await db.prepare("SELECT * FROM joined_room WHERE user_id = ? AND room_id = ?").get(user.id, room_id);
 
-//TODO update delete room to check where name && creator_id
-export const deleteRoom = async function (server, db){
-  server.delete("/data/room", verifyJWT, async (req: express.Request, res: express.Response) => {
-    let result = {id: "", isLoggedIn: false, username: ""}
-    result = returnUser(req, res)
-    const existingRoom = await findExistingRoom(req.body.name, db)
-    if (!existingRoom) {
-      return res.status(400).send(`Room '${req.body.name}' doesn't exist!`)
-    } else {
+    if (user.isLoggedIn && roomCheck == undefined) {
       try {
-        await db.prepare("DELETE FROM room WHERE name = ?").run(req.body.name);
-        return res.status(200).send(`Room '${req.body.name}' has been deleted!`)
-      } catch(e) {
-        return res.status(400).send(`Failed to delete room '${req.body.name}'!`)
+          await db.prepare("INSERT INTO joined_room (user_id, room_id) VALUES(?,?)").run(user.id, room_id);
+          return res.status(200).json({ msg: "Room joined" })
+      } catch (e) {
+        return res
+          .status(400)
+          .json({ error: "Failed to join room" });
       }
+    } else {
+      return res
+        .status(400)
+        .json({ error: "Room already joined !" });
     }
   })
 }
@@ -105,3 +108,54 @@ export const leaveChatRoom =async (server ,db) => {
   })
 }
 
+
+export const deleteRoom = async function (server, db) {
+  server.delete("/data/room",verifyJWT, async (req: express.Request, res: express.Response) => {
+    try {
+      const existingRoom = await findExistingRoom(req.body.name, db);
+      let user = {id: "", isLoggedIn: false, username: "" }
+      user = returnUser(req, res);
+      const { name } = req.body;
+      const { creator_id } = await checkCreatorId(user.id , db);
+
+      if (!user.isLoggedIn) {
+        return res.status(401).send({ error: "Unauthorized" });
+      }
+
+      if (!existingRoom) {
+        return res.status(400).send({ error: `Room '${name}' does not exist` });
+      }
+
+      if (!creator_id) {
+        return res.status(400).send({ error: "Missing creator_id in the request body" });
+      }
+
+      if (user.id !== creator_id) {
+        return res.status(403).send({ error: "Forbidden" });
+      }
+
+      await db.prepare("DELETE FROM room WHERE name = ?").run(name);
+      return res.status(200).send({ message: `Room '${name}' has been deleted` });
+    } catch (error) {
+      return res.status(500).send({ error: "Internal Server Error" });
+    }
+  });
+};
+
+export const checkCreatorId = async (creator_id, db) => {
+  try {
+    const result = await db
+      .prepare(
+        "SELECT creator_id FROM room WHERE creator_id = ?"
+      )
+      .get(creator_id);
+    if (!result) {
+      console.log(`No room found with the following creator_id: ${creator_id}`);
+      return null;
+    }
+    return result;
+  } catch (error) {
+    console.error(`${error}`)
+    return null;
+  }
+}
