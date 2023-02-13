@@ -4,8 +4,7 @@ import cors from "cors";
 import http from "http";
 import {getSignedInUser, signIn, signOut} from "./routes/login";
 import cookieparser from "cookie-parser";
-import {createRoom, deleteRoom, getAllRooms} from "./routes/room";
-// import {requireSignin} from "./controllers/authentication";
+import {createRoom, deleteRoom, getAllRooms, joinRoom, leaveChatRoom} from "./routes/room";
 
 const port: Number = 8080;
 const host: string = `http://localhost:${port}`;
@@ -59,5 +58,5 @@ getSignedInUser(app, db)
 createRoom(app, db)
 getAllRooms(app, db)
 deleteRoom(app, db)
-// joinRoom(app,db)
-// leaveChatRoom(app, db)
+joinRoom(app,db)
+leaveChatRoom(app, db)

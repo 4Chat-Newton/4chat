@@ -3,7 +3,7 @@ import "../style.css";
 import Setup from "../commandHandler/Setup";
 
 export default function ChatMessage({socket}:any) {
-  
+
   const [message, setMessage] = useState('');
 
   let date = new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
