@@ -31,9 +31,11 @@ export const createRoom = async function (server, db) {
       try {
 
         if (!existingRoom) {
-
           await db.prepare("INSERT INTO room (creator_id, name) VALUES(?,?)").run(result.id, name);
-          return res.status(200).json({msg: "Room created"})
+          const room = await db.prepare(`SELECT * FROM room WHERE name = '${name}'`).get();
+          const roomUrl = `/data/room/${room.name}`;
+          console.log(roomUrl);
+          return res.status(200).json({msg: `Room created`, roomUrl})
         } else {
           return res.status(400).json({error: `Room "${name}" already exists!`})
         }
