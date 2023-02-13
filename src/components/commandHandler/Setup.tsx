@@ -55,7 +55,6 @@ export default function Setup(data: string) {
             break;
         case findTerm("/join #"):
             let roomToJoin = data.replace("/join #", "");
-            findRoom()
             const roomId = localStorage.getItem("room")
             console.log("keifjiej: ", roomId)
 

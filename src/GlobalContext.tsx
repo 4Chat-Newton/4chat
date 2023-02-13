@@ -24,6 +24,7 @@ export const AuthContext: React.FC<GlobalProviderProps> = ({ children }) => {
 
         useEffect(() => {
         loadLoggedInUser()
+        findRoom
     }, []);
 
     const loadLoggedInUser = () => {
