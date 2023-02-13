@@ -5,7 +5,6 @@ import GlobalContext from "../../GlobalContext";
 export default function Login() {
 
     const navigate = useNavigate();
-
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
 

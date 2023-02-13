@@ -22,7 +22,10 @@ export default function DeleteAccount() {
             //TODO fetch should be '/data/register'
             await fetch('http://localhost:8080/data/register', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem("token")}`
+                },
                 body: JSON.stringify({
                     id: id,
                     password: password
