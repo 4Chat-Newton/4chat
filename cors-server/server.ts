@@ -5,7 +5,6 @@ import http from "http";
 import {getSignedInUser, signIn, signOut} from "./routes/login";
 import cookieparser from "cookie-parser";
 import {createRoom, deleteRoom, getAllRooms, joinRoom, leaveChatRoom} from "./routes/room";
-import {requireSignin} from "./controllers/authentication";
 
 const port: Number = 8080;
 const host: string = `http://localhost:${port}`;
