@@ -1,7 +1,7 @@
 import { useState } from "react";
-import "./Inbox.css";
+import "./RightComponent.css";
+import ChatTab from "./tabs/ChatTab";
 import RoomTab from "./tabs/RoomTab";
-// import InboxTab from "./tabs/InboxTab";
 
 export default function Inbox() {
 
@@ -20,12 +20,12 @@ export default function Inbox() {
         <>
             <section className="inbox">
                 <ul className="inboxBtns">
-                    {/*<li className={activeTab === "inbox" ? "active" : ""} onClick={handleInbox}>Inbox</li>*/}
+                    <li className={activeTab === "inbox" ? "active" : ""} onClick={handleInbox}>Chat</li>
                     <li className={activeTab === "rooms" ? "active" : ""} onClick={handleRoom}>Rooms</li>
                 </ul>
                 <div className="outlet">
-                    {/*{activeTab === "inbox" ? <InboxTab /> : <RoomTab />}*/}
-                    { < RoomTab />}
+                    {activeTab === "inbox" ? <ChatTab /> : <RoomTab />}
+                    {/* { < RoomTab />} */}
                 </div>
             </section>
         </>

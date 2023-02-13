@@ -38,7 +38,13 @@ h2{
     width: 100%;
     padding: 10px;
 }
-
+.listItemRoom {
+    display: flex;
+    justify-content: space-between;
+}
+.listItemRoom:hover {
+    text-decoration: underline;
+}
 .buttonComponent:hover {
     background-color: var(--blue);
 }

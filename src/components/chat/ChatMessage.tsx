@@ -14,7 +14,7 @@ export default function ChatMessage({socket}:any) {
     if (message.trim()) {
       socket.emit('message', {
         text: message,
-        user: 'signedInUser',//! ska kolla JWT token
+        user: localStorage.getItem('username'),//! ska kolla JWT token
         timeStamp: date,
         id: `${socket.id}${Math.random()}`,
         socketID: socket.id,

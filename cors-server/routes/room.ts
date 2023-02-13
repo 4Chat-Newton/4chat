@@ -52,13 +52,13 @@ export const createRoom = async function (server, db) {
 }
 
 export const getAllRooms = async function (server, db){
-  server.get("/data/room", verifyJWT, async (req: express.Request, res: express.Response) => {
+  server.get("/data/room", async (req: express.Request, res: express.Response) => {
     try {
       const result = await db
           .prepare(
               "SELECT * FROM room"
           )
-          .get();
+          .all();
       return res.status(200).send(result)
     } catch(e) {
       return res.status(400).send("Failed to retrieve rooms!")

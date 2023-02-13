@@ -1,6 +1,6 @@
 import TabComponent from "../../globalComponents/TabComponent";
 
-function InboxTab(){
+function ChatTab(){
 
     return (
         <TabComponent className="InboxTab">
@@ -10,4 +10,4 @@ function InboxTab(){
     );
 };
 
-export default InboxTab
+export default ChatTab
