@@ -88,26 +88,6 @@ export const joinRoom = async function (server, db) {
   })
 }
 
-
-//TODO update delete room to check where name && creator_id
-export const deleteRoom = async function (server, db){
-  server.delete("/data/room", verifyJWT, async (req: express.Request, res: express.Response) => {
-    let user = {id: "", isLoggedIn: false, username: ""}
-    user = returnUser(req, res)
-    const existingRoom = await findExistingRoom(req.body.name, db)
-    if (!existingRoom) {
-      return res.status(400).send(`Room '${req.body.name}' doesn't exist!`)
-    } else {
-      try {
-        await db.prepare("DELETE FROM room WHERE name = ?").run(req.body.name);
-        return res.status(200).send(`Room '${req.body.name}' has been deleted!`)
-      } catch(e) {
-        return res.status(400).send(`Failed to delete room '${req.body.name}'!`)
-      }
-    }
-  })
-}
-
 export const leaveChatRoom =async (server ,db) => {
   server.delete("/data/room/leave", async (req: express.Request, res: express.Response) => {
     let result = {id: "", isLoggedIn: false, username: ""}
@@ -128,3 +108,36 @@ export const leaveChatRoom =async (server ,db) => {
   })
 }
 
+
+export const deleteRoom = async function (server, db) {
+  server.delete("/data/room",verifyJWT, async (req: express.Request, res: express.Response) => {
+    try {
+      const existingRoom = await findExistingRoom(req.body.name, db);
+      let user = {id: "", isLoggedIn: false, username:
+      user = returnUser(req,res);
+      const { name } = req.body;
+      const { creator_id } = await checkCreatorId(user.id , db);
+
+      if (!result.isLoggedIn) {
+        return res.status(401).send({ error: "Unauthorized" });
+      }
+
+      if (!existingRoom) {
+        return res.status(400).send({ error: `Room '${name}' does not exist` });
+      }
+
+      if (!creator_id) {
+        return res.status(400).send({ error: "Missing creator_id in the request body" });
+      }
+
+      if (user.id !== creator_id) {
+        return res.status(403).send({ error: "Forbidden" });
+      }
+
+      await db.prepare("DELETE FROM room WHERE name = ?").run(name);
+      return res.status(200).send({ message: `Room '${name}' has been deleted` });
+    } catch (error) {
+      return res.status(500).send({ error: "Internal Server Error" });
+    }
+  });
+};
