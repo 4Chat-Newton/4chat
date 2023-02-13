@@ -1,4 +1,4 @@
-import { requireSignin } from "../controllers/authentication";
+import {returnUser, verifyJWT} from "../controllers/authentication";
 import express, { response, request } from 'express';
 
 export const findExistingRoom = async function (name, db) {
@@ -21,17 +21,18 @@ export const findExistingRoom = async function (name, db) {
 }
 
 export const createRoom = async function (server, db) {
-  server.post("/data/room", async (req: express.Request, res: express.Response) => {
-    const {id, status} = requireSignin(req, res);
+  server.post("/data/room", verifyJWT, async (req: express.Request, res: express.Response) => {
+    let result = {id: "", isLoggedIn: false, username: ""}
+    result = returnUser(req, res)
     const { name } = req.body;
     const existingRoom = await findExistingRoom(name, db)
-
-    if (status) {
+    console.log(result.isLoggedIn)
+    if (result.isLoggedIn) {
       try {
 
         if (!existingRoom) {
 
-          await db.prepare("INSERT INTO room (creator_id, name) VALUES(?,?)").run(id, name);
+          await db.prepare("INSERT INTO room (creator_id, name) VALUES(?,?)").run(result.id, name);
           return res.status(200).json({msg: "Room created"})
         } else {
           return res.status(400).json({error: `Room "${name}" already exists!`})
@@ -50,7 +51,7 @@ export const createRoom = async function (server, db) {
 }
 
 export const getAllRooms = async function (server, db){
-  server.get("/data/room", async (req: express.Request, res: express.Response) => {
+  server.get("/data/room", verifyJWT, async (req: express.Request, res: express.Response) => {
     try {
       const result = await db
           .prepare(
@@ -64,9 +65,12 @@ export const getAllRooms = async function (server, db){
 })
 }
 
-export const deleteRoom = async function (server, db){
-  server.delete("/data/room", async (req: express.Request, res: express.Response) => {
 
+//TODO update delete room to check where name && creator_id
+export const deleteRoom = async function (server, db){
+  server.delete("/data/room", verifyJWT, async (req: express.Request, res: express.Response) => {
+    let result = {id: "", isLoggedIn: false, username: ""}
+    result = returnUser(req, res)
     const existingRoom = await findExistingRoom(req.body.name, db)
     if (!existingRoom) {
       return res.status(400).send(`Room '${req.body.name}' doesn't exist!`)
@@ -80,3 +84,24 @@ export const deleteRoom = async function (server, db){
     }
   })
 }
+
+export const leaveChatRoom =async (server ,db) => {
+  server.delete("/data/room/leave", async (req: express.Request, res: express.Response) => {
+    let result = {id: "", isLoggedIn: false, username: ""}
+    result = returnUser(req, res)
+    const { room_id } = req.body;
+    const roomCheck = await db.prepare("SELECT * FROM joined_room WHERE user_id = ? AND room_id = ?").get(result.id, room_id);
+
+    if (roomCheck == undefined) {
+      return res.status(400).send(`Room'${req.body.room_id}' doesn't exist!`)
+    } else {
+      try {
+        await db.prepare("DELETE FROM joined_room WHERE room_id = ? ").run(req.body.room_id);
+        return res.status(200).send(`Room '${req.body.room_id}' has been left!`)
+      } catch (e) {
+        return res.status(400).send(`Failed to leave room '${req.body.room_id}'!`)
+      }
+    }
+  })
+}
+

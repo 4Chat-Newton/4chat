@@ -1,7 +1,7 @@
 import ChatMessage from "./ChatMessage";
 import ChatWindow from "./ChatWindow";
 import "../style.css";
-import BoxContainer from "../GlobalComponents/BoxContainer";
+import BoxContainer from "../globalComponents/BoxContainer";
 import { io } from "socket.io-client";
 import { useEffect, useState } from "react";
 
@@ -18,9 +18,9 @@ const Chat = () => {
 
   return (
     <>
-    <BoxContainer>
+    <BoxContainer className="chatContainer">
         <ChatWindow messages={messages}/>
-        <div className="chatSeperator"></div>
+        {/*<div className="chatSeperator"></div>*/}
         <ChatMessage socket={socket}/>
       </BoxContainer>
     </>
