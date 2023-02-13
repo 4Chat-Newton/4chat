@@ -14,7 +14,7 @@ export default function ChatWindow({messages: socketRespons}:any) {
            (<li key={msg.id}>
               <span id="timeStamp">{`[${msg.timeStamp}]`}</span>
               <span id="userMsg">{`[${msg.user}]`}</span>
-              <span id="textMsg">{`:${msg.text}`}</span>
+              <span id="textMsg">{`: ${msg.text}`}</span>
             </li>)
         ))}
           </ul>

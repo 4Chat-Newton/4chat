@@ -108,12 +108,12 @@ export const joinRoom = async function (server, db) {
       } catch (e) {
         return res
           .status(400)
-          .json({ error: "Failed to join room" });
+          .json({ error: "Failed to join room!" });
       }
     } else {
       return res
         .status(400)
-        .json({ error: "Room already joined !" });
+        .json({ error: "Room already joined!" });
     }
   })
 }
