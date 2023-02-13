@@ -20,6 +20,18 @@ export const findExistingRoom = async function (name, db) {
   }
 }
 
+export const getRoom = async function (server, db) {
+  server.get("/data/room/:name", async (req: express.Request, res: express.Response) => {
+  try {
+      const user = await db.prepare("SELECT * FROM room WHERE name = @name").get(req.params);
+      res.json(user).status(200)
+  } catch (e) {
+      res.status(400).send({message: "Room not found!"})
+  }
+});
+}
+
+
 export const createRoom = async function (server, db) {
   server.post("/data/room", verifyJWT, async (req: express.Request, res: express.Response) => {
     let result = {id: "", isLoggedIn: false, username: ""}

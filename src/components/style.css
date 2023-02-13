@@ -30,6 +30,7 @@ h2{
     font-size: x-large;
 }
 
+
 .buttonComponent {
     color: var(--white);
     font-family: sans-serif;
@@ -37,13 +38,6 @@ h2{
     transition: .3s;
     width: 100%;
     padding: 10px;
-}
-.listItemRoom {
-    display: flex;
-    justify-content: space-between;
-}
-.listItemRoom:hover {
-    text-decoration: underline;
 }
 .buttonComponent:hover {
     background-color: var(--blue);
