@@ -1,7 +1,5 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"; //TODO add "Navigate" when needed
-import DeleteAccount from "./DeleteAccount";
-
 export default function Settings() {
 
     const [email, setEmail] = useState(null);
