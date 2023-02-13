@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
+import GlobalContext from "../../GlobalContext";
 export default function Login() {
 
     const navigate = useNavigate();
@@ -9,8 +9,13 @@ export default function Login() {
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
 
+    // const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+
+    // const { isLoggedIn } = useContext(GlobalContext) || { isLoggedIn: false}
+
     const handleUserInput = (e: any) => {
-        const { id, value } = e.target;
+        const {id, value} = e.target;
         if (id === "email") {
             setEmail(value);
         }
@@ -18,31 +23,59 @@ export default function Login() {
             setPassword(value);
         }
     }
-
-    const handleSubmit = async () => {
+    const signIn = async () => {
         //TODO fetch should be '/data/login'
         await fetch('http://localhost:8080/data/login', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({
                 email: email,
                 password: password,
             })
-        }).then(function (response) {
-            // console.log("Check", response)
-            if (response.ok === true) {
-                // console.log("logged in", response.status)
-                // return response
-                alert("Logged in!")
-                navigate("/chatroom");
+        }).then((response) => {
+            if (response.status === 200){
+                localStorage.setItem("isloggedIn", "true")
+                return response.json()
             } else {
                 alert("Couldn't log in!")
-                // console.log("Couldn't log in", response.status)
-                // return response
+                return response.status
             }
+        })
+            .then(data => {
+                localStorage.setItem("token", data.token)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
 
-})
+        //TODO swap for a useState, needs some work
+        if(localStorage.getItem("isloggedIn") === "true"){
+            authenticateUser();
+            navigate("/chatroom");
+        }
+    }
 
+    const authenticateUser = async () => {
+
+        await fetch('http://localhost:8080/data/login', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+            }
+        }).then(function (response) {
+            if (response.status === 200) {
+                return response.json()
+            } else {
+                alert(`Error ${response.status}`)
+            }
+        }).then(data => {
+            localStorage.setItem("user_id", data.id)
+            localStorage.setItem("username", data.username)
+            // localStorage.setItem("isLoggedIn", data.isLoggedIn)
+        })
     }
 
     return (
@@ -58,7 +91,7 @@ export default function Login() {
                         <p className="mt-2 text-center text-sm text-gray-600">
                         </p>
                     </div>
-                    <input type="hidden" name="remember" defaultValue="true" />
+                    <input type="hidden" name="remember" defaultValue="true"/>
                     <div className="-space-y-px rounded-md shadow-sm">
                         <div>
                             <label htmlFor="email-address" className="sr-only">
@@ -92,11 +125,11 @@ export default function Login() {
                         </div>
                     </div>
                     <div>
-                        <button id="login_btn" className="bg-gray-700 px-7 py-2 text-blue-700 ml-40" type="submit" onClick={handleSubmit}>Login</button>
-                        {/**/}
+                        <button id="login_btn" className="bg-gray-700 px-7 py-2 text-blue-700 ml-40" type="submit" onClick={signIn}>Login</button>
                     </div>
                     <div className="text-sm">
-                        <Link to="/register" className="px-7 py-2 text-blue-700 ml-40 bg-transparent text-decoration-line: underline">
+                        <Link to="/register"
+                              className="px-7 py-2 text-blue-700 ml-40 bg-transparent text-decoration-line: underline">
                             Register
                         </Link>
                     </div>

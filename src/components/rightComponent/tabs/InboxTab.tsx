@@ -1,12 +1,13 @@
-import TabComponent from "../../GlobalComponents/TabComponent";
+import TabComponent from "../../globalComponents/TabComponent";
 
-const InboxTab = () =>{
+function InboxTab(){
 
     return (
         <TabComponent className="InboxTab">
             <h2>DM</h2>
-            Establish database connection 
+            Establish database connection
         </TabComponent>
     );
 };
+
 export default InboxTab

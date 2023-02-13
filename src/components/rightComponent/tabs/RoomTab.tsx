@@ -1,7 +1,6 @@
-import TabComponent from "../../GlobalComponents/TabComponent";
+import TabComponent from "../../globalComponents/TabComponent";
 
-const RoomTab = () =>{
-
+export default function RoomTab(){
     return (
         <TabComponent className="RoomTab">
             <h2>Rooms</h2>
@@ -9,4 +8,3 @@ const RoomTab = () =>{
         </TabComponent>
     );
 };
-export default RoomTab
