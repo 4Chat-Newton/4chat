@@ -23,6 +23,7 @@ export const signIn = async function (server, db: any) {
             };
             const secret_key = "secret_key";
             const token = jwt.sign(payload, secret_key, options);
+            console.log("Login token: ", token)
 
             // Store the JWT in the user's session
             user.password = undefined;
