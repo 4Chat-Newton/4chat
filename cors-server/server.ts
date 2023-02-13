@@ -2,17 +2,18 @@ import express from "express";
 import { Server } from "socket.io";
 import cors from "cors";
 import http from "http";
-import { signIn, signOut } from "./routes/login";
+import {getSignedInUser, signIn, signOut} from "./routes/login";
 import cookieparser from "cookie-parser";
 import {createRoom, deleteRoom, getAllRooms, leaveChatRoom} from "./routes/room";
-import {requireSignin} from "./controllers/authentication";
 
 const port: Number = 8080;
 const host: string = `http://localhost:${port}`;
 export const app: any = express();
 app.use(express.json());
 app.use(express.urlencoded());
-app.use(cors());
+app.use(cors({
+  origin: ["http://localhost:3000"]
+}));
 app.use(cookieparser());
 
 export const db = require("better-sqlite3")("./db/database.db");
@@ -47,16 +48,13 @@ io.on('connection', (socket)=>{
   socket.on('disconnect', () => {
     console.log(`user disconnected: ${socket.id} `);
   });
-
 })
 
 require("./routes/register")(app, db);
 
-signIn(app, db, true);
-signIn(app, db, false);
+signIn(app, db);
 signOut(app, db);
-
-// require("./routes/room")(app, db)
+getSignedInUser(app, db)
 createRoom(app, db)
 getAllRooms(app, db)
 deleteRoom(app, db)

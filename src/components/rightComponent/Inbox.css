@@ -21,9 +21,9 @@
     text-align: center;
 }
 
- .inboxBtns li.active{
+.inboxBtns li.active{
     background-color: var(--black);
-} 
+}
 .inboxBtns li:hover {
     background-color: var(--blue);
 }
