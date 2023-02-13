@@ -5,6 +5,7 @@ import http from "http";
 import {getSignedInUser, signIn, signOut} from "./routes/login";
 import cookieparser from "cookie-parser";
 import {createRoom, deleteRoom, getAllRooms, leaveChatRoom} from "./routes/room";
+import {changeUserName} from "./routes/settings";
 
 const port: Number = 8080;
 const host: string = `http://localhost:${port}`;
@@ -51,7 +52,7 @@ io.on('connection', (socket)=>{
 })
 
 require("./routes/register")(app, db);
-require("./routes/settings")(app, db);
+//require("./routes/settings")(app, db);
 
 signIn(app, db);
 signOut(app, db);
@@ -60,3 +61,4 @@ createRoom(app, db)
 getAllRooms(app, db)
 deleteRoom(app, db)
 leaveChatRoom(app, db)
+changeUserName(app,db)
