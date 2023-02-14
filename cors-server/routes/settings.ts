@@ -4,7 +4,7 @@ import {
     updateUserName,
     returnUser,
     encryptPassword,
-    updateUserPassword, updateEmail, findUser
+    updateUserPassword, updateEmail, findUser, deleteUser, validateUser
 } from "../controllers/authentication";
 
 export const changeUserName = async function (server, db) {
@@ -49,7 +49,7 @@ export const changePassword = async function (server, db) {
         let user = returnUser(req, res)
         try {
             if (user.isLoggedIn) {
-                await updateUserPassword(id, encryptedPassword, db)
+                await updateUserPassword(id, encryptedPassword)
                 return res.status(200).json({msg: `Password changed ${encryptedPassword}`});
             } else {
                 return res.status(401).json({error: "Invalid credentials!"});
@@ -60,3 +60,30 @@ export const changePassword = async function (server, db) {
     });
 }
 
+export const deleteAccount = async function (server, db) {
+    server.delete("/data/settings/delete", verifyJWT, async (req: express.Request, res: express.Response) => {
+        const { username, password } = req.body;
+        let user = returnUser(req, res)
+        const data = await db.prepare("SELECT password, id FROM user WHERE id = ?").get(user.id)
+        if(await validateUser(password, data.password)){
+            try {
+                if (!user.isLoggedIn) {
+                    return res.status(401).send({error: "Unauthorized"});
+                }
+                if (!findUser) {
+                    return res.status(401).send({error: "User not found"});
+                }
+                const result = await deleteUser(user.id, db)
+                if(result){
+                    return res.status(200).send({message: `User '${username}' has been deleted`});
+                }else{
+                    return res.status(400).send("Failed to delete user")
+                }
+            } catch (error) {
+                return res.status(500).send({error: "Internal Server Error"});
+            }
+        }else{
+            return res.status(403).send("password didnt match!")
+        }
+    });
+};

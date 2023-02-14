@@ -5,7 +5,7 @@ import http from "http";
 import {getSignedInUser, signIn, signOut} from "./routes/login";
 import cookieparser from "cookie-parser";
 import {createRoom, deleteRoom, getAllRooms, leaveChatRoom} from "./routes/room";
-import {changeEmail, changePassword, changeUserName} from "./routes/settings";
+import {changeEmail, changePassword, changeUserName, deleteAccount} from "./routes/settings";
 
 const port: Number = 8080;
 const host: string = `http://localhost:${port}`;
@@ -64,3 +64,4 @@ leaveChatRoom(app, db)
 changeUserName(app,db)
 changePassword(app,db)
 changeEmail(app,db)
+deleteAccount(app,db)
