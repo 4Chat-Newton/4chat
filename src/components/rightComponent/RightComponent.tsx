@@ -20,8 +20,8 @@ export default function Inbox() {
         <>
             <section className="inbox">
                 <ul className="inboxBtns">
-                    <li className={activeTab === "inbox" ? "active" : ""} onClick={handleInbox}>Chat</li>
-                    <li className={activeTab === "rooms" ? "active" : ""} onClick={handleRoom}>Rooms</li>
+                    <li className={activeTab === "inbox" ? "active" : ""} onClick={handleInbox}>Joined</li>
+                    <li className={activeTab === "rooms" ? "active" : ""} onClick={handleRoom}>Browse</li>
                 </ul>
                 <div className="outlet">
                     {activeTab === "inbox" ? <ChatTab /> : <RoomTab />}

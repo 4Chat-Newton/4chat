@@ -1,48 +1,38 @@
-import React, { createContext, useState, useEffect } from "react";
-interface GlobalProviderProps {
-    children: React.ReactNode;
-}
-interface User {
-    id: string
+import React, { createContext, useState, useContext, Dispatch, SetStateAction } from "react";
+
+export interface GlobalStateInterface {
+  activeRoom: string;
 }
 
-interface GlobalContextProps {
-    isLoggedIn: boolean;
-    user: User[];
-}
+const GlobalStateContext = createContext({
+  userContext: {} as Partial<GlobalStateInterface>,
+  setUserContext: {} as Dispatch<SetStateAction<Partial<GlobalStateInterface>>>,
+});
 
+const GlobalStateProvider = ({
+  children,
+  value,
+}: {
+  children: React.ReactNode;
+  value?: string;
+}) => {
 
-const GlobalContext = createContext<GlobalContextProps | undefined>(undefined);
-export const AuthContext: React.FC<GlobalProviderProps> = ({ children }) => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [user, setUser] = useState([])
+  const [userContext, setUserContext] = useState(value);
 
-        useEffect(() => {
-        loadLoggedInUser()
-    }, []);
-
-    const loadLoggedInUser = () => {
-        fetch('/data/login', {
-            method: 'GET'
-        }).then(function (response) {
-            return response.json();
-        }).then(function (myJson) {
-            // setUser(myJson)
-            setIsLoggedIn(myJson.loggedIn)
-        });
-    }
-
-
-    return (
-        <GlobalContext.Provider
-            value={{
-                isLoggedIn,
-                user
-            }}
-        >
-            {children}
-        </GlobalContext.Provider>
-    );
+  
+  return (
+    <GlobalStateContext.Provider value={{ userContext, setUserContext }}>
+      {children}
+    </GlobalStateContext.Provider>
+  );
 };
 
-export default GlobalContext;
+const useGlobalState = () => {
+  const context = useContext(GlobalStateContext);
+  if (!context) {
+    throw new Error("useGlobalState must be used within a GlobalStateContext");
+  }
+  return context;
+};
+
+export { GlobalStateProvider, useGlobalState };

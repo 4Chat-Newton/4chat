@@ -1,5 +1,4 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import GlobalContext from "../../GlobalContext";
 
 
 const Setup = (data: string) => {
