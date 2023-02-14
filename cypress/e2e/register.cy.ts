@@ -62,3 +62,25 @@ describe('Testing user functionality', () => {
     })
 
 })
+
+export const deleteUser = async function (server, db){
+    server.delete("/data/setting/user", verifyJWT, async (req: express.Request, res: express.Response) => {
+        const {id, username,email, password} = req.body;
+        let user = returnUser(req, res)
+        await findUser(email, db)
+
+        if (user.isLoggedIn) {
+            return res.status(200).send(`User '${req.body.name}' doesn't exist!`)
+        } else {
+            try {
+                await db.prepare("DELETE FROM room WHERE name = ?").run(req.body.name);
+                return res.status(200).send(`Room '${req.body.name}' has been deleted!`)
+            } catch(e) {
+                return res.status(400).send(`Failed to delete room '${req.body.name}'!`)
+            }
+        }
+    })
+}
+
+
+
