@@ -69,12 +69,14 @@ export const createRoom = async function (server, db) {
 
 export const getAllRooms = async function (server, db) {
   server.get("/data/room", async (req: express.Request, res: express.Response) => {
+    let user = returnUser(req, res);
     try {
       const result = await db
         .prepare(
-          "SELECT * FROM room"
+          "SELECT room.id, room.user_id, room.creator_id FROM room LEFT JOIN joined_room ON room.id = joined_room.room_id AND joined_room.user_id = ? WHERE joined_room.id IS NULL"
         )
-        .all();
+        .all(user.id);
+        console.log(result)
       return res.status(200).send(result)
     } catch (e) {
       return res.status(400).send("Failed to retrieve rooms!")
@@ -83,15 +85,12 @@ export const getAllRooms = async function (server, db) {
 }
 
 export const getAllJoinedRooms = async function (server, db) {
-  server.get("/data/room/join", async (req: express.Request, res: express.Response) => {
+  server.get("/data/room/joined", async (req: express.Request, res: express.Response) => {
     let user = returnUser(req, res);
-    console.log("jvnjir")
     try {
       const result = await db
         .prepare(
-          "SELECT * FROM joined_room WHERE user_id = ?"
-        )
-        .all(user.id);
+          "SELECT * FROM room JOIN joined_room jr on room.id = jr.room_id WHERE jr.user_id = ?").all(user.id);
       console.log(result)
       return res.status(200).send(result)
     } catch (e) {

@@ -4,6 +4,7 @@ const RoomListItem: any = (props: any) => {
     const [isShown, setIsShown] = useState(false);
 
     const joinRoom = async ()=>{
+        console.log(props.room.id)
         if (props.room.id) {
             fetch("http://localhost:8080/data/room/join", {
                 method: "POST",

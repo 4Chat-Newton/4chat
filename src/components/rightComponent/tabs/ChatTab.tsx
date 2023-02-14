@@ -6,7 +6,8 @@ const ChatTab = () => {
     const[joinedRooms, setJoinedRooms] = useState([])
 
         useEffect(() => {
-            fetch('http://localhost:8080/data/room/join', {
+            fetch('http://localhost:8080/data/room/joined', {
+                method: "GET",
                 headers: {
                     "Content-Type": "application/json",
                     authorization: `Bearer ${localStorage.getItem("token")}`,
