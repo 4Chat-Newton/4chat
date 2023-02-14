@@ -1,12 +1,14 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"; //TODO add "Navigate" when needed
+import {Link, useNavigate} from "react-router-dom"; //TODO add "Navigate" when needed
 import "./settings.css"
 import ButtonComponent from "../globalComponents/ButtonComponent";
+import {response} from "express";
 
 export default function DeleteAccount() {
 
     const [password, setPassword] = useState(null);
     const [confirmPassword, setConfirmPassword] = useState(null);
+    const navigate = useNavigate();
 
     const handleUserInput = (e: any) => {
         const { id, value } = e.target;
@@ -19,7 +21,6 @@ export default function DeleteAccount() {
     }
 
     const handleSubmit = async () => {
-        console.log("password === confirmPassword:", password === confirmPassword)
         if (password === confirmPassword) {
             //TODO fetch should be '/data/register'
             await fetch('http://localhost:8080/data/settings/delete', {
@@ -32,31 +33,23 @@ export default function DeleteAccount() {
                     username: localStorage.getItem("user_id"),
                     password: password
                 })
+            }).then((response) => {
+                if(response.ok){
+                    alert("Account deleted!")
+                    return true
+                }else{
+                    alert("Failed to delete account!")
+                    return false
+                }
+            }).then((status)=>{
+                if(status){
+                    localStorage.clear()
+                    navigate("/login")
+                }
+            }).catch((error) => {
+                console.log(error)
             })
-//                 .then(function (response) {
-//                     // TODO remove when no longer needed after testing
-//                     console.log(response)
-//                     if (response.ok === true) {
-//                         //TODO add online status to body json
-//                         fetch('http://localhost:8080/data/settings/delete', {
-//                             method: 'DELETE',
-//                             headers: { 'Content-Type': 'application/json' },
-//                             body: JSON.stringify({
-//                                 id: id,
-//                                 password: password,
-//                             })
-//                         }).then(function (response) {
-//                             console.log(response)
-//                             if (response.ok === true) {
-//                                 alert("Your account is deleted.")
-//                             } else {
-//                                 alert("Something went wrong, Please check your password.")
-//                             }
-//
-//                         });//.then(navigate("/room"))
-//                     }
-//                 });
-        } else if (password !== confirmPassword) {
+        } else {
             alert("The passwords don't match!")
         }
     }
@@ -72,7 +65,7 @@ export default function DeleteAccount() {
                                 <input className="settingsInputFields"
                                         id="SettingsPassword"
                                         name="password"
-                                        type="test"
+                                        type="password"
                                         autoComplete="current-password"
                                         placeholder="password"
                                         onChange={(e) => handleUserInput(e)}
@@ -80,7 +73,7 @@ export default function DeleteAccount() {
                                 <input className="settingsInputFields"
                                         id="SettingsConfirmPassword"
                                         name="password"
-                                        type="test"
+                                        type="password"
                                         placeholder="Confirm Password"
                                         onChange={(e) => handleUserInput(e)}
                                 />
