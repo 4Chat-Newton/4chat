@@ -1,7 +1,8 @@
 import bcrypt from "bcryptjs";
-import express from "express";
 import {expressjwt} from "express-jwt";
 import jwt from "jsonwebtoken";
+import express, { response, request } from 'express';
+
 
 export const encryptPassword = async function (password: string) {
     let saltRounds = await bcrypt.genSalt(11);
@@ -33,10 +34,8 @@ export const findUser = async function (email, db) {
     }
 };
 export const updateUserName = async function (id, username, db) {
-    console.log(username, id)
     try {
         const result = await db.prepare("UPDATE user SET username = ? WHERE id = ?").run(username, id)
-        console.log(result)
         if (!result) {
             console.log(`No user found with username ${username}`);
             return result;
@@ -48,11 +47,24 @@ export const updateUserName = async function (id, username, db) {
     }
 };
 
+export const updateEmail = async function(id, email, db){
+    try{
+        const result = await db.prepare("UPDATE user SET email = ? WHERE id = ?").run(email, id)
+        if(!result){
+            console.log(`No email found with email ${email}`);
+            return result;
+        }
+        return result;
+    }catch(error){
+        console.error(`Error updating email ${email}: ${error}`)
+        return null;
+    }
+}
+
 export const updateUserPassword = async function (id, encryptedPassword, db) {
     console.log(encryptedPassword, id)
     try {
         const result = await db.prepare("UPDATE user SET password = ? WHERE id = ?").run(encryptedPassword, id)
-        console.log(result)
         if (!result) {
             console.log(`Wrong password ${encryptedPassword}`);
             return result;
