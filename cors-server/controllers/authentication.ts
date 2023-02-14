@@ -71,7 +71,6 @@ export const verifyJWT = (req: express.Request, res: express.Response, next) => 
         algorithms: ["HS256"],
     })
     let bearerToken = req.headers['authorization']
-    console.log(req.headers);
     let token  = bearerToken.replace("Bearer ", "");
     jwt.verify(token, "secret_key")
 

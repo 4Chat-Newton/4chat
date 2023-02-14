@@ -1,11 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
-
-
 const Setup = (data: string) => {
-    //const count = useRef<string>(null)
-    //const [room, setRoom] = useState("");
-    //const { isLoggedIn } = useContext(GlobalContext) || { isLoggedIn: false}
-    //const { room } = useContext(GlobalContext) || { findRoom: [] }
 
     const findTerm = (term: string) => {
         if (data.startsWith(term)) {
@@ -46,8 +39,6 @@ const Setup = (data: string) => {
                 }
 
             });
-
-
     }
 
 

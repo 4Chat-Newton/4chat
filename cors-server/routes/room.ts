@@ -91,7 +91,6 @@ export const getAllJoinedRooms = async function (server, db) {
       const result = await db
         .prepare(
           "SELECT * FROM room JOIN joined_room jr on room.id = jr.room_id WHERE jr.user_id = ?").all(user.id);
-      // console.log(result)
       return res.status(200).send(result)
     } catch (e) {
       return res.status(400).send("Failed to retrieve rooms!")

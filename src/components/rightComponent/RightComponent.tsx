@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./RightComponent.css";
+import "./rightComponent.css";
 import ChatTab from "./tabs/ChatTab";
 import RoomTab from "./tabs/RoomTab";
 
@@ -25,7 +25,6 @@ export default function Inbox() {
                 </ul>
                 <div className="outlet">
                     {activeTab === "inbox" ? <ChatTab /> : <RoomTab />}
-                    {/* { < RoomTab />} */}
                 </div>
             </section>
         </>

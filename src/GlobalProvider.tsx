@@ -24,5 +24,4 @@ function GlobalProvider(props: GlobalProviderProps)
     );
 }
 
-// export default {ThemeProvider, ThemeContext}
 export default GlobalProvider

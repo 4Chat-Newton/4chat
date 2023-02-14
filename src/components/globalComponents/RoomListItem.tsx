@@ -11,6 +11,7 @@ const RoomListItem: any = (props: any) => {
     function handleActiveRoom(data: any) {
         setActiveRoom(data);
         navigate(`/chatroom/${data}`)
+        joinRoom()
     }
 
     const joinRoom = async ()=>{
@@ -37,10 +38,6 @@ const RoomListItem: any = (props: any) => {
             alert(`#${props.room.name} doesn't exist!`)
         }
     }
-
-
-
-
 
     return (
         <li className="listItemRoom" onMouseEnter={() => setIsShown(true)} onMouseLeave={()=>setIsShown(false)} onClick={() => handleActiveRoom(props.room.name)}>
