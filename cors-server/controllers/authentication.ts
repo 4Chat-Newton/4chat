@@ -1,7 +1,8 @@
 import bcrypt from "bcryptjs";
-import express from "express";
-import {expressjwt, Request as JWTRequest} from "express-jwt";
+import {expressjwt} from "express-jwt";
 import jwt from "jsonwebtoken";
+import express, { response, request } from 'express';
+
 
 export const encryptPassword = async function (password: string) {
     let saltRounds = await bcrypt.genSalt(11);
@@ -9,8 +10,8 @@ export const encryptPassword = async function (password: string) {
     return hashPass;
 };
 
-export const validateUser = async function (password: string, hash: string) {
-    let success: boolean = await bcrypt.compare(password, hash);
+export const validateUser = async function (unHashedPassword: string, hash: string) {
+    let success: boolean = await bcrypt.compare(unHashedPassword, hash);
     return success;
 };
 
@@ -33,10 +34,8 @@ export const findUser = async function (email, db) {
     }
 };
 export const updateUserName = async function (id, username, db) {
-    console.log(username, id)
     try {
         const result = await db.prepare("UPDATE user SET username = ? WHERE id = ?").run(username, id)
-        console.log(result)
         if (!result) {
             console.log(`No user found with username ${username}`);
             return result;
@@ -48,11 +47,23 @@ export const updateUserName = async function (id, username, db) {
     }
 };
 
-export const updateUserPassword = async function (id, encryptedPassword, db) {
-    console.log(encryptedPassword, id)
+export const updateEmail = async function(id, email, db){
+    try{
+        const result = await db.prepare("UPDATE user SET email = ? WHERE id = ?").run(email, id)
+        if(!result){
+            console.log(`No email found with email ${email}`);
+            return result;
+        }
+        return result;
+    }catch(error){
+        console.error(`Error updating email ${email}: ${error}`)
+        return null;
+    }
+}
+
+export const updateUserPassword = async function (encryptedPassword, db) {
     try {
-        const result = await db.prepare("UPDATE user SET password = ? WHERE id = ?").run(encryptedPassword, id)
-        console.log(result)
+        const result = await db.prepare("UPDATE user SET password = ? WHERE id = ?").run(encryptedPassword)
         if (!result) {
             console.log(`Wrong password ${encryptedPassword}`);
             return result;
@@ -61,6 +72,17 @@ export const updateUserPassword = async function (id, encryptedPassword, db) {
     } catch (error) {
         console.error(`Error updating password ${encryptedPassword}: ${error}`);
         return null;
+    }
+};
+
+
+export const deleteUser = async function (id, db) {
+    try {
+        await db.prepare("DELETE FROM user WHERE id = ?").run(id)
+        return true;
+    } catch (error) {
+        console.error(`Error deleting user ${error}`);
+        return false;
     }
 };
 
@@ -111,3 +133,6 @@ export const verifyJWT = (req: express.Request, res: express.Response, next) => 
         next();
     }
 }
+
+
+

@@ -65,7 +65,6 @@ export const getAllRooms = async function (server, db){
 })
 }
 
-
 //TODO update delete room to check where name && creator_id
 export const deleteRoom = async function (server, db){
   server.delete("/data/room", verifyJWT, async (req: express.Request, res: express.Response) => {
