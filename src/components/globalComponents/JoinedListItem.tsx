@@ -11,26 +11,25 @@ const RoomListItem: any = (props: any) => {
     function handleActiveRoom(data: any) {
         setActiveRoom(data);
         navigate(`/chatroom/${data}`)
-        joinRoom()
     }
 
-    const joinRoom = async ()=>{
-        if (props.room.id) {
-            fetch("http://localhost:8080/data/room/join", {
-                method: "POST",
+    const leaveRoom = async ()=>{
+        if (props.room.room_id) {
+            fetch("http://localhost:8080/data/room/leave", {
+                method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
                     authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
                 body: JSON.stringify({
                     user_id: localStorage.getItem("user_id"),
-                    room_id: props.room.id
+                    room_id: props.room.room_id
                 }),
             }).then(function (response) {
                 if (response.ok) {
-                    alert(`You joined room #${props.room.name}!`);
+                    alert(`You left room #${props.room.name}!`);
                 } else {
-                    alert(`You've already joined #${props.room.name}!`);
+                    alert(`You've yet to join #${props.room.name}!`);
                 }
             });
 
@@ -46,7 +45,7 @@ const RoomListItem: any = (props: any) => {
             {props.room.name}
             </div>
             {isShown && (
-                <button> + </button>
+                <button className="joinBtn" onClick={() => leaveRoom()}>—</button>
             )}
         </li>
     );

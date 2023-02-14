@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ListComponent from "../../globalComponents/ListComponent";
+import JoinedComponent from "../../globalComponents/JoinedListComponent";
 import TabComponent from "../../globalComponents/TabComponent";
 
 const ChatTab = () => {
@@ -21,7 +21,7 @@ const ChatTab = () => {
     
  
 
-        if(joinedRooms.length > 0) return (<ListComponent rooms={joinedRooms}/>)
+        if(joinedRooms.length > 0) return (<JoinedComponent rooms={joinedRooms}/>)
 
 
     return (
