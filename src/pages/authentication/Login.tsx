@@ -58,7 +58,7 @@ export default function Login() {
 
     const authenticateUser = async () => {
 
-        await fetch('http://localhost:8080/data/login', {
+        await fetch('/data/login', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

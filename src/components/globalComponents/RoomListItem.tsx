@@ -16,7 +16,7 @@ const RoomListItem: any = (props: any) => {
 
     const joinRoom = async ()=>{
         if (props.room.id) {
-            fetch("http://localhost:8080/data/room/join", {
+            fetch("/data/room/join", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

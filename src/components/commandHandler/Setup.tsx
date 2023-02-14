@@ -7,7 +7,7 @@ const Setup = (data: string) => {
     };
 
     const joinRoom = async (roomToJoin: string) => {
-        fetch("http://localhost:8080/data/room/" + roomToJoin) 
+        fetch("/data/room/" + roomToJoin)
             .then((response) => {
                 if (response.ok) {
                     return response.json()
@@ -17,7 +17,7 @@ const Setup = (data: string) => {
             })
             .then((data) => {
                 if (data) {
-                    fetch("http://localhost:8080/data/room/join", {
+                    fetch("/data/room/join", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -45,7 +45,7 @@ const Setup = (data: string) => {
     switch (data) {
         case findTerm("/create #"):
             let name = data.replace("/create #", "");
-            fetch("http://localhost:8080/data/room", {
+            fetch("/data/room", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
