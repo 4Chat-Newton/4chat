@@ -16,7 +16,13 @@ const Setup = (data: string) => {
 
     const joinRoom = async (roomToJoin: string) => {
         fetch("http://localhost:8080/data/room/" + roomToJoin) 
-            .then((res) => res.json())
+            .then((response) => {
+                if (response.ok) {
+                    return response.json()
+                } else {
+                    alert(`#${roomToJoin} doesn't exist!`)
+                }  
+            })
             .then((data) => {
                 if (data) {
                     fetch("http://localhost:8080/data/room/join", {
@@ -26,19 +32,18 @@ const Setup = (data: string) => {
                             authorization: `Bearer ${localStorage.getItem("token")}`,
                         },
                         body: JSON.stringify({
-                            user_id: localStorage.getItem("user_id"),
-                            room_id: data.id
+                            room_id: data.id,
+                            user_id: localStorage.getItem("user_id")
                         }),
                     }).then(function (response) {
                         if (response.ok) {
-                            alert(`Joined room ${roomToJoin}!`);
+                            alert(`Joined room #${roomToJoin}!`);
                         } else {
-                            alert(`You've already joined ${roomToJoin}!`);
+                            alert(`You've already joined #${roomToJoin}!`);
                         }
                     });
-
                 } else {
-                    alert(`${roomToJoin} doesn't exist!`)
+                    alert(`#${roomToJoin} doesn't exist!`)
                 }
 
             });

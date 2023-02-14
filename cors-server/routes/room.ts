@@ -1,4 +1,4 @@
-import {returnUser, verifyJWT} from "../controllers/authentication";
+import { returnUser, verifyJWT } from "../controllers/authentication";
 import express, { response, request } from 'express';
 
 export const findExistingRoom = async function (name, db) {
@@ -22,19 +22,24 @@ export const findExistingRoom = async function (name, db) {
 
 export const getRoom = async function (server, db) {
   server.get("/data/room/:name", async (req: express.Request, res: express.Response) => {
-  try {
-      const user = await db.prepare("SELECT * FROM room WHERE name = @name").get(req.params);
-      res.json(user).status(200)
-  } catch (e) {
-      res.status(400).send({message: "Room not found!"})
-  }
-});
+    const room = findExistingRoom(req.params, db)
+    if (room !== null) {
+      try {
+        const user = await db.prepare("SELECT * FROM room WHERE name = @name").get(req.params);
+        res.json(user).status(200)
+      } catch (e) {
+        res.status(400).send({ message: "Room not found!" })
+      }
+    } else {
+      res.status(400).send({ message: "Room not found!" })
+    }
+  });
 }
 
 
 export const createRoom = async function (server, db) {
   server.post("/data/room", verifyJWT, async (req: express.Request, res: express.Response) => {
-    let result = {id: "", isLoggedIn: false, username: ""}
+    let result = { id: "", isLoggedIn: false, username: "" }
     result = returnUser(req, res)
     const { name } = req.body;
     const existingRoom = await findExistingRoom(name, db)
@@ -45,82 +50,90 @@ export const createRoom = async function (server, db) {
         if (!existingRoom) {
 
           await db.prepare("INSERT INTO room (creator_id, name) VALUES(?,?)").run(result.id, name);
-          return res.status(200).json({msg: "Room created"})
+          return res.status(200).json({ msg: "Room created" })
         } else {
-          return res.status(400).json({error: `Room "${name}" already exists!`})
+          return res.status(400).json({ error: `Room "${name}" already exists!` })
         }
       } catch (e) {
         return res
-            .status(400)
-            .json({ error: "Failed to create room" });
+          .status(400)
+          .json({ error: "Failed to create room" });
       }
     } else {
       return res
-          .status(400)
-          .json({ error: "Invalid Credentials!" });
+        .status(400)
+        .json({ error: "Invalid Credentials!" });
     }
   })
 }
 
-export const getAllRooms = async function (server, db){
+export const getAllRooms = async function (server, db) {
   server.get("/data/room", async (req: express.Request, res: express.Response) => {
     try {
       const result = await db
-          .prepare(
-              "SELECT * FROM room"
-          )
-          .all();
+        .prepare(
+          "SELECT * FROM room"
+        )
+        .all();
       return res.status(200).send(result)
-    } catch(e) {
+    } catch (e) {
       return res.status(400).send("Failed to retrieve rooms!")
     }
-})
+  })
 }
 
-export const getAllJoinedRooms = async function (server, db){
+export const getAllJoinedRooms = async function (server, db) {
   server.get("/data/room/join", async (req: express.Request, res: express.Response) => {
     let user = returnUser(req, res);
     console.log("jvnjir")
     try {
       const result = await db
-          .prepare(
-              "SELECT * FROM joined_room WHERE user_id = ?"
-          )
-          .all(user.id);
+        .prepare(
+          "SELECT * FROM joined_room WHERE user_id = ?"
+        )
+        .all(user.id);
       console.log(result)
       return res.status(200).send(result)
-    } catch(e) {
+    } catch (e) {
       return res.status(400).send("Failed to retrieve rooms!")
     }
-})
+  })
 }
 
 export const joinRoom = async function (server, db) {
   server.post("/data/room/join", async (req: express.Request, res: express.Response) => {
     let user = returnUser(req, res);
     const { room_id } = req.body;
-    const roomCheck = await db.prepare("SELECT * FROM joined_room WHERE user_id = ? AND room_id = ?").get(user.id, room_id);
+    if (room_id) {
+      const roomCheck = await db.prepare("SELECT * FROM joined_room WHERE user_id = ? AND room_id = ?").get(user.id, room_id);
 
-    if (user.isLoggedIn && roomCheck == undefined) {
-      try {
+      if (user.isLoggedIn && roomCheck == undefined) {
+        try {
           await db.prepare("INSERT INTO joined_room (user_id, room_id) VALUES(?,?)").run(user.id, room_id);
           return res.status(200).json({ msg: "Room joined" })
-      } catch (e) {
+        } catch (e) {
+          return res
+            .status(400)
+            .json({ error: "Failed to join room!" });
+        }
+      } else {
         return res
           .status(400)
-          .json({ error: "Failed to join room!" });
+          .json({ error: "Room already joined!" });
       }
+
     } else {
       return res
-        .status(400)
-        .json({ error: "Room already joined!" });
+      .status(400)
+          .json({ error: "Room doesn't exist!" });
     }
+
   })
 }
 
-export const leaveChatRoom =async (server ,db) => {
+export const leaveChatRoom = async (server, db) => {
   server.delete("/data/room/leave", async (req: express.Request, res: express.Response) => {
-    let result = {id: "", isLoggedIn: false, username: ""}
+    let result = { id: "", isLoggedIn: false, username: "" }
     result = returnUser(req, res)
     const { room_id } = req.body;
     const roomCheck = await db.prepare("SELECT * FROM joined_room WHERE user_id = ? AND room_id = ?").get(result.id, room_id);
@@ -140,13 +153,13 @@ export const leaveChatRoom =async (server ,db) => {
 
 
 export const deleteRoom = async function (server, db) {
-  server.delete("/data/room",verifyJWT, async (req: express.Request, res: express.Response) => {
+  server.delete("/data/room", verifyJWT, async (req: express.Request, res: express.Response) => {
     try {
       const existingRoom = await findExistingRoom(req.body.name, db);
-      let user = {id: "", isLoggedIn: false, username: "" }
+      let user = { id: "", isLoggedIn: false, username: "" }
       user = returnUser(req, res);
       const { name } = req.body;
-      const { creator_id } = await checkCreatorId(user.id , db);
+      const { creator_id } = await checkCreatorId(user.id, db);
 
       if (!user.isLoggedIn) {
         return res.status(401).send({ error: "Unauthorized" });

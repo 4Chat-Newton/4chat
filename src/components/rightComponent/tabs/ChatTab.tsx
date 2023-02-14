@@ -4,20 +4,20 @@ import TabComponent from "../../globalComponents/TabComponent";
 
 const ChatTab = () => {
     const[joinedRooms, setJoinedRooms] = useState([])
+
+        useEffect(() => {
+            fetch('http://localhost:8080/data/room/join', {
+                headers: {
+                    "Content-Type": "application/json",
+                    authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            })
+                .then(res => res.json())
+                .then(data => {
+                    setJoinedRooms(data)
+                })
+        }, [])
     
-        fetch('http://localhost:8080/data/room/join', {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-        })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data)
-            setJoinedRooms(data)
-            console.log(joinedRooms)
-        })
  
 
         if(joinedRooms.length > 0) return (<ListComponent rooms={joinedRooms}/>)
