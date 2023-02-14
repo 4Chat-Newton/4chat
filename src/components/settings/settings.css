@@ -61,3 +61,15 @@
   text-align: center;
 }
 
+#editUpdate_btn:hover{
+  background-color: var(--blue);
+}
+
+#editUpdate_btn{
+  color: var(--white);
+  font-family: sans-serif;
+  cursor: pointer;
+  transition: .3s;
+  width: 100%;
+  padding: 10px;
+}
