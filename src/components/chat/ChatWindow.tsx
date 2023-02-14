@@ -1,13 +1,15 @@
 import "./Chat.css"
-import { GlobalStateInterface, useGlobalState } from "../../GlobalContext";
+import {useContext, useEffect} from "react";
+import activeRoomContext from "../../ActiveRoomContext";
 
 export default function ChatWindow({messages: socketRespons}:any) {
-  const { userContext } = useGlobalState();
+    const { activeRoom } = useContext(activeRoomContext);
+
   return (<>
       <div className="chatWindow">
         <section className="roomName">
           <div className="roomName-header">
-            <h1>{`#${userContext.activeRoom}`}</h1>
+            <h1>{`#${activeRoom}`}</h1>
           </div>
         </section>
         <section className="chat">

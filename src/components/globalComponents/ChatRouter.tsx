@@ -7,6 +7,7 @@ import ChatRoom from "../../pages/ChatRoom";
 import NoPage from "../../pages/NoPage";
 
 function ChatRouter() {
+
   return (
     <>
       <Routes>
@@ -15,6 +16,7 @@ function ChatRouter() {
         <Route path="/register" element={<Register />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/chatroom" element={<ChatRoom />} />
+        <Route path="/chatroom/:activeRoom" element={<ChatRoom />} />
         <Route path="/*" element={<NoPage />} />
       </Routes>
     </>

@@ -70,19 +70,13 @@ export const createRoom = async function (server, db) {
 export const getAllRooms = async function (server, db) {
   server.get("/data/room", async (req: express.Request, res: express.Response) => {
     let user = returnUser(req, res);
-    console.log("user: ", user.id)
     try {
-      // const result = await db
-      //   .prepare(
-      //     "SELECT * FROM room"
-      //   )
-      //   .all();
       const result = await db
           .prepare(
               "SELECT room.id AS id, room.creator_id, room.name FROM room LEFT JOIN joined_room ON room.id = joined_room.room_id AND joined_room.user_id = ? WHERE joined_room.id IS NULL"
           )
           .all(user.id);
-        console.log("Result: ", result)
+
       return res.status(200).send(result)
     } catch (e) {
       return res.status(400).send("Failed to retrieve rooms!")

@@ -1,15 +1,19 @@
-import { useState } from "react";
-import { useGlobalState, GlobalStateInterface } from "../../GlobalContext";
-import { useForm } from "react-hook-form";
+import {useContext, useState} from "react";
+
+import activeRoomContext from "../../ActiveRoomContext";
+import {useNavigate} from "react-router-dom";
 
 const RoomListItem: any = (props: any) => {
+    const navigate = useNavigate()
     const [isShown, setIsShown] = useState(false);
-    const { setUserContext, userContext } = useGlobalState();
-    const { handleSubmit } = useForm();
 
+    const { setActiveRoom } = useContext(activeRoomContext);
+    function handleActiveRoom(data: any) {
+        setActiveRoom(data);
+        navigate(`/chatroom/${data}`)
+    }
 
     const joinRoom = async ()=>{
-        console.log(props.room.id)
         if (props.room.id) {
             fetch("http://localhost:8080/data/room/join", {
                 method: "POST",
@@ -24,8 +28,6 @@ const RoomListItem: any = (props: any) => {
             }).then(function (response) {
                 if (response.ok) {
                     alert(`Joined room #${props.room.name}!`);
-                    //setUserContext((prev) => ({ ...prev, ...props.room.name }));
-                    setUserContext(props.room.name)
                 } else {
                     alert(`You've already joined #${props.room.name}!`);
                 }
@@ -36,14 +38,12 @@ const RoomListItem: any = (props: any) => {
         }
     }
 
-    const submitFunction = (data: Partial<GlobalStateInterface>) => {
-        setUserContext(props.room.name)
-        setUserContext((prev) => ({ ...prev, ...props.room.name }));
-        console.log(userContext.activeRoom)
-      };
+
+
+
 
     return (
-        <li className="listItemRoom" onMouseEnter={() => setIsShown(true)} onMouseLeave={()=>setIsShown(false)} onClick={handleSubmit(submitFunction)}>
+        <li className="listItemRoom" onMouseEnter={() => setIsShown(true)} onMouseLeave={()=>setIsShown(false)} onClick={() => handleActiveRoom(props.room.name)}>
             <div>
             <span>#</span>
             {props.room.name}
