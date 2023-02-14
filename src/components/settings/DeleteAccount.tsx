@@ -10,52 +10,51 @@ export default function DeleteAccount() {
 
     const handleUserInput = (e: any) => {
         const { id, value } = e.target;
-        if (id === "password") {
+        if (id === "SettingsPassword") {
             setPassword(value);
         }
-        if (id === "confirmPassword") {
+        if (id === "SettingsConfirmPassword") {
             setConfirmPassword(value);
         }
     }
 
-    const handleSubmit = async (e: any) => {
-        const {id} = e.target;
+    const handleSubmit = async () => {
         if (password === confirmPassword) {
             //TODO fetch should be '/data/register'
-            await fetch('http://localhost:8080/data/register', {
-                method: 'POST',
+            await fetch('http://localhost:8080/data/settings/delete', {
+                method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${localStorage.getItem("token")}`
                 },
                 body: JSON.stringify({
-                    id: id,
+                    username: localStorage.getItem("user_id"),
                     password: password
                 })
             })
-                .then(function (response) {
-                    // TODO remove when no longer needed after testing
-                    console.log(response)
-                    if (response.ok === true) {
-                        //TODO add online status to body json
-                        fetch('http://localhost:8080/data/login', {
-                            method: 'DELETE',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                id: id,
-                                password: password,
-                            })
-                        }).then(function (response) {
-                            console.log(response)
-                            if (response.ok === true) {
-                                alert("Your account is deleted.")
-                            } else {
-                                alert("Something went wrong, Please check your password.")
-                            }
-
-                        });//.then(navigate("/room"))
-                    }
-                });
+//                 .then(function (response) {
+//                     // TODO remove when no longer needed after testing
+//                     console.log(response)
+//                     if (response.ok === true) {
+//                         //TODO add online status to body json
+//                         fetch('http://localhost:8080/data/settings/delete', {
+//                             method: 'DELETE',
+//                             headers: { 'Content-Type': 'application/json' },
+//                             body: JSON.stringify({
+//                                 id: id,
+//                                 password: password,
+//                             })
+//                         }).then(function (response) {
+//                             console.log(response)
+//                             if (response.ok === true) {
+//                                 alert("Your account is deleted.")
+//                             } else {
+//                                 alert("Something went wrong, Please check your password.")
+//                             }
+//
+//                         });//.then(navigate("/room"))
+//                     }
+//                 });
         } else if (password !== confirmPassword) {
             alert("The passwords don't match!")
         }
@@ -72,19 +71,19 @@ export default function DeleteAccount() {
                                 <input className="settingsInputFields"
                                         id="SettingsPassword"
                                         name="password"
-                                        type="password"
+                                        type="test"
                                         autoComplete="current-password"
-                                        placeholder="Password"
+                                        placeholder="password"
                                         onChange={(e) => handleUserInput(e)}
                                 />
                                 <input className="settingsInputFields"
                                         id="SettingsConfirmPassword"
                                         name="password"
-                                        type="password"
-                                        placeholder="Confirm password"
+                                        type="test"
+                                        placeholder="Confirm Password"
                                         onChange={(e) => handleUserInput(e)}
                                 />
-                                <ButtonComponent id="editUpdate_btn" className="Update_btn">Delete Account</ButtonComponent>
+                                <ButtonComponent id="editUpdate_btn" className="Update_btn" onClick={handleSubmit()}>Delete Account</ButtonComponent>
                         </div>
                 </div>
 </>);
