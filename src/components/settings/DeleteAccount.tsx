@@ -20,7 +20,7 @@ export default function DeleteAccount() {
         }
     }
 
-    const handleSubmit = async () => {
+    const handleSubmitDelete = async () => {
         if (password === confirmPassword) {
             //TODO fetch should be '/data/register'
             await fetch('http://localhost:8080/data/settings/delete', {
@@ -77,7 +77,7 @@ export default function DeleteAccount() {
                                         placeholder="Confirm Password"
                                         onChange={(e) => handleUserInput(e)}
                                 />
-                                <button id="editUpdate_btn" className="Update_btn" onClick={handleSubmit} >Delete Account</button>
+                                <button id="deleteUpdate_btn" className="Update_btn" onClick={handleSubmitDelete} >Delete Account</button>
                         </div>
                 </div>
 </>);

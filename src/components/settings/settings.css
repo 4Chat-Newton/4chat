@@ -65,7 +65,7 @@
   background-color: var(--blue);
 }
 
-#editUpdate_btn{
+#editUpdate_btn, #deleteUpdate_btn{
   color: var(--white);
   font-family: sans-serif;
   cursor: pointer;
