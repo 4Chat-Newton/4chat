@@ -1,4 +1,4 @@
-import { useState } from "react"
+import {useState} from "react"
 import {Link, useNavigate} from "react-router-dom"; //TODO add "Navigate" when needed
 import "./settings.css"
 import ButtonComponent from "../globalComponents/ButtonComponent";
@@ -11,7 +11,7 @@ export default function DeleteAccount() {
     const navigate = useNavigate();
 
     const handleUserInput = (e: any) => {
-        const { id, value } = e.target;
+        const {id, value} = e.target;
         if (id === "SettingsPassword") {
             setPassword(value);
         }
@@ -34,15 +34,15 @@ export default function DeleteAccount() {
                     password: password
                 })
             }).then((response) => {
-                if(response.ok){
+                if (response.ok) {
                     alert("Account deleted!")
                     return true
-                }else{
+                } else {
                     alert("Failed to delete account!")
                     return false
                 }
-            }).then((status)=>{
-                if(status){
+            }).then((status) => {
+                if (status) {
                     localStorage.clear()
                     navigate("/login")
                 }
@@ -55,30 +55,29 @@ export default function DeleteAccount() {
     }
 
 
-    return (<>
+    return (
+        <div className="settingsBox">
 
-<div className="settingsBox">
+            <h1 className="settingsH1">Delete Profile</h1>
 
-                        <h1 className="settingsH1">Delete Profile</h1>
-
-                        <div className="settingsFields">
-                                <input className="settingsInputFields"
-                                        id="SettingsPassword"
-                                        name="password"
-                                        type="password"
-                                        autoComplete="current-password"
-                                        placeholder="password"
-                                        onChange={(e) => handleUserInput(e)}
-                                />
-                                <input className="settingsInputFields"
-                                        id="SettingsConfirmPassword"
-                                        name="password"
-                                        type="password"
-                                        placeholder="Confirm Password"
-                                        onChange={(e) => handleUserInput(e)}
-                                />
-                                <button id="editUpdate_btn" className="Update_btn" onClick={handleSubmit} >Delete Account</button>
-                        </div>
-                </div>
-</>);
+            <div className="settingsFields">
+                <input className="settingsInputFields"
+                       id="SettingsPassword"
+                       name="password"
+                       type="password"
+                       autoComplete="current-password"
+                       placeholder="password"
+                       onChange={(e) => handleUserInput(e)}
+                />
+                <input className="settingsInputFields"
+                       id="SettingsConfirmPassword"
+                       name="password"
+                       type="password"
+                       placeholder="Confirm Password"
+                       onChange={(e) => handleUserInput(e)}
+                />
+                <button id="editUpdate_btn" className="Update_btn" onClick={handleSubmit}>Delete Account</button>
+            </div>
+        </div>
+    );
 }
