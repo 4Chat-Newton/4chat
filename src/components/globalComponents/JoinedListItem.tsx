@@ -1,7 +1,9 @@
 import {useContext, useState} from "react";
-
 import activeRoomContext from "../../ActiveRoomContext";
 import {useNavigate} from "react-router-dom";
+import { io } from "socket.io-client";
+
+const socket = io("http://localhost:8080");
 
 const RoomListItem: any = (props: any) => {
     const navigate = useNavigate()
@@ -11,7 +13,16 @@ const RoomListItem: any = (props: any) => {
     function handleActiveRoom(data: any) {
         setActiveRoom(data);
         navigate(`/chatroom/${data}`)
+        joinSocket(data)
     }
+
+    const joinSocket = (data:any) => {
+        console.log("joining socket")
+        if (data !== "") {
+          socket.emit("join_room", {room: data})
+          socket.emit("getRoomSockets", data)
+        }
+      }
 
     const leaveRoom = async ()=>{
         if (props.room.room_id) {

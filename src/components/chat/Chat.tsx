@@ -3,17 +3,20 @@ import ChatWindow from "./ChatWindow";
 import "../style.css";
 import BoxContainer from "../globalComponents/BoxContainer";
 import { io } from "socket.io-client";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import activeRoomContext from "../../ActiveRoomContext";
 
 const socket = io("http://localhost:8080");
 
 
-
 const Chat = () => {
   const [messages, setMessages] = useState<any>([]);
+  const { activeRoom } = useContext(activeRoomContext);
+
 
   useEffect(() => {
     socket.on('messageResponse', (data) => setMessages([...messages, data]));
+    console.log("messagesList: ", messages)
   }, [socket, messages]);
 
   return (

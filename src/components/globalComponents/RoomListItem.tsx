@@ -1,13 +1,15 @@
 import {useContext, useState} from "react";
-
 import activeRoomContext from "../../ActiveRoomContext";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 const RoomListItem: any = (props: any) => {
     const navigate = useNavigate()
     const [isShown, setIsShown] = useState(false);
 
-    const { setActiveRoom } = useContext(activeRoomContext);
+    let pageExist = false
+
+    const { setActiveRoom, activeRoom } = useContext(activeRoomContext);
+
     function handleActiveRoom(data: any) {
         setActiveRoom(data);
         navigate(`/chatroom/${data}`)

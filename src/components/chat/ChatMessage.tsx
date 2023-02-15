@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "../style.css";
 import Setup from "../commandHandler/Setup";
+import activeRoomContext from "../../ActiveRoomContext";
 
 
 export default function ChatMessage({socket}:any) {
 
   const [message, setMessage] = useState('');
+  const { activeRoom } = useContext(activeRoomContext);
 
   let date = new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
 
@@ -19,7 +21,8 @@ export default function ChatMessage({socket}:any) {
         timeStamp: date,
         id: `${socket.id}${Math.random()}`,
         socketID: socket.id,
-      });
+        room: activeRoom
+      }, activeRoom);
     }
     setMessage('');
   };
