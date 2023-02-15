@@ -56,32 +56,17 @@ export const updateEmail = async function(id, email, db){
         }
         return result;
     }catch(error){
-        console.error(`Error updating email ${email}: ${error}`)
+        console.log(`Error updating email ${email}: ${error}`)
         return null;
     }
 }
-
-export const updateUserPassword = async function (encryptedPassword, db) {
-    try {
-        const result = await db.prepare("UPDATE user SET password = ? WHERE id = ?").run(encryptedPassword)
-        if (!result) {
-            console.log(`Wrong password ${encryptedPassword}`);
-            return result;
-        }
-        return result;
-    } catch (error) {
-        console.error(`Error updating password ${encryptedPassword}: ${error}`);
-        return null;
-    }
-};
-
 
 export const deleteUser = async function (id, db) {
     try {
         await db.prepare("DELETE FROM user WHERE id = ?").run(id)
         return true;
     } catch (error) {
-        console.error(`Error deleting user ${error}`);
+        console.log(`Error deleting user ${error}`);
         return false;
     }
 };

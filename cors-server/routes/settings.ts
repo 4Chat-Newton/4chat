@@ -4,7 +4,10 @@ import {
     updateUserName,
     returnUser,
     encryptPassword,
-    updateUserPassword, updateEmail, findUser, deleteUser, validateUser
+    updateEmail,
+    findUser,
+    deleteUser,
+    validateUser
 } from "../controllers/authentication";
 
 export const changeUserName = async function (server, db) {
@@ -49,13 +52,13 @@ export const changePassword = async function (server, db) {
         let user = returnUser(req, res)
         try {
             if (user.isLoggedIn) {
-                await updateUserPassword(user.id, encryptedPassword)
-                return res.status(200).json({msg: `Password changed ${encryptedPassword}`});
+                await db.prepare("UPDATE user SET password = ? WHERE id = ?").run(password, user.id)
+                return res.status(200).json({msg: `Password changed!`});
             } else {
-                return res.status(401).json({error: "Invalid credentials!"});
+                return res.status(401).json({error: "User not logged in!"});
             }
         } catch (e) {
-            console.log("Error:", e)
+            `Error updating password: ${e}`
         }
     });
 }

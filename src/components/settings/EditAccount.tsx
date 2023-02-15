@@ -1,6 +1,4 @@
 import {useState} from "react"
-import {Link} from "react-router-dom"; //TODO add "Navigate" when needed
-import ButtonComponent from "../globalComponents/ButtonComponent";
 
 export default function EditAccount() {
 
@@ -24,20 +22,17 @@ export default function EditAccount() {
     const handleSubmitEditProfile = async () => {
         if (email && password && confirmPassword) {
             updateEmail()
-         //   updatePassword()
+            updatePassword()
+            //   updatePassword()
         } else if (email && !password && !confirmPassword) {
             //PUT update email
             updateEmail()
         } else if (!email && password === confirmPassword) {
             //PUT update password
-         //  updatePassword()
-        }else{
-            alert("Enter Email or Password or both! ")
+            updatePassword()
+        } else {
+            alert("Enter Email, Password or both! ")
         }
-    }
-
-    const updateEmailAndPassword = async () => {
-
     }
 
     const updateEmail = async () => {
@@ -62,7 +57,7 @@ export default function EditAccount() {
 
     }
 
-    const updatePassword =  async () => {
+    const updatePassword = async () => {
         if (password === confirmPassword) {
             await fetch('http://localhost:8080/data/settings/password', {
                 method: 'PUT',
