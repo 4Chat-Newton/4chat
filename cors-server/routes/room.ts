@@ -31,9 +31,10 @@ export const createRoom = async function (server, db) {
       try {
 
         if (!existingRoom) {
-
           await db.prepare("INSERT INTO room (creator_id, name) VALUES(?,?)").run(result.id, name);
-          return res.status(200).json({msg: "Room created"})
+          const room = await db.prepare(`SELECT * FROM room WHERE name = '${name}'`).get();
+          const roomUrl = `/data/room/${room.name}`;
+          return res.status(200).json({msg: `Room created`, roomUrl})
         } else {
           return res.status(400).json({error: `Room "${name}" already exists!`})
         }
@@ -71,20 +72,25 @@ export const joinRoom = async function (server, db) {
     const { room_id } = req.body;
     const roomCheck = await db.prepare("SELECT * FROM joined_room WHERE user_id = ? AND room_id = ?").get(user.id, room_id);
 
-    if (user.isLoggedIn && roomCheck == undefined) {
-      try {
+    if (room_id !== undefined){
+      if (user.isLoggedIn && roomCheck == undefined) {
+        try {
           await db.prepare("INSERT INTO joined_room (user_id, room_id) VALUES(?,?)").run(user.id, room_id);
           return res.status(200).json({ msg: "Room joined" })
-      } catch (e) {
+        } catch (e) {
+          return res
+              .status(400)
+              .json({ error: "Failed to join room" });
+        }
+      } else {
         return res
-          .status(400)
-          .json({ error: "Failed to join room" });
+            .status(400)
+            .json({ error: "Room already joined!" });
       }
     } else {
-      return res
-        .status(400)
-        .json({ error: "Room already joined !" });
+      return res.status(400).json( {error: "Room id is undefined!"})
     }
+
   })
 }
 
