@@ -48,21 +48,22 @@ export const createRoom = async function (server, db) {
       try {
 
         if (!existingRoom) {
-
           await db.prepare("INSERT INTO room (creator_id, name) VALUES(?,?)").run(result.id, name);
-          return res.status(200).json({ msg: "Room created" })
+          const room = await db.prepare(`SELECT * FROM room WHERE name = '${name}'`).get();
+          const roomUrl = `/data/room/${room.name}`;
+          return res.status(200).json({msg: `Room created`, roomUrl})
         } else {
-          return res.status(400).json({ error: `Room "${name}" already exists!` })
+          return res.status(400).json({error: `Room "${name}" already exists!`})
         }
       } catch (e) {
         return res
-          .status(400)
-          .json({ error: "Failed to create room" });
+            .status(400)
+            .json({ error: "Failed to create room" });
       }
     } else {
       return res
-        .status(400)
-        .json({ error: "Invalid Credentials!" });
+          .status(400)
+          .json({ error: "Invalid Credentials!" });
     }
   })
 }
@@ -92,7 +93,7 @@ export const getAllJoinedRooms = async function (server, db) {
         .prepare(
           "SELECT * FROM room JOIN joined_room jr on room.id = jr.room_id WHERE jr.user_id = ?").all(user.id);
       return res.status(200).send(result)
-    } catch (e) {
+    } catch(e) {
       return res.status(400).send("Failed to retrieve rooms!")
     }
   })
@@ -102,28 +103,25 @@ export const joinRoom = async function (server, db) {
   server.post("/data/room/join", async (req: express.Request, res: express.Response) => {
     let user = returnUser(req, res);
     const { room_id } = req.body;
-    if (room_id) {
-      const roomCheck = await db.prepare("SELECT * FROM joined_room WHERE user_id = ? AND room_id = ?").get(user.id, room_id);
+    const roomCheck = await db.prepare("SELECT * FROM joined_room WHERE user_id = ? AND room_id = ?").get(user.id, room_id);
 
+    if (room_id !== undefined){
       if (user.isLoggedIn && roomCheck == undefined) {
         try {
           await db.prepare("INSERT INTO joined_room (user_id, room_id) VALUES(?,?)").run(user.id, room_id);
           return res.status(200).json({ msg: "Room joined" })
         } catch (e) {
           return res
-            .status(400)
-            .json({ error: "Failed to join room!" });
+              .status(400)
+              .json({ error: "Failed to join room" });
         }
       } else {
         return res
-          .status(400)
-          .json({ error: "Room already joined!" });
+            .status(400)
+            .json({ error: "Room already joined!" });
       }
-
     } else {
-      return res
-      .status(400)
-          .json({ error: "Room doesn't exist!" });
+      return res.status(400).json( {error: "Room id is undefined!"})
     }
 
   })
@@ -131,7 +129,7 @@ export const joinRoom = async function (server, db) {
 
 export const leaveChatRoom = async (server, db) => {
   server.delete("/data/room/leave", async (req: express.Request, res: express.Response) => {
-    let result = { id: "", isLoggedIn: false, username: "" }
+    let result = {id: "", isLoggedIn: false, username: ""}
     result = returnUser(req, res)
     const { room_id } = req.body;
     const roomCheck = await db.prepare("SELECT * FROM joined_room WHERE user_id = ? AND room_id = ?").get(result.id, room_id);
@@ -151,13 +149,13 @@ export const leaveChatRoom = async (server, db) => {
 
 
 export const deleteRoom = async function (server, db) {
-  server.delete("/data/room", verifyJWT, async (req: express.Request, res: express.Response) => {
+  server.delete("/data/room",verifyJWT, async (req: express.Request, res: express.Response) => {
     try {
       const existingRoom = await findExistingRoom(req.body.name, db);
-      let user = { id: "", isLoggedIn: false, username: "" }
+      let user = {id: "", isLoggedIn: false, username: "" }
       user = returnUser(req, res);
       const { name } = req.body;
-      const { creator_id } = await checkCreatorId(user.id, db);
+      const { creator_id } = await checkCreatorId(user.id , db);
 
       if (!user.isLoggedIn) {
         return res.status(401).send({ error: "Unauthorized" });
