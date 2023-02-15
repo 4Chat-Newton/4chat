@@ -1,7 +1,7 @@
 import {useState} from "react"
 import {Link, useNavigate} from "react-router-dom"; //TODO add "Navigate" when needed
 import "./settings.css"
-import ButtonComponent from "../globalComponents/ButtonComponent";
+import ButtonComponent from "../../components/globalComponents/ButtonComponent";
 import {response} from "express";
 
 export default function DeleteAccount() {

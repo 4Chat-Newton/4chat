@@ -5,8 +5,8 @@ import Register from "../../pages/authentication/Register";
 import Terms from "../../pages/Terms";
 import ChatRoom from "../../pages/ChatRoom";
 import NoPage from "../../pages/NoPage";
-import Settings from "../settings/Settings";
-import DeleteAccount from "../settings/DeleteAccount";
+import Settings from "../../pages/settings/Settings";
+import DeleteAccount from "../../pages/settings/DeleteAccount";
 function ChatRouter() {
   return (
     <>
