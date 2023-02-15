@@ -1,4 +1,4 @@
-import {returnUser, verifyJWT} from "../controllers/authentication";
+import { returnUser, verifyJWT } from "../controllers/authentication";
 import express, { response, request } from 'express';
 
 export const findExistingRoom = async function (name, db) {
@@ -20,9 +20,26 @@ export const findExistingRoom = async function (name, db) {
   }
 }
 
+export const getRoom = async function (server, db) {
+  server.get("/data/room/:name", async (req: express.Request, res: express.Response) => {
+    const room = findExistingRoom(req.params, db)
+    if (room !== null) {
+      try {
+        const user = await db.prepare("SELECT * FROM room WHERE name = @name").get(req.params);
+        res.json(user).status(200)
+      } catch (e) {
+        res.status(400).send({ message: "Room not found!" })
+      }
+    } else {
+      res.status(400).send({ message: "Room not found!" })
+    }
+  });
+}
+
+
 export const createRoom = async function (server, db) {
   server.post("/data/room", verifyJWT, async (req: express.Request, res: express.Response) => {
-    let result = {id: "", isLoggedIn: false, username: ""}
+    let result = { id: "", isLoggedIn: false, username: "" }
     result = returnUser(req, res)
     const { name } = req.body;
     const existingRoom = await findExistingRoom(name, db)
@@ -51,19 +68,35 @@ export const createRoom = async function (server, db) {
   })
 }
 
-export const getAllRooms = async function (server, db){
-  server.get("/data/room", verifyJWT, async (req: express.Request, res: express.Response) => {
+export const getAllRooms = async function (server, db) {
+  server.get("/data/room", async (req: express.Request, res: express.Response) => {
+    let user = returnUser(req, res);
     try {
       const result = await db
           .prepare(
-              "SELECT * FROM room"
+              "SELECT room.id AS id, room.creator_id, room.name FROM room LEFT JOIN joined_room ON room.id = joined_room.room_id AND joined_room.user_id = ? WHERE joined_room.id IS NULL"
           )
-          .get();
+          .all(user.id);
+
+      return res.status(200).send(result)
+    } catch (e) {
+      return res.status(400).send("Failed to retrieve rooms!")
+    }
+  })
+}
+
+export const getAllJoinedRooms = async function (server, db) {
+  server.get("/data/room/joined", async (req: express.Request, res: express.Response) => {
+    let user = returnUser(req, res);
+    try {
+      const result = await db
+        .prepare(
+          "SELECT * FROM room JOIN joined_room jr on room.id = jr.room_id WHERE jr.user_id = ?").all(user.id);
       return res.status(200).send(result)
     } catch(e) {
       return res.status(400).send("Failed to retrieve rooms!")
     }
-})
+  })
 }
 
 export const joinRoom = async function (server, db) {
@@ -94,7 +127,7 @@ export const joinRoom = async function (server, db) {
   })
 }
 
-export const leaveChatRoom =async (server ,db) => {
+export const leaveChatRoom = async (server, db) => {
   server.delete("/data/room/leave", async (req: express.Request, res: express.Response) => {
     let result = {id: "", isLoggedIn: false, username: ""}
     result = returnUser(req, res)

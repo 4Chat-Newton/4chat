@@ -1,7 +1,6 @@
-import React, { useState, useContext, useEffect } from "react";
+import { useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import GlobalContext from "../../GlobalContext";
 export default function Login() {
 
     const navigate = useNavigate();
@@ -59,7 +58,7 @@ export default function Login() {
 
     const authenticateUser = async () => {
 
-        await fetch('http://localhost:8080/data/login', {
+        await fetch('/data/login', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

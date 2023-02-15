@@ -1,0 +1,49 @@
+.inbox {
+    background-color: var(--black);
+    height: 100%;
+    width: 16%;
+    overflow: auto;
+}
+
+.listComponent {
+    color: var(--white);
+}
+.listComponent > li {
+    width: 100%;
+    padding: 5px;
+    transition: 0.15s;
+    display: flex;
+    justify-content: space-between;
+}
+.listComponent > li:hover {
+    background-color: var(--blue);
+}
+
+.inboxBtns {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.inboxBtns li {
+    background-color: #222;
+    color: var(--white);
+    font-family: sans-serif;
+    cursor: pointer;
+    transition: 0.15s;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+}
+
+.inboxBtns li.active {
+    background-color: var(--black);
+    /* font-weight: bold; */
+    text-decoration: underline;
+}
+.inboxBtns li:hover {
+    background-color: var(--blue);
+}
+
+.joinBtn li:hover {
+    cursor: pointer
+}

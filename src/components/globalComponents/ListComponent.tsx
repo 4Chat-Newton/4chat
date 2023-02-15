@@ -1,15 +1,13 @@
+import RoomListItem from "./RoomListItem";
+
 const ListComponent: any = (props: any) => {
-  return (
-    <ul className="listComponent">
-      {props.rooms.map((r: any, index: number) => {
-        return (
-          <li key={index}>
-             <span>-- {r.name}</span>
-          </li>
-        );
-      })}
-    </ul>
-  );
+    return (
+        <ul className="listComponent">
+            {props.rooms.map((r: any, index: number) => {
+                return <RoomListItem key={index} room={r} />;
+            })}
+        </ul>
+    );
 };
 
 export default ListComponent;

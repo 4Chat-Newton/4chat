@@ -30,6 +30,7 @@ h2{
     font-size: x-large;
 }
 
+
 .buttonComponent {
     color: var(--white);
     font-family: sans-serif;
@@ -38,7 +39,6 @@ h2{
     width: 100%;
     padding: 10px;
 }
-
 .buttonComponent:hover {
     background-color: var(--blue);
 }

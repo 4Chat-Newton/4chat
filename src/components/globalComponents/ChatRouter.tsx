@@ -8,6 +8,7 @@ import ProtectedRoutes from "./ProtectedRoutes";
 import NoPage from "../../pages/NoPage";
 
 function ChatRouter() {
+
   return (
     <>
       <Routes>
@@ -17,6 +18,7 @@ function ChatRouter() {
         <Route path="/terms" element={<Terms />} />
         <Route element={<ProtectedRoutes />}>
           <Route path="/chatroom" element={<ChatRoom />} />
+          <Route path="/chatroom/:activeRoom" element={<ChatRoom />} />
         </Route>
         <Route path="/*" element={<NoPage />} />
       </Routes>
