@@ -1,4 +1,8 @@
+import activeRoomContext from "../../ActiveRoomContext";
+import {useContext} from "react";
 const Setup = (data: string) => {
+
+const { setBotMessage } = useContext(activeRoomContext);
 
     const findTerm = (term: string) => {
         if (data.startsWith(term)) {
@@ -57,7 +61,7 @@ const Setup = (data: string) => {
             }).then(function (response) {
                 if (response.ok) {
                     alert(`Room #${name} created!`);
-
+                    setBotMessage("YOU CREATED A ROOM!")
                 } else {
                     alert("Error creating room!");
                 }

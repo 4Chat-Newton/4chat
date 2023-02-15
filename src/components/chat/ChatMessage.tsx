@@ -1,10 +1,11 @@
 import { useState } from "react";
 import "../style.css";
 import Setup from "../commandHandler/Setup";
-
+import activeRoomContext from "../../ActiveRoomContext";
+import {useContext} from "react";
 
 export default function ChatMessage({socket}:any) {
-
+  const { botMessage } = useContext(activeRoomContext);
   const [message, setMessage] = useState('');
 
   let date = new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
@@ -25,8 +26,14 @@ export default function ChatMessage({socket}:any) {
   };
 
     const handleInput = async () => {
-        //TODO remove console.log
-        console.log("handleInput data:", message)
+    console.log("BOT: ", botMessage)
+        socket.emit('message', {
+                text: botMessage,
+                user: "BOT",
+                timeStamp: date,
+                id: `${socket.id}${Math.random()}`,
+                socketID: socket.id,
+              });
         Setup(message)
     }
 
