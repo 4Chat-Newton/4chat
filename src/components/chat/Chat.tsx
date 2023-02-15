@@ -15,7 +15,6 @@ const Chat = () => {
 
 
   useEffect(() => {
-    console.log("first")
     socket.on('messageResponse', (data) => setMessages([...messages, data]));
     console.log("messagesList: ", messages)
   }, [socket, messages]);

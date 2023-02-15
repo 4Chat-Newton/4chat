@@ -17,7 +17,7 @@ const RoomListItem: any = (props: any) => {
     }
 
     const joinSocket = (data:any) => {
-        console.log("joining socket")
+        console.log("joining socket: " + data)
         if (data !== "") {
           socket.emit("join_room", {room: data})
           socket.emit("getRoomSockets", data)

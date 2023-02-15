@@ -55,7 +55,7 @@ io.on('connection', (socket) => {
 
     let socketRoom = io.sockets.adapter.rooms
 
-    console.log("SOCKETSET: ", socketRoom)
+    console.log("SOCKET_SET: ", socketRoom)
 
     io.to(data.room).emit('messageResponse', data)
   });
