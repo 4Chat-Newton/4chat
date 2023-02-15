@@ -2,8 +2,9 @@ import { useState } from "react";
 import "../style.css";
 import Setup from "../commandHandler/Setup";
 
+
 export default function ChatMessage({socket}:any) {
-  
+
   const [message, setMessage] = useState('');
 
   let date = new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
@@ -14,7 +15,7 @@ export default function ChatMessage({socket}:any) {
     if (message.trim()) {
       socket.emit('message', {
         text: message,
-        user: 'signedInUser',//! ska kolla JWT token
+        user: localStorage.getItem('username'),//! ska kolla JWT token
         timeStamp: date,
         id: `${socket.id}${Math.random()}`,
         socketID: socket.id,

@@ -7,7 +7,15 @@
   margin-bottom: 10px;
   flex-grow: 1;
 }
-
+#timeStamp{
+  color: red;
+}
+#userMsg{
+  color: chartreuse;
+}
+#textMsg{
+  color: cyan;
+}
 .roomName {
   margin: 0;
   background-color: var(--blue);
@@ -28,7 +36,9 @@
   width: 100%;
   padding-left: 5px;
   padding-right: 5px;
-
+}
+.text li:nth-child(even) {
+  background-color: #222;
 }
 
 .msg {
@@ -61,7 +71,7 @@
   padding: 10px;
 }
 
-.chatContainer{
+.chatContainer {
   flex: 80;
   display: flex;
   flex-direction: column;
