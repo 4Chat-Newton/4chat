@@ -5,6 +5,7 @@ import http from "http";
 import {getSignedInUser, signIn, signOut} from "./routes/login";
 import cookieparser from "cookie-parser";
 import {createRoom, getRoom, deleteRoom, getAllRooms, joinRoom, leaveChatRoom, getAllJoinedRooms} from "./routes/room";
+import path from 'path';
 
 const port: Number = 8080;
 const host: string = `http://localhost:${port}`;
@@ -62,3 +63,9 @@ deleteRoom(app, db)
 joinRoom(app, db)
 getRoom(app, db)
 leaveChatRoom(app, db)
+
+console.log('frontend location:', path.join(__dirname, '../build', 'index.html'))
+app.use(express.static(path.join(__dirname, '../build')))
+app.get('*', async (req, res) => {
+  res.sendFile(path.join(__dirname, '../build', 'index.html'))
+})
