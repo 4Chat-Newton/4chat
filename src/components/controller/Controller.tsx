@@ -24,9 +24,9 @@ export const StoreMessage = (senderId: any, receiverId: string, msg: string, tim
         body: JSON.stringify({
             // sender_id: senderId,  // is Collected in back-end
             receiver_id: receiverId,
-            room: true, // if it's a room or DM
+            room: 1, // if it's a room 1 for true or DM 0 for false
             message: msg,
-            timestamp: timestamp,
+            timestamp: timestamp.toString(), // convert from date to string. Quickfix
             // deleted: "",
             // reported: "",
             // edited_message: ""
