@@ -2,9 +2,9 @@ import express from "express";
 import { Server } from "socket.io";
 import cors from "cors";
 import http from "http";
-import {getSignedInUser, signIn, signOut} from "./routes/login";
+import { getSignedInUser, signIn, signOut } from "./routes/login";
 import cookieparser from "cookie-parser";
-import {createRoom, getRoom, deleteRoom, getAllRooms, joinRoom, leaveChatRoom, getAllJoinedRooms} from "./routes/room";
+import { createRoom, getRoom, deleteRoom, getAllRooms, joinRoom, leaveChatRoom, getAllJoinedRooms } from "./routes/room";
 
 const port: Number = 8080;
 const host: string = `http://localhost:${port}`;
@@ -36,40 +36,44 @@ server.listen(port, () => {
   console.log(`${host}/data`);
 });
 
-// On the server-side
 
+io.on('connection', (socket) => {
 
-io.on('connection', (socket)=>{
+  socket.onAny((event, ...args) => {
+    console.log("SERVER: ", event, args);
+  });
+
   console.log(`user connected: ${socket.id} `);
 
+
+
   //Listens and logs the message to the console
-  socket.on('message', (data, roomName) => {
-    let trimedName = roomName.trim()
-    if(trimedName === null || trimedName === "") {
+  socket.on('message', (data) => {
+    if (data.room=== null || data.room === "") {
       return io.emit('messageResponse', data);
     }
 
-    console.log(data);
+    let socketRoom = io.sockets.adapter.rooms
 
-    io.emit('messageResponse', data)
-    console.log("room: ", roomName,trimedName,roomName,trimedName)
+    console.log("SOCKETSET: ", socketRoom)
+
+    io.to(data.room).emit('messageResponse', data)
   });
 
-  socket.on('join_room', async ({room}) => {
+  socket.on('join_room', async ({ room }) => {
     await socket.join(room)
-    console.log("joined room: ", room)
   })
 
   // On the server-side
-socket.on("getRoomSockets", (roomName) => {
-  const room = io.sockets.adapter.rooms.get(roomName);
-  if (room) {
-    const roomSet: Set<string> = room;
-    roomSet.forEach((socketId) => {
-      console.log(`Socket ${socketId} is joined to room ${roomName}`);
-    });
-  }
-});
+  socket.on("getRoomSockets", (roomName) => {
+    const room = io.sockets.adapter.rooms.get(roomName);
+    if (room) {
+      const roomSet: Set<string> = room;
+      roomSet.forEach((socketId) => {
+        console.log(`Socket ${socketId} is joined to room ${roomName}`);
+      });
+    }
+  });
 
   socket.on('disconnect', () => {
     console.log(`user disconnected: ${socket.id} `);

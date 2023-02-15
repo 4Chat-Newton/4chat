@@ -22,7 +22,7 @@ export default function ChatMessage({socket}:any) {
         id: `${socket.id}${Math.random()}`,
         socketID: socket.id,
         room: activeRoom
-      }, activeRoom);
+      });
     }
     setMessage('');
   };
