@@ -1,13 +1,12 @@
-import {useContext, useState} from "react";
+import { useContext, useState, useEffect } from "react";
 import activeRoomContext from "../../ActiveRoomContext";
-import {useNavigate} from "react-router-dom";
-import { io } from "socket.io-client";
-
-const socket = io("http://localhost:8080");
+import { useNavigate } from "react-router-dom";
 
 const RoomListItem: any = (props: any) => {
     const navigate = useNavigate()
     const [isShown, setIsShown] = useState(false);
+    const [messages, setMessages] = useState<any>([]);
+    let socket = props.socketConnection
 
     const { setActiveRoom } = useContext(activeRoomContext);
     function handleActiveRoom(data: any) {
@@ -24,7 +23,9 @@ const RoomListItem: any = (props: any) => {
         }
       }
 
-    const leaveRoom = async ()=>{
+
+
+    const leaveRoom = async () => {
         if (props.room.room_id) {
             fetch("http://localhost:8080/data/room/leave", {
                 method: "DELETE",
@@ -50,10 +51,10 @@ const RoomListItem: any = (props: any) => {
     }
 
     return (
-        <li className="listItemRoom" onMouseEnter={() => setIsShown(true)} onMouseLeave={()=>setIsShown(false)} onClick={() => handleActiveRoom(props.room.name)}>
+        <li className="listItemRoom" onMouseEnter={() => setIsShown(true)} onMouseLeave={() => setIsShown(false)} onClick={() => handleActiveRoom(props.room.name)}>
             <div>
-            <span>#</span>
-            {props.room.name}
+                <span>#</span>
+                {props.room.name}
             </div>
             {isShown && (
                 <button className="joinBtn" onClick={() => leaveRoom()}>—</button>

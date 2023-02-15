@@ -6,22 +6,19 @@ import { io } from "socket.io-client";
 import { useContext, useEffect, useState } from "react";
 import activeRoomContext from "../../ActiveRoomContext";
 
-const socket = io("http://localhost:8080");
 
-
-const Chat = () => {
+const Chat = (props:any) => {
   const [messages, setMessages] = useState<any>([]);
-  const { activeRoom } = useContext(activeRoomContext);
 
+  let socket = props.socketConnection
 
   useEffect(() => {
-    socket.on('messageResponse', (data) => setMessages([...messages, data]));
+    socket.on('messageResponse', (data:any) => setMessages([...messages, data]));
     console.log("messagesList: ", messages)
-  }, [socket, messages]);
-  
-  socket.onAny((event, ...args) => {
-    console.log("CLIENT: ", event, args);
-  });
+    // socket.on('messageResponse', (data) => {
+    //     console.log("useEffect: ", data)
+    // })
+}, [socket, messages]);
 
   return (
     <>

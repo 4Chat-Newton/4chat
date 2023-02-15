@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import JoinedComponent from "../../globalComponents/JoinedListComponent";
 import TabComponent from "../../globalComponents/TabComponent";
 
-const ChatTab = () => {
+const ChatTab = (props:any) => {
     const[joinedRooms, setJoinedRooms] = useState([])
 
         useEffect(() => {
@@ -21,7 +21,7 @@ const ChatTab = () => {
     
  
 
-        if(joinedRooms.length > 0) return (<JoinedComponent rooms={joinedRooms}/>)
+        if(joinedRooms.length > 0) return (<JoinedComponent socketConnection={props.socketConnection} rooms={joinedRooms}/>)
 
 
     return (
