@@ -70,10 +70,6 @@ const Setup = (data: string) => {
             break;
         case findTerm("/leave #"):
 
-
-
-
-
             break;
         default:
             break;
