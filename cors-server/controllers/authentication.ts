@@ -72,6 +72,9 @@ export const verifyJWT = (req: express.Request, res: express.Response, next) => 
     })
     let bearerToken = req.headers['authorization']
     let token  = bearerToken.replace("Bearer ", "");
+
+    console.log("token: ", bearerToken)
+
     jwt.verify(token, "secret_key")
 
     if (!token) {
