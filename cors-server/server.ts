@@ -5,7 +5,7 @@ import http from "http";
 import {getSignedInUser, signIn, signOut} from "./routes/login";
 import cookieparser from "cookie-parser";
 import {createRoom, getRoom, deleteRoom, getAllRooms, joinRoom, leaveChatRoom, getAllJoinedRooms} from "./routes/room";
-import {storeMessage} from "./routes/message";
+import {getJoinedRoomMessanges, getMsgFromRoom, storeMessage} from "./routes/message";
 
 const port: Number = 8080;
 const host: string = `http://localhost:${port}`;
@@ -65,3 +65,5 @@ getRoom(app, db)
 leaveChatRoom(app, db)
 
 storeMessage(app, db)
+getMsgFromRoom(app, db)
+getJoinedRoomMessanges(app, db)

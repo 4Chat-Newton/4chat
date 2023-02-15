@@ -2,18 +2,11 @@ import {useContext} from "react";
 import activeRoomContext from "../../ActiveRoomContext";
 
 
-export const StoreMessage = (senderId: any, receiverId: string, msg: string, timestamp: string) => {
+export const StoreMessage = async (senderId: any, receiverId: string, msg: string, timestamp: string, socketId: string) => {
 
     // Check if receiver id is a room or not (DM)
     // Check if name is # (is a room) or @ (is a user)
     //Get
-    // GetRoomOnName().then((data) => {
-    //     return data
-    // })
-    console.log("Store:",senderId )
-    console.log("Store:",receiverId )
-    console.log("Store:",msg )
-    console.log("Store:",timestamp )
 
     fetch("/data/message", {
         method: "POST",
@@ -22,14 +15,15 @@ export const StoreMessage = (senderId: any, receiverId: string, msg: string, tim
             authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         body: JSON.stringify({
-            // sender_id: senderId,  // is Collected in back-end
+            //senderId,   is Collected in back-end
             receiver_id: receiverId,
             room: 1, // if it's a room 1 for true or DM 0 for false
             message: msg,
             timestamp: timestamp.toString(), // convert from date to string. Quickfix
-            // deleted: "",
-            // reported: "",
-            // edited_message: ""
+            deleted: 0, // Not deleted
+            reported: 0, // Not reported
+            edited_message: "null", // Not edited
+            socket_id: socketId
         }),
     }).then(function (response) {
         if (response.ok) {
@@ -37,34 +31,33 @@ export const StoreMessage = (senderId: any, receiverId: string, msg: string, tim
         } else {
             console.log("Message NOT stored!")
         }
-    }).catch((e)=>{
+    }).catch((e) => {
         console.log("Error: ", e)
     });
 }
 
 // GetRoomOnName
 // Get a json object of room based on name
-export const GetRoomOnName = () => {
-    // const { activeRoom } = useContext(activeRoomContext);
+export const GetMsgFromRoom = (roomName: string) => {
 
-    return fetch('/data/login', {
+    return fetch(`/data/message/${roomName}` , {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem("token")}`
         }
     }).then(function (response) {
-        if (response.status === 200) {
+        if (response.ok) {
+            console.log(response)
             return response.json()
         } else {
-            alert(`Error ${response.status}`)
+            console.log(`Failed to retrieve room Error.`)
+            return response.json()
         }
-    }).then(data => {
-        localStorage.setItem("user_id", data.id)
-        localStorage.setItem("username", data.username)
-        return data
-        // localStorage.setItem("isLoggedIn", data.isLoggedIn)
     })
+    //     .catch((e) => {
+    //     console.log("Error: ", e)
+    // })
 }
 
 // export {StoreMessage, GetRoomOnName}

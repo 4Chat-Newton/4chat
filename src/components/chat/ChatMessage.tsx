@@ -34,7 +34,7 @@ export default function ChatMessage({socket}:any) {
     }
     setMessage('');
       // Send message to a storing function
-    StoreMessage(userId, activeRoomId, message, date)
+    StoreMessage(userId, activeRoom, message, date, socket.id)
   };
 
     const handleInput = async () => {

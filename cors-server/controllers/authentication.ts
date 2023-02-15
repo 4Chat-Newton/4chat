@@ -46,7 +46,7 @@ export const returnUser = (req: express.Request, res: express.Response) => {
         username: ""
     }
     let bearerToken = req.headers['authorization']
-    let token  = bearerToken.replace("Bearer ", "");
+    let token = bearerToken.replace("Bearer ", "");
 
     if (!token) {
         return result
@@ -71,15 +71,16 @@ export const verifyJWT = (req: express.Request, res: express.Response, next) => 
         algorithms: ["HS256"],
     })
     let bearerToken = req.headers['authorization']
-    let token  = bearerToken.replace("Bearer ", "");
+    let token = bearerToken.replace("Bearer ", "");
 
-    console.log("token: ", bearerToken)
-
-    jwt.verify(token, "secret_key")
-
-    if (!token) {
-        return res.status(401).send("No token found!")
-    } else {
-        next();
+    try {
+        jwt.verify(token, "secret_key")
+        if (!token) {
+            return res.status(401).send("No token found!")
+        } else {
+            next();
+        }
+    } catch (e) {
+        return res.status(400).send({message: "Token not provided", error: e})
     }
 }
