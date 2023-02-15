@@ -36,7 +36,7 @@ export const getMsgFromRoom = async (server, db) => {
 }
 
 export const getJoinedRoomMessanges = async (server, db) => {
-    server.get("/data/message/user-messanges", verifyJWT, async (req: express.Request, res: express.Response) => {
+    server.get("/data/message/user-messages", verifyJWT, async (req: express.Request, res: express.Response) => {
         let user = returnUser(req, res);
         const { receiver_id } = req.body;
         try {

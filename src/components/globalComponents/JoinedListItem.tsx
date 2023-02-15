@@ -7,9 +7,10 @@ const RoomListItem: any = (props: any) => {
     const navigate = useNavigate()
     const [isShown, setIsShown] = useState(false);
 
-    const { setActiveRoom } = useContext(activeRoomContext);
+    const { setActiveRoom, setActiveRoomId } = useContext(activeRoomContext);
     function handleActiveRoom(data: any) {
         setActiveRoom(data);
+        setActiveRoomId(props.room.room_id) // room id is called "room_id" from props
         navigate(`/chatroom/${data}`)
     }
 

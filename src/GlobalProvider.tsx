@@ -3,6 +3,8 @@ import activeRoomContext from "./ActiveRoomContext";
 export interface ActiveRoomContextType {
     activeRoom: string;
     setActiveRoom: (activeRoom: string) => void;
+    activeRoomId: number;
+    setActiveRoomId: (activeRoom: number) => void;
 }
 interface GlobalProviderProps {
     children: React.ReactNode;
@@ -11,10 +13,13 @@ interface GlobalProviderProps {
 function GlobalProvider(props: GlobalProviderProps)
 {
     const [activeRoom, setActiveRoom] = useState('Home');
+    const [activeRoomId, setActiveRoomId] = useState(0);
 
     const value: ActiveRoomContextType = {
         activeRoom: activeRoom,
         setActiveRoom: setActiveRoom,
+        activeRoomId: activeRoomId,
+        setActiveRoomId: setActiveRoomId,
     };
 
     return (

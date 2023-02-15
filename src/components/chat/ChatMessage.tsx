@@ -9,12 +9,7 @@ export default function ChatMessage({socket}:any) {
 
   const [message, setMessage] = useState('');
     let roomName = "Home"
-    const { activeRoom } = useContext(activeRoomContext);
-    if (activeRoom !== ""){
-        roomName = activeRoom
-    }
-
-    const activeRoomId = "This_is_receiver_id"
+    const { activeRoom, activeRoomId } = useContext(activeRoomContext);
 
   let date = new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
 
@@ -33,8 +28,9 @@ export default function ChatMessage({socket}:any) {
       });
     }
     setMessage('');
-      // Send message to a storing function
-    StoreMessage(userId, activeRoom, message, date, socket.id)
+    // Send message to a storing function
+    // parse userId to integer
+    StoreMessage(userId, activeRoomId, message, date, socket.id)
   };
 
     const handleInput = async () => {

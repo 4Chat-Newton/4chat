@@ -1,12 +1,12 @@
 import {useContext} from "react";
 import activeRoomContext from "../../ActiveRoomContext";
 
-
-export const StoreMessage = async (senderId: any, receiverId: string, msg: string, timestamp: string, socketId: string) => {
+//StoreMessage
+// Store a message into the db
+export const StoreMessage = async (senderId: any, receiverId: number, msg: string, timestamp: string, socketId: string) => {
 
     // Check if receiver id is a room or not (DM)
     // Check if name is # (is a room) or @ (is a user)
-    //Get
 
     fetch("/data/message", {
         method: "POST",
@@ -37,22 +37,25 @@ export const StoreMessage = async (senderId: any, receiverId: string, msg: strin
 }
 
 // GetRoomOnName
-// Get a json object of room based on name
-export const GetMsgFromRoom = (roomName: string) => {
+// Get messanges from a Room based on room id.
+export const GetMsgFromRoom = (roomId: number) => {
 
-    return fetch(`/data/message/${roomName}` , {
+    return fetch(`/data/message/room-messages` , {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem("token")}`
-        }
+        },
+        body: JSON.stringify({
+            receiver_id: roomId
+        })
     }).then(function (response) {
         if (response.ok) {
             console.log(response)
             return response.json()
         } else {
-            console.log(`Failed to retrieve room Error.`)
-            return response.json()
+            console.log(`Failed to retrieve room's messages Error.`)
+            return null
         }
     })
     //     .catch((e) => {
@@ -60,4 +63,26 @@ export const GetMsgFromRoom = (roomName: string) => {
     // })
 }
 
-// export {StoreMessage, GetRoomOnName}
+// GetRoomOnName
+// Get messanges from a Room based on room id.
+export const GetMsgFromJoinedRoom = (roomId: number) => {
+
+    return fetch(`/data/message/user-messages` , {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem("token")}`
+        },
+    }).then(function (response) {
+        if (response.ok) {
+            console.log(response)
+            return response.json()
+        } else {
+            console.log(`Failed to retrieve joined room's messages Error.`)
+            return null
+        }
+    })
+    //     .catch((e) => {
+    //     console.log("Error: ", e)
+    // })
+}
