@@ -17,6 +17,7 @@ export default function ChatWindow({messages: socketRespons}:any) {
             {socketRespons.map((msg: any) => (
            (<li key={msg.id}>
               <span id="timeStamp">{`[${msg.timeStamp}]`}</span>
+              <span id="userMsg">{`[${msg.room}]`}</span>
               <span id="userMsg">{`[${msg.user}]`}</span>
               <span id="textMsg">{`: ${msg.text}`}</span>
             </li>)
