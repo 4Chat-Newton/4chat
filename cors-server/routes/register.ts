@@ -5,7 +5,7 @@ module.exports = function (server, db) {
 
     server.get("/data/register/:username", async (req: express.Request, res: express.Response) => {
         try {
-            const user = await db.prepare("SELECT username, email FROM user WHERE username = @username").get(req.params);
+            const user = await db.prepare("SELECT * FROM user WHERE username = @username").get(req.params);
             res.json(user).status(200)
         } catch (e) {
             res.status(400).send({message: "Users not found!"})

@@ -24,7 +24,11 @@ export default function Navbar() {
   }
 
   const handleHome = () => {
-    navigate("/")
+    navigate("/chatroom")
+  }
+
+  const handleSettingsBtn = () => {
+    navigate("/settings")
   }
 
   return <>
@@ -41,7 +45,7 @@ export default function Navbar() {
       </div>
 
       <div className="nav-btn">
-        <button id="settings-btn">Settings</button>
+        <button id="settings-btn" onClick={handleSettingsBtn}>Settings</button>
         <button id="signOut-btn" onClick={logOut}>Sign out</button>
       </div>
     </header>
