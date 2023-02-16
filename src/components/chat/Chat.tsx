@@ -6,7 +6,7 @@ import { io } from "socket.io-client";
 import { useContext, useEffect, useState } from "react";
 import activeRoomContext from "../../ActiveRoomContext";
 
-const socket = io("http://localhost:8080");
+// const socket = io("http://localhost:8080");
 
 
 const Chat = () => {
@@ -14,21 +14,21 @@ const Chat = () => {
   const { activeRoom } = useContext(activeRoomContext);
 
 
-  useEffect(() => {
-    socket.on('messageResponse', (data) => setMessages([...messages, data]));
-    console.log("messagesList: ", messages)
-  }, [socket, messages]);
+  // useEffect(() => {
+  //   socket.on('messageResponse', (data) => setMessages([...messages, data]));
+  //   console.log("messagesList: ", messages)
+  // }, [socket, messages]);
   
-  socket.onAny((event, ...args) => {
-    console.log("CLIENT: ", event, args);
-  });
+  // socket.onAny((event, ...args) => {
+  //   console.log("CLIENT: ", event, args);
+  // });
 
   return (
     <>
     <BoxContainer className="chatContainer">
         <ChatWindow messages={messages}/>
         {/*<div className="chatSeperator"></div>*/}
-        <ChatMessage socket={socket}/>
+        <ChatMessage socket={"socket"}/>
       </BoxContainer>
     </>
   );

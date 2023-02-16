@@ -24,9 +24,15 @@ app.get("/data", (req, res) => {
 
 const server = http.createServer(app);
 
-const io = new Server(server, {
+// const io = new Server(server, {
+//   cors: {
+//     origin: "http://localhost:3000",
+//     methods: ["POST", "GET"],
+//   },
+// });
+const io = require("socket.io")(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "http://localhost:8080",
     methods: ["POST", "GET"],
   },
 });
@@ -36,49 +42,16 @@ server.listen(port, () => {
   console.log(`${host}/data`);
 });
 
+io.use((socket, next) => {
+  const username = socket.handshake.auth.username;
+  if (!username) {
+    return next(new Error("invalid username"));
+  }
+  socket.username = username;
+  next();
+});
 
-io.on('connection', (socket) => {
 
-  socket.onAny((event, ...args) => {
-    console.log("SERVER: ", event, args);
-  });
-
-  console.log(`user connected: ${socket.id} `);
-
-
-
-  //Listens and logs the message to the console
-  socket.on('message', (data) => {
-    if (data.room=== null || data.room === "") {
-      return io.emit('messageResponse', data);
-    }
-
-    let socketRoom = io.sockets.adapter.rooms
-
-    console.log("SOCKET_SET: ", socketRoom)
-
-    io.to(data.room).emit('messageResponse', data)
-  });
-
-  socket.on('join_room', async ({ room }) => {
-    await socket.join(room)
-  })
-
-  // On the server-side
-  socket.on("getRoomSockets", (roomName) => {
-    const room = io.sockets.adapter.rooms.get(roomName);
-    if (room) {
-      const roomSet: Set<string> = room;
-      roomSet.forEach((socketId) => {
-        console.log(`Socket ${socketId} is joined to room ${roomName}`);
-      });
-    }
-  });
-
-  socket.on('disconnect', () => {
-    console.log(`user disconnected: ${socket.id} `);
-  });
-})
 
 require("./routes/register")(app, db);
 

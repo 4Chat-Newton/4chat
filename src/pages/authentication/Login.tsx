@@ -7,11 +7,7 @@ export default function Login() {
 
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
-
-    // const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-
-    // const { isLoggedIn } = useContext(GlobalContext) || { isLoggedIn: false}
+    
 
     const handleUserInput = (e: any) => {
         const {id, value} = e.target;

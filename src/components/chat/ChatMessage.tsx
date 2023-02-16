@@ -14,16 +14,16 @@ export default function ChatMessage({socket}:any) {
   const handleSendMessage = (e:any) => {
     e.preventDefault();
     console.log({ message });
-    if (message.trim()) {
-      socket.emit('message', {
-        text: message,
-        user: localStorage.getItem('username'),//! ska kolla JWT token
-        timeStamp: date,
-        id: `${socket.id}${Math.random()}`,
-        socketID: socket.id,
-        room: activeRoom
-      });
-    }
+    // if (message.trim()) {
+    //   socket.emit('message', {
+    //     text: message,
+    //     user: localStorage.getItem('username'),//! ska kolla JWT token
+    //     timeStamp: date,
+    //     id: `${socket.id}${Math.random()}`,
+    //     socketID: socket.id,
+    //     room: activeRoom
+    //   });
+    // }
     setMessage('');
   };
 

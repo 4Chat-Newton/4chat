@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom";
+import socket from "../../socket";
 
 export default function Register() {
 
@@ -9,6 +10,13 @@ export default function Register() {
     const [password, setPassword] = useState(null);
     const [confirmPassword, setConfirmPassword] = useState(null);
     const [acceptTerms, setAcceptTerms] = useState(false);
+    const [usernameAlreadySelected, setUsernameAlreadySelected] = useState(false);
+
+    const onUsernameSelection = (username:any) => {
+        setUsernameAlreadySelected(true)
+        socket.auth = { username };
+        socket.connect();
+      }
 
     const handleUserInput = (e: any) => {
         const { id, value } = e.target;
@@ -43,6 +51,7 @@ export default function Register() {
                     console.log(response)
                     if (response.ok) {
                         alert("User successfully registered!")//todo om tid finns skapa popup för detta istället som tas automatiskt bort efter typ 2sek
+                        onUsernameSelection(username)
                         navigate("/login")
                     }else {
                         alert("The username or email is already in use!")
