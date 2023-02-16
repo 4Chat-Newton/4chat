@@ -18,6 +18,12 @@ export default function Register() {
         socket.connect();
       }
 
+      socket.on("connect_error", (err) => {
+        if (err.message === "invalid username") {
+          setUsernameAlreadySelected(false);
+        }
+      });
+
     const handleUserInput = (e: any) => {
         const { id, value } = e.target;
         if (id === "email") {
@@ -50,9 +56,9 @@ export default function Register() {
                     // TODO remove when no longer needed after testing
                     console.log(response)
                     if (response.ok) {
-                        alert("User successfully registered!")//todo om tid finns skapa popup för detta istället som tas automatiskt bort efter typ 2sek
+                        //alert("User successfully registered!")//todo om tid finns skapa popup för detta istället som tas automatiskt bort efter typ 2sek
                         onUsernameSelection(username)
-                        navigate("/login")
+                        navigate("/chatroom")
                     }else {
                         alert("The username or email is already in use!")
                     }

@@ -5,6 +5,7 @@ import BoxContainer from "../globalComponents/BoxContainer";
 import { io } from "socket.io-client";
 import { useContext, useEffect, useState } from "react";
 import activeRoomContext from "../../ActiveRoomContext";
+import socket from "../../socket";
 
 // const socket = io("http://localhost:8080");
 
@@ -13,6 +14,7 @@ const Chat = () => {
   const [messages, setMessages] = useState<any>([]);
   const { activeRoom } = useContext(activeRoomContext);
 
+  
 
   // useEffect(() => {
   //   socket.on('messageResponse', (data) => setMessages([...messages, data]));

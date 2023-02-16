@@ -16,10 +16,10 @@ function ChatRouter() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/terms" element={<Terms />} />
-        <Route element={<ProtectedRoutes />}>
+        {/* <Route element={<ProtectedRoutes />}> */}
           <Route path="/chatroom" element={<ChatRoom />} />
           <Route path="/chatroom/:activeRoom" element={<ChatRoom />} />
-        </Route>
+        {/* </Route> */}
         <Route path="/*" element={<NoPage />} />
       </Routes>
     </>

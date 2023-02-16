@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import JoinedComponent from "../../globalComponents/JoinedListComponent";
 import TabComponent from "../../globalComponents/TabComponent";
 
-const ChatTab = () => {
+const ChatTab = (props: any) => {
     const[joinedRooms, setJoinedRooms] = useState([])
 
         useEffect(() => {
