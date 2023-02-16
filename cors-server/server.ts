@@ -21,9 +21,7 @@ app.use(cookieparser());
 
 export const db = require("better-sqlite3")("./db/database.db");
 
-app.use(express.static(path.join(__dirname, '../build')))
-app.get('*', async (req, res) => {
-  res.sendFile(path.join(__dirname, '../build', 'index.html'))
+
 app.get("/data", (req, res) => {
   res.send("NodeJS + Express + Typescript App Up! 👍");
 });
@@ -73,6 +71,8 @@ changePassword(app,db)
 changeEmail(app,db)
 deleteAccount(app,db)
 
-
+app.use(express.static(path.join(__dirname, '../build')))
+app.get('*', async (req, res) => {
+  res.sendFile(path.join(__dirname, '../build', 'index.html'))
 
 })

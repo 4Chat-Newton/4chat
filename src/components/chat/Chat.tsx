@@ -15,6 +15,9 @@ const Chat = () => {
 
   useEffect(() => {
     socket.on('messageResponse', (data) => setMessages([...messages, data]));
+    socket.onAny((event, ...args) => {
+      console.log("CLIENT: ", event, args);
+    });
   }, [socket, messages]);
 
   return (
