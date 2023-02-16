@@ -24,7 +24,7 @@ export const getMsgFromRoom = async (server, db) => {
         const { receiver_id } = req.body;
         try {
             // if (!msgIdExist) {
-                const room = await db.prepare("SELECT * FROM message WHERE receiver_id = ?").all(receiver_id);
+                const room = await db.prepare("SELECT * FROM message WHERE receiver_id = ? AND deleted = false").all(receiver_id);
                 return res.json(room).status(200)
             // } else {
             //     return res.status(400).send({message: "Room id not found!"})
@@ -41,7 +41,7 @@ export const getJoinedRoomMessanges = async (server, db) => {
         const { receiver_id } = req.body;
         try {
             // if (!msgIdExist) {
-            const room = await db.prepare("SELECT msg.id, msg.sender_id, msg.receiver_id, msg.room, msg.message, msg.timestamp, msg.deleted, msg.reported, msg.edited_message, msg.socket_id FROM message msg INNER JOIN joined_room jr on jr.room_id = msg.receiver_id WHERE jr.user_id = ?;").all(user.id);
+            const room = await db.prepare("SELECT msg.id, msg.sender_id, msg.receiver_id, msg.room, msg.message, msg.timestamp, msg.deleted, msg.reported, msg.edited_message, msg.socket_id FROM message msg INNER JOIN joined_room jr on jr.room_id = msg.receiver_id WHERE jr.user_id = ? AND msg.deleted = false;").all(user.id);
             return res.json(room).status(200)
             // } else {
             //     return res.status(400).send({message: "Room id not found!"})
