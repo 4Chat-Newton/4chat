@@ -60,8 +60,9 @@ io.on('connection', (socket) => {
     io.to(data.room).emit('messageResponse', data)
   });
 
-  socket.on('join_room', async ({ room }) => {
-    await socket.join(room)
+  socket.on('join_room', async (data) => {
+    await socket.join(data.room)
+    io.to(data.room).emit('messageResponse', data.message)
   })
 
   // On the server-side
