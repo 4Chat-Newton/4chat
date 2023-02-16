@@ -2,16 +2,19 @@ import {useContext, useState} from "react";
 
 import activeRoomContext from "../../ActiveRoomContext";
 import {useNavigate} from "react-router-dom";
+import {GetMsgFromJoinedRoom, GetMsgFromRoom} from "../controller/Controller";
 
 const RoomListItem: any = (props: any) => {
     const navigate = useNavigate()
     const [isShown, setIsShown] = useState(false);
 
-    const { setActiveRoom, setActiveRoomId } = useContext(activeRoomContext);
+    const { setActiveRoom, setActiveRoomId, activeRoomId } = useContext(activeRoomContext);
     function handleActiveRoom(data: any) {
         setActiveRoom(data);
         setActiveRoomId(props.room.room_id) // room id is called "room_id" from props
         navigate(`/chatroom/${data}`)
+        // GetMsgFromRoom(activeRoomId)
+        // GetMsgFromJoinedRoom(activeRoomId)
     }
 
     const leaveRoom = async ()=>{

@@ -1,6 +1,8 @@
-
 //StoreMessage
 // Store a message into the db
+import {useContext} from "react";
+import activeRoomContext from "../../ActiveRoomContext";
+
 export const StoreMessage = async (senderId: any, receiverId: number, msg: string, timestamp: string, socketId: string) => {
 
     // Check if receiver id is a room or not (DM)
@@ -34,37 +36,31 @@ export const StoreMessage = async (senderId: any, receiverId: number, msg: strin
 }
 
 // GetRoomOnName
-// Get messanges from a Room based on room id.
+// Get messages from a Room based on room id.
 export const GetMsgFromRoom = (roomId: number) => {
-
-    return fetch(`/data/message/room-messages` , {
+    return fetch(`/data/message/room-messages/${roomId}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem("token")}`
-        },
-        body: JSON.stringify({
-            receiver_id: roomId
-        })
-    }).then(function (response) {
+        }
+    }).then((response) => {
         if (response.ok) {
-            console.log(response)
             return response.json()
         } else {
             console.log(`Failed to retrieve room's messages Error.`)
             return null
         }
+    }).catch((e) => {
+        console.log("Error: ", e)
     })
-    //     .catch((e) => {
-    //     console.log("Error: ", e)
-    // })
+
 }
 
 // GetRoomOnName
-// Get messanges from a Room based on room id.
-export const GetMsgFromJoinedRoom = (roomId: number) => {
-
-    return fetch(`/data/message/user-messages` , {
+// Get messages from a Room based on room id.
+export const GetMsgFromJoinedRoom = async () => {
+    return await fetch(`/data/message/user-messages`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -72,14 +68,13 @@ export const GetMsgFromJoinedRoom = (roomId: number) => {
         },
     }).then(function (response) {
         if (response.ok) {
-            console.log(response)
             return response.json()
         } else {
             console.log(`Failed to retrieve joined room's messages Error.`)
             return null
         }
+    }).catch((e) => {
+        console.log("Error: ", e)
+
     })
-    //     .catch((e) => {
-    //     console.log("Error: ", e)
-    // })
 }

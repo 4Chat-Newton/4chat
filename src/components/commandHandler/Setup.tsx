@@ -1,4 +1,6 @@
-const Setup = (data: string) => {
+import exp from "constants";
+
+export const Setup = (data: string) => {
 
     const findTerm = (term: string) => {
         if (data.startsWith(term)) {
@@ -41,7 +43,6 @@ const Setup = (data: string) => {
             });
     }
 
-
     switch (data) {
         case findTerm("/create #"):
             let name = data.replace("/create #", "");
@@ -71,8 +72,10 @@ const Setup = (data: string) => {
         case findTerm("/leave #"):
 
             break;
+        case findTerm("/changeColor "):
+
+            break;
         default:
             break;
     }
 }
-export default Setup

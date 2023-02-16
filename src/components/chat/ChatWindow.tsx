@@ -1,9 +1,12 @@
 import "./Chat.css"
 import {useContext, useEffect} from "react";
 import activeRoomContext from "../../ActiveRoomContext";
+import {GetMsgFromRoom} from "../controller/Controller";
+import {Simulate} from "react-dom/test-utils";
+import load = Simulate.load;
 
 export default function ChatWindow({messages: socketRespons}:any) {
-    const { activeRoom } = useContext(activeRoomContext);
+    const { activeRoom, activeRoomId } = useContext(activeRoomContext);
 
   return (<>
       <div className="chatWindow">
@@ -15,10 +18,10 @@ export default function ChatWindow({messages: socketRespons}:any) {
         <section className="chat">
           <ul className="text">
             {socketRespons.map((msg: any) => (
-           (<li key={msg.id}>
+           (<li key={msg.id} >
               <span id="timeStamp">{`[${msg.timeStamp}]`}</span>
               <span id="userMsg">{`[${msg.room}]`}</span>
-              <span id="userMsg">{`[${msg.user}]`}</span>
+              <span id="userMsg" style={{color: "lightcyan" }}>{`[${msg.user}]`}</span>
               <span id="textMsg">{`: ${msg.text}`}</span>
             </li>)
         ))}
