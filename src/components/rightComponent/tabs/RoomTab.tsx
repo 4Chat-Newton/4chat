@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import ListComponent from "../../globalComponents/ListComponent";
 import TabComponent from "../../globalComponents/TabComponent";
+import {API_BASE_URL} from "../../../consts"
 
 const RoomTab = () => {
     const [rooms, setRooms] = useState([])
 
     useEffect(() => {
-        fetch('http://localhost:8080/data/room', {
+        fetch(`${API_BASE_URL}/data/room`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -16,7 +17,6 @@ const RoomTab = () => {
             .then(res => res.json())
             .then(data => {
                 setRooms(data)
-                console.log(rooms)
             })
     }, [])
 

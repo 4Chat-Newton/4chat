@@ -1,12 +1,13 @@
 import "./Navbar.css"
 import { useNavigate } from "react-router";
+import {API_BASE_URL} from "../../consts"
 
 export default function Navbar() {
 
   const navigate = useNavigate();
 
   const logOut = async () => {
-    await fetch('http://localhost:8080/data/login', {
+    await fetch(`${API_BASE_URL}/data/login`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -23,7 +24,11 @@ export default function Navbar() {
   }
 
   const handleHome = () => {
-    navigate("/")
+    navigate("/chatroom")
+  }
+
+  const handleSettingsBtn = () => {
+    navigate("/settings")
   }
 
   return <>
@@ -40,7 +45,7 @@ export default function Navbar() {
       </div>
 
       <div className="nav-btn">
-        <button id="settings-btn">Settings</button>
+        <button id="settings-btn" onClick={handleSettingsBtn}>Settings</button>
         <button id="signOut-btn" onClick={logOut}>Sign out</button>
       </div>
     </header>

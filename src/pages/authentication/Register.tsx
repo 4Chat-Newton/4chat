@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom";
+import {API_BASE_URL} from "../../consts"
 
 export default function Register() {
 
@@ -29,7 +30,7 @@ export default function Register() {
     const handleSubmit = async () => {
         if (password === confirmPassword && acceptTerms) {
             //TODO fetch should be '/data/register'
-            await fetch('/data/register', {
+            await fetch(`${API_BASE_URL}/data/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

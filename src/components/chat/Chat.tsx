@@ -4,8 +4,9 @@ import "../style.css";
 import BoxContainer from "../globalComponents/BoxContainer";
 import { io } from "socket.io-client";
 import { useEffect, useState } from "react";
+import {API_BASE_URL} from "../../consts"
 
-const socket = io("http://localhost:8080");
+const socket = io(`${API_BASE_URL}`);
 
 
 
@@ -14,6 +15,9 @@ const Chat = () => {
 
   useEffect(() => {
     socket.on('messageResponse', (data) => setMessages([...messages, data]));
+    socket.onAny((event, ...args) => {
+      console.log("CLIENT: ", event, args);
+    });
   }, [socket, messages]);
 
   return (

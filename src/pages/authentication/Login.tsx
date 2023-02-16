@@ -1,10 +1,10 @@
 import { useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
+import {API_BASE_URL} from "../../consts"
 
 export default function Login() {
 
     const navigate = useNavigate();
-
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
 
@@ -24,7 +24,7 @@ export default function Login() {
     }
     const signIn = async () => {
         //TODO fetch should be '/data/login'
-        await fetch('http://localhost:8080/data/login', {
+        await fetch(`${API_BASE_URL}/data/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -34,7 +34,7 @@ export default function Login() {
                 password: password,
             })
         }).then((response) => {
-            if (response.status === 200){
+            if (response.status === 200) {
                 localStorage.setItem("isloggedIn", "true")
                 return response.json()
             } else {

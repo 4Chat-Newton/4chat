@@ -43,11 +43,13 @@ export const signIn = async function (server, db: any) {
 
 export const signOut = async function (server, db: any) {
     server.delete('/data/login', verifyJWT, async (req, res) => {
+        const sessions = new Map();
         let result = {id: "", isLoggedIn: false, username: ""}
         result = returnUser(req, res)
         if (result.isLoggedIn) {
             await db.prepare("UPDATE user SET online = 0 WHERE id = ?").run(result.id)
             res.clearCookie('token')
+            sessions.delete(result.id);
             res.status(200).json({message: `logged out`, loggedIn: false })
         } else {
             res.status(400).json({message: "Something went wrong!"})

@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import JoinedComponent from "../../globalComponents/JoinedListComponent";
 import TabComponent from "../../globalComponents/TabComponent";
+import {API_BASE_URL} from "../../../consts"
 
 const ChatTab = () => {
     const[joinedRooms, setJoinedRooms] = useState([])
 
         useEffect(() => {
-            fetch('http://localhost:8080/data/room/joined', {
+            fetch(`${API_BASE_URL}/data/room/joined`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
