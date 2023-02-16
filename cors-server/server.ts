@@ -6,6 +6,7 @@ import {getSignedInUser, signIn, signOut} from "./routes/login";
 import cookieparser from "cookie-parser";
 import {createRoom, getRoom, deleteRoom, getAllRooms, joinRoom, leaveChatRoom, getAllJoinedRooms} from "./routes/room";
 import path from 'path';
+import { BASE_URL } from "./consts";
 
 const port: Number = 8080;
 const host: string = `http://localhost:${port}`;
@@ -13,7 +14,7 @@ export const app: any = express();
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(cors({
-  origin: ["http://localhost:3000"]
+  origin: [`${BASE_URL}`]
 }));
 app.use(cookieparser());
 
@@ -27,7 +28,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: `${BASE_URL}`,
     methods: ["POST", "GET"],
   },
 });
