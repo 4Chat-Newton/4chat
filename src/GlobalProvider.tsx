@@ -20,7 +20,7 @@ interface GlobalProviderProps {
 
 function GlobalProvider(props: GlobalProviderProps)
 {
-    const [activeRoom, setActiveRoom] = useState('Home');
+    const [activeRoom, setActiveRoom] = useState('');
     const [activeRoomId, setActiveRoomId] = useState(0);
     const [oldMessages, setOldMessages] = useState([]);
     const [joinedRooms, setJoinedRooms] = useState([]);

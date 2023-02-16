@@ -39,17 +39,20 @@ export default function ChatMessage({socket}: any) {
 
     return (
         <form className="msg" onSubmit={handleSendMessage}>
-        <input
-          style={{color:"lightgreen"}}
-          type="text"
-          className="msger-input"
-          placeholder="Enter your message..."
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-        />
-        <button type="submit" className="send" onClick={handleInput}>
-          Send
-        </button>
+
+            <input
+                disabled={activeRoom === "" ? true : false }
+                style={{color:"lightgreen"}}
+                type="text"
+                className="msger-input"
+                placeholder={activeRoom === "" ? "Please enter a room..." : "Enter your message..." }
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+            />
+
+            <button disabled={activeRoom === "" ? true : false } type="submit" className="send" onClick={handleInput}>
+                Send
+            </button>
         </form>
   );
 }

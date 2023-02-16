@@ -82,7 +82,7 @@ export default function EditAccount() {
     return (<>
         <div className="settingsBox">
 
-            <h1 className="settingsH1">Edit Profile</h1>
+            <h1 className="settingsH1">Edit profile</h1>
 
             <div className="settingsFields">
 

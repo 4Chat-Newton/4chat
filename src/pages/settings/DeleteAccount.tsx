@@ -59,7 +59,7 @@ export default function DeleteAccount() {
     return (
         <div className="settingsBox">
 
-            <h1 className="settingsH1">Delete Profile</h1>
+            <h1 className="settingsH1">Delete profile</h1>
 
                         <div className="settingsFields">
                                 <input className="settingsInputFields"
@@ -67,17 +67,17 @@ export default function DeleteAccount() {
                                         name="password"
                                         type="password"
                                         autoComplete="current-password"
-                                        placeholder="password"
+                                        placeholder="Password"
                                         onChange={(e) => handleUserInput(e)}
                                 />
                                 <input className="settingsInputFields"
                                         id="SettingsConfirmPassword"
                                         name="password"
                                         type="password"
-                                        placeholder="Confirm Password"
+                                        placeholder="Confirm password"
                                         onChange={(e) => handleUserInput(e)}
                                 />
-                                <button id="deleteUpdate_btn" className="Update_btn" onClick={handleSubmitDelete} >Delete Account</button>
+                                <button id="deleteUpdate_btn" className="Update_btn" onClick={handleSubmitDelete} >Delete account</button>
                         </div>
                 </div>
 );

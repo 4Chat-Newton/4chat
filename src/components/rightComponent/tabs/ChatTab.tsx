@@ -27,8 +27,30 @@ const ChatTab = (props:any) => {
 
     return (
         <TabComponent className="InboxTab">
-            <h2>DM</h2>
-            Establish database connection
+            Loading
+            {/*Cool Animation 1*/}
+            {/*<div className="lds-ellipsis">*/}
+            {/*    <div></div>*/}
+            {/*    <div></div>*/}
+            {/*    <div></div>*/}
+            {/*    <div></div>*/}
+            {/*</div>*/}
+
+            {/*Cool Animation 2*/}
+            <div className="lds-spinner">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
         </TabComponent>
     );
 };
