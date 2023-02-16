@@ -3,8 +3,10 @@ import ChatWindow from "./ChatWindow";
 import "../style.css";
 import BoxContainer from "../globalComponents/BoxContainer";
 import { io } from "socket.io-client";
-import { useContext, useEffect, useState } from "react";
-import activeRoomContext from "../../ActiveRoomContext";
+import { useEffect, useState } from "react";
+import {API_BASE_URL} from "../../consts"
+
+const socket = io(`${API_BASE_URL}`);
 
 
 const Chat = (props:any) => {

@@ -1,6 +1,7 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 import activeRoomContext from "../../ActiveRoomContext";
 import { useNavigate } from "react-router-dom";
+import {API_BASE_URL} from "../../consts"
 
 const RoomListItem: any = (props: any) => {
     const navigate = useNavigate()
@@ -39,7 +40,7 @@ const RoomListItem: any = (props: any) => {
 
     const leaveRoom = async () => {
         if (props.room.room_id) {
-            fetch("http://localhost:8080/data/room/leave", {
+            fetch(`${API_BASE_URL}/data/room/leave`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
