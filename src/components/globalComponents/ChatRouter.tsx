@@ -6,16 +6,19 @@ import Terms from "../../pages/Terms";
 import ChatRoom from "../../pages/ChatRoom";
 import ProtectedRoutes from "./ProtectedRoutes";
 import NoPage from "../../pages/NoPage";
-
+import Settings from "../../pages/settings/Settings";
+import DeleteAccount from "../../pages/settings/DeleteAccount";
 function ChatRouter() {
 
   return (
     <>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={< Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/terms" element={<Terms />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/deleteaccount" element={<DeleteAccount />} />
         <Route element={<ProtectedRoutes />}>
           <Route path="/chatroom" element={<ChatRoom />} />
           <Route path="/chatroom/:activeRoom" element={<ChatRoom />} />
