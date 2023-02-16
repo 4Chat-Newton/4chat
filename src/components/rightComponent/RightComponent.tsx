@@ -13,8 +13,7 @@ export default function RightComponent(props:any) {
 
     const handleRoom = () =>{
         setActiveTab("rooms")
-    }
-
+    }    
 
     return (
         <>
@@ -24,7 +23,7 @@ export default function RightComponent(props:any) {
                     <li className={activeTab === "rooms" ? "active" : ""} onClick={handleRoom}>Browse</li>
                 </ul>
                 <div className="outlet">
-                    {activeTab === "inbox" ? <ChatTab socketConnection={props.socketConnection} /> : <RoomTab />}
+                    {activeTab === "inbox" ? <ChatTab socketConnection={props.socketConnection} /> : <RoomTab socketConnection={props.socketConnection}/>}
                 </div>
             </section>
         </>

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import ListComponent from "../../globalComponents/ListComponent";
 import TabComponent from "../../globalComponents/TabComponent";
 
-const RoomTab = () => {
+const RoomTab = (props:any) => {
     const [rooms, setRooms] = useState([])
 
     useEffect(() => {
@@ -19,8 +19,7 @@ const RoomTab = () => {
                 console.log(rooms)
             })
     }, [])
-
-    if (rooms.length > 0) return (<ListComponent rooms={rooms} />)
+    if (rooms.length > 0) return (<ListComponent socketConnection={props.socketConnection} rooms={rooms} />)
 
     return (
         <TabComponent className="RoomTab">
