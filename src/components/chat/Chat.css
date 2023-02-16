@@ -25,6 +25,17 @@
   flex-shrink: 0;
 }
 
+.roomName-header{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.roomName-header > span{
+  padding-right: 7px;
+  font-weight: lighter;
+}
+
 .chat {
   overflow-y: auto;
   flex: 1;

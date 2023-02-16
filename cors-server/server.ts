@@ -2,7 +2,7 @@ import express from "express";
 import { Server } from "socket.io";
 import cors from "cors";
 import http from "http";
-import {getSignedInUser, signIn, signOut} from "./routes/login";
+import { getSignedInUser, signIn, signOut } from "./routes/login";
 import cookieparser from "cookie-parser";
 import {createRoom, getRoom, deleteRoom, getAllRooms, joinRoom, leaveChatRoom, getAllJoinedRooms} from "./routes/room";
 import {getJoinedRoomMessanges, getMsgFromRoom, storeMessage} from "./routes/message";
@@ -41,13 +41,44 @@ server.listen(port, () => {
   console.log(`${host}/data`);
 });
 
-io.on('connection', (socket)=>{
-  console.log(`user connected: ${socket.id} `);
 
+io.on('connection', (socket) => {
+  socket.onAny((event, ...args) => {
+    console.log("SERVER: ", event, args);
+  });
+  console.log(`user connected: ${socket.id} `);
   //Listens and logs the message to the console
   socket.on('message', (data) => {
-    console.log(data);
-    io.emit('messageResponse', data);
+    if (data.room=== null || data.room === "") {
+      return io.emit('messageResponse', data);
+    }
+
+    let socketRoom = io.sockets.adapter.rooms
+
+    console.log("SOCKET_SET: ", socketRoom)
+
+    io.to(data.room).emit('messageResponse', data)
+  });
+
+  socket.on('join_room', async (data) => {
+    await socket.join(data.room)
+    io.to(data.room).emit('messageResponse', data.message)
+  })
+
+  socket.on('leave_room', async (data) => {
+    io.to(data.room).emit('messageResponse', data.message)
+    socket.leave(data.room)
+  })
+
+  // On the server-side
+  socket.on("getRoomSockets", (roomName) => {
+    const room = io.sockets.adapter.rooms.get(roomName);
+    if (room) {
+      const roomSet: Set<string> = room;
+      roomSet.forEach((socketId) => {
+        console.log(`Socket ${socketId} is joined to room ${roomName}`);
+      });
+    }
   });
 
   socket.on('disconnect', () => {
@@ -80,4 +111,3 @@ app.get('*', async (req, res) => {
   res.sendFile(path.join(__dirname, '../build', 'index.html'))
 
 })
-

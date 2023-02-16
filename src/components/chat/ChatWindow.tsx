@@ -12,7 +12,8 @@ export default function ChatWindow({messages: socketRespons}:any) {
       <div className="chatWindow">
         <section className="roomName">
           <div className="roomName-header">
-            <h1>{`#${activeRoom}`}</h1>
+            <span>Sending messages to: </span>
+            <h1> {` #${activeRoom}`}</h1>
           </div>
         </section>
         <section className="chat">
@@ -20,8 +21,8 @@ export default function ChatWindow({messages: socketRespons}:any) {
             {socketRespons.map((msg: any) => (
            (<li key={msg.id} >
               <span id="timeStamp">{`[${msg.timeStamp}]`}</span>
-              <span id="userMsg">{`[${msg.room}]`}</span>
-              <span id="userMsg" style={{color: "lightcyan" }}>{`[${msg.user}]`}</span>
+              <span id="userMsg" style={{color: "lightcyan" }}>{`[@${msg.user}]`}</span>
+              <span id="roomMsg">{`[#${msg.room}]`}</span>
               <span id="textMsg">{`: ${msg.text}`}</span>
             </li>)
         ))}

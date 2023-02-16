@@ -19,10 +19,11 @@ export default function ChatMessage({socket}: any) {
     if (message.trim()) {
       socket.emit('message', {
         text: message,
-        user: localStorage.getItem('username'),//! ska kolla JWT token
+        user: localStorage.getItem('username'),
         timeStamp: date,
         id: `${socket.id}${Math.random()}`,
         socketID: socket.id,
+        room: activeRoom
       });
     }
     setMessage('');

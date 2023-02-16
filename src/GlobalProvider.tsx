@@ -4,7 +4,7 @@ export interface ActiveRoomContextType {
     activeRoom: string;
     setActiveRoom: (activeRoom: string) => void;
     activeRoomId: number;
-    setActiveRoomId: (activeRoom: number) => void;
+    setActiveRoomId: (activeRoomId: number) => void;
 }
 interface GlobalProviderProps {
     children: React.ReactNode;

@@ -5,7 +5,7 @@ const activeRoomContext = createContext<ActiveRoomContextType>({
     activeRoom: '',
     setActiveRoom: (activeRoom: string) => {},
     activeRoomId: 0,
-    setActiveRoomId: (activeRoom: number) => {},
+    setActiveRoomId: (activeRoomId: number) => {},
 });
 
 export default activeRoomContext;

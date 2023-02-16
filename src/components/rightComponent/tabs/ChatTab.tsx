@@ -3,11 +3,11 @@ import JoinedComponent from "../../globalComponents/JoinedListComponent";
 import TabComponent from "../../globalComponents/TabComponent";
 import {API_BASE_URL} from "../../../consts"
 
-const ChatTab = () => {
+const ChatTab = (props:any) => {
     const[joinedRooms, setJoinedRooms] = useState([])
 
         useEffect(() => {
-            fetch(`${API_BASE_URL}/data/room/joined`, {
+            fetch(`http://localhost:8080/data/room/joined`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -22,7 +22,7 @@ const ChatTab = () => {
     
  
 
-        if(joinedRooms.length > 0) return (<JoinedComponent rooms={joinedRooms}/>)
+        if(joinedRooms.length > 0) return (<JoinedComponent socketConnection={props.socketConnection} rooms={joinedRooms}/>)
 
 
     return (

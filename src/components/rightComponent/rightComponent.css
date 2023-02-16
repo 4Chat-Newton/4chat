@@ -16,6 +16,7 @@
     justify-content: space-between;
 }
 .listComponent > li:hover {
+    cursor: pointer;
     background-color: var(--blue);
 }
 
