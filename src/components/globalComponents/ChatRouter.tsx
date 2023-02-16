@@ -8,11 +8,9 @@ import ProtectedRoutes from "./ProtectedRoutes";
 import NoPage from "../../pages/NoPage";
 import Settings from "../../pages/settings/Settings";
 import DeleteAccount from "../../pages/settings/DeleteAccount";
-import {io} from "socket.io-client";
 import {API_BASE_URL} from "../../consts";
+import socket from "../../socket";
 function ChatRouter() {
-
-  const socket = io(API_BASE_URL);
 
   socket.onAny((event, ...args) => {
     console.log("CLIENT: ", event, args);
