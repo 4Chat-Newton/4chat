@@ -4,7 +4,16 @@ import cors from "cors";
 import http from "http";
 import { getSignedInUser, signIn, signOut } from "./routes/login";
 import cookieparser from "cookie-parser";
-import {createRoom, getRoom, deleteRoom, getAllRooms, joinRoom, leaveChatRoom, getAllJoinedRooms} from "./routes/room";
+import {
+  createRoom,
+  getRoom,
+  deleteRoom,
+  getAllRooms,
+  joinRoom,
+  leaveChatRoom,
+  getAllJoinedRooms,
+  getAllJoinedRoomNames
+} from "./routes/room";
 import {getJoinedRoomMessanges, getMsgFromRoom, storeMessage} from "./routes/message";
 import path from 'path';
 import { BASE_URL } from "./consts";
@@ -65,6 +74,12 @@ io.on('connection', (socket) => {
     io.to(data.room).emit('messageResponse', data.message)
   })
 
+  socket.on('join_all_joined_rooms', async (data) => {
+    for (let i = 0; i < data.length; i++) {
+      await socket.join(data[i].name)
+    }
+  })
+
   socket.on('leave_room', async (data) => {
     io.to(data.room).emit('messageResponse', data.message)
     socket.leave(data.room)
@@ -105,6 +120,7 @@ deleteAccount(app,db)
 storeMessage(app, db)
 getMsgFromRoom(app, db)
 getJoinedRoomMessanges(app, db)
+getAllJoinedRoomNames(app, db)
 
 app.use(express.static(path.join(__dirname, '../build')))
 app.get('*', async (req, res) => {

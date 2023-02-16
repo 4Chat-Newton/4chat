@@ -11,6 +11,11 @@ export default function Register() {
     const [confirmPassword, setConfirmPassword] = useState(null);
     const [acceptTerms, setAcceptTerms] = useState(false);
 
+    const createColor = () => {
+        const color = "rgba(" + Math.floor(Math.random()*255) + ", " + Math.floor(Math.random()*255) + ", "+ Math.floor(Math.random()*255) + ", 1)"
+        return color
+    }
+
     const handleUserInput = (e: any) => {
         const { id, value } = e.target;
         if (id === "email") {
@@ -36,7 +41,8 @@ export default function Register() {
                 body: JSON.stringify({
                     username: username,
                     email: email,
-                    password: password
+                    password: password,
+                    color: createColor(),
                 })
             })
                 .then(function (response) {

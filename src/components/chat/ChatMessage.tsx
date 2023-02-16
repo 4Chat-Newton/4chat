@@ -15,11 +15,12 @@ export default function ChatMessage({socket}: any) {
 
   const handleSendMessage = (e:any) => {
       let userId = localStorage.getItem('user_id')
+      let userName = localStorage.getItem('username')
     e.preventDefault();
     if (message.trim()) {
       socket.emit('message', {
         text: message,
-        user: localStorage.getItem('username'),
+        user: userName,
         timeStamp: date,
         id: `${socket.id}${Math.random()}`,
         socketID: socket.id,
@@ -29,7 +30,7 @@ export default function ChatMessage({socket}: any) {
     setMessage('');
       // Send message to a storing function
       // parse userId to integer
-      StoreMessage(userId, activeRoomId, message, date, socket.id)
+      StoreMessage(userId, activeRoomId, message, date, socket.id, userName, activeRoom)
   };
 
     const handleInput = async () => {

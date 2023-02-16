@@ -4,7 +4,7 @@ import {useContext} from "react";
 import activeRoomContext from "../../ActiveRoomContext";
 import {API_BASE_URL} from "../../consts";
 
-export const StoreMessage = async (senderId: any, receiverId: number, msg: string, timestamp: string, socketId: string) => {
+export const StoreMessage = async (senderId: any, receiverId: number, msg: string, timestamp: string, socketId: string, userName: any, roomName: string) => {
 
     // Check if receiver id is a room or not (DM)
     // Check if name is # (is a room) or @ (is a user)
@@ -23,7 +23,9 @@ export const StoreMessage = async (senderId: any, receiverId: number, msg: strin
             deleted: 0, // Not deleted
             reported: 0, // Not reported
             edited_message: "null", // Not edited
-            socket_id: socketId
+            socket_id: socketId,
+            username: userName,
+            room_name: roomName,
         }),
     }).then(function (response) {
         if (response.ok) {
@@ -79,3 +81,4 @@ export const GetMsgFromJoinedRoom = async () => {
 
     })
 }
+

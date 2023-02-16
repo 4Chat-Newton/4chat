@@ -6,6 +6,12 @@ const activeRoomContext = createContext<ActiveRoomContextType>({
     setActiveRoom: (activeRoom: string) => {},
     activeRoomId: 0,
     setActiveRoomId: (activeRoomId: number) => {},
+    oldMessages: [],
+    setOldMessages:  (oldMessages: []) => {},
+    joinedRooms: [],
+    setJoinedRooms:  (joinedRooms: []) => {},
+    user: [],
+    setUser: (user: []) => {},
 });
 
 export default activeRoomContext;

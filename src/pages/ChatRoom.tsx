@@ -2,16 +2,18 @@ import Navbar from "../components/globalComponents/Navbar"
 import Chat from "../components/chat/Chat"
 import RightComponent from "../components/rightComponent/RightComponent"
 import BoxContainer from "../components/globalComponents/BoxContainer"
-import { io } from "socket.io-client";
-
-const socket = io("http://localhost:8080");
-
-socket.onAny((event, ...args) => {
-    console.log("CLIENT: ", event, args);
-  });
+import {useContext} from "react";
+import activeRoomContext from "../ActiveRoomContext";
 
 
-export default function ChatRoom() {
+
+export default function ChatRoom(props:any) {
+
+    const { joinedRooms } = useContext(activeRoomContext);
+
+    let socket = props.socketConnection
+    console.log("chatroom: ", socket)
+    socket.emit("join_all_joined_rooms", joinedRooms);
     return <>
         <Navbar />
         <BoxContainer className="chatBox">

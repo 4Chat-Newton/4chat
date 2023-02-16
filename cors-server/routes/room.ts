@@ -198,3 +198,17 @@ export const checkCreatorId = async (creator_id, db) => {
     return null;
   }
 }
+
+export const getAllJoinedRoomNames = async function (server, db) {
+  server.get("/data/room/joined/names", async (req: express.Request, res: express.Response) => {
+    let user = returnUser(req, res);
+    try {
+      const result = await db
+          .prepare(
+              "SELECT name FROM room JOIN joined_room jr on room.id = jr.room_id WHERE jr.user_id = ?").all(user.id);
+      return res.status(200).send(result)
+    } catch(e) {
+      return res.status(400).send("Failed to retrieve rooms!")
+    }
+  })
+}

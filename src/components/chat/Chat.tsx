@@ -5,6 +5,7 @@ import BoxContainer from "../globalComponents/BoxContainer";
 import { io } from "socket.io-client";
 import { useEffect, useState } from "react";
 import {API_BASE_URL} from "../../consts"
+import {GetMsgFromJoinedRoom} from "../controller/Controller";
 
 const socket = io(`${API_BASE_URL}`);
 
@@ -16,6 +17,8 @@ const Chat = (props:any) => {
 
   useEffect(() => {
     socket.on('messageResponse', (data:any) => setMessages([...messages, data]));
+    // socket.on('messageResponse', (data:any) => GetMsgFromJoinedRoom());
+    // GetMsgFromJoinedRoom()
     console.log("messagesList: ", messages)
     // socket.on('messageResponse', (data) => {
     //     console.log("useEffect: ", data)

@@ -6,7 +6,7 @@ import {Simulate} from "react-dom/test-utils";
 import load = Simulate.load;
 
 export default function ChatWindow({messages: socketRespons}:any) {
-    const { activeRoom, activeRoomId } = useContext(activeRoomContext);
+    const { activeRoom, activeRoomId, oldMessages } = useContext(activeRoomContext);
 
   return (<>
       <div className="chatWindow">
@@ -18,10 +18,18 @@ export default function ChatWindow({messages: socketRespons}:any) {
         </section>
         <section className="chat">
           <ul className="text">
+              {oldMessages.map((msg: any) => (
+                  (<li key={msg.id} >
+                      <span id="timeStamp">{`[${msg.timestamp}]`}</span>
+                      <span id="userMsg" style={{color: "yellow"}}>{`[@${msg.username}]`}</span>
+                      <span id="roomMsg">{`[#${msg.room_name}]`}</span>
+                      <span id="textMsg">{`: ${msg.message}`}</span>
+                  </li>)
+              ))}
             {socketRespons.map((msg: any) => (
            (<li key={msg.id} >
               <span id="timeStamp">{`[${msg.timeStamp}]`}</span>
-              <span id="userMsg" style={{color: "lightcyan" }}>{`[@${msg.user}]`}</span>
+              <span id="userMsg" style={{color: "yellow"}}>{`[@${msg.user}]`}</span>
               <span id="roomMsg">{`[#${msg.room}]`}</span>
               <span id="textMsg">{`: ${msg.text}`}</span>
             </li>)
