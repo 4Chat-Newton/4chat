@@ -126,7 +126,7 @@ export default function Login(props:any) {
                                 autoComplete="email"
                                 required
                                 className="bg-gray-700 mb-3 relative block w-full appearance-none rounded-none rounded-t-md border border-none px-3 py-2 text-lime-400 placeholder-lime-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                                placeholder="email"
+                                placeholder="Email"
                                 onChange={(e) => handleUserInput(e)}
                             />
                         </div>
@@ -141,7 +141,7 @@ export default function Login(props:any) {
                                 autoComplete="current-password"
                                 required
                                 className="relative block w-full appearance-none rounded-none rounded-b-md border border-none px-3 py-2 text-yellow-400 placeholder-yellow-300 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                                placeholder="password"
+                                placeholder="Password"
                                 onChange={(e) => handleUserInput(e)}
                             />
                         </div>

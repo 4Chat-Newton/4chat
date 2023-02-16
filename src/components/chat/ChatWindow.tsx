@@ -10,7 +10,6 @@ export default function ChatWindow({messages: socketRespons}:any) {
 
     useEffect(()=>{
         getMessages()
-        // loadMsgs()
     },[])
 
     const getMessages = async () => {

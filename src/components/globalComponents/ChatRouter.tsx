@@ -15,7 +15,7 @@ function ChatRouter() {
   const socket = io(API_BASE_URL);
 
   socket.onAny((event, ...args) => {
-    console.log("CLIENT: ", event, args);
+    // console.log("CLIENT: ", event, args);
   });
 
   return (
