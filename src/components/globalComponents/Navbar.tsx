@@ -1,12 +1,13 @@
 import "./Navbar.css"
 import { useNavigate } from "react-router";
+import {API_BASE_URL} from "../../consts"
 
 export default function Navbar() {
 
   const navigate = useNavigate();
 
   const logOut = async () => {
-    await fetch('http://localhost:8080/data/login', {
+    await fetch(`${API_BASE_URL}/data/login`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
