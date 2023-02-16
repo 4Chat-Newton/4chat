@@ -1,5 +1,3 @@
-import {useContext} from "react";
-import activeRoomContext from "../../ActiveRoomContext";
 
 //StoreMessage
 // Store a message into the db
@@ -7,7 +5,6 @@ export const StoreMessage = async (senderId: any, receiverId: number, msg: strin
 
     // Check if receiver id is a room or not (DM)
     // Check if name is # (is a room) or @ (is a user)
-
     fetch("/data/message", {
         method: "POST",
         headers: {
