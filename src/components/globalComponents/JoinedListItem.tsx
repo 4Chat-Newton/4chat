@@ -8,31 +8,28 @@ const RoomListItem: any = (props: any) => {
     const [messages, setMessages] = useState<any>([]);
     let socket = props.socketConnection
 
-    // let date = new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+    let date = new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
 
     const { setActiveRoom } = useContext(activeRoomContext);
     function handleActiveRoom(data: any) {
         setActiveRoom(data);
         navigate(`/chatroom/${data}`)
-        // joinSocket(data)
     }
 
-    // const joinSocket = (data:any) => {
-    //     console.log("joining socket: " + data)
-    //     if (data !== "") {
-    //         let message =
-    //   {
-    //     text: "*** @" + localStorage.getItem('username') + " joined #" + data + "! ***",
-    //     user: "FRIENDLY_BOT",
-    //     timeStamp: date,
-    //     id: `${socket.id}${Math.random()}`,
-    //     socketID: socket.id,
-    //     room: data
-    //   }
-    //       socket.emit("join_room", {room: data})
-    //       socket.emit("getRoomSockets", data)
-    //     }
-    //   }
+    const leaveSocket = (data:any) => {
+        if (data !== "") {
+            let message =
+      {
+        text: "*** @" + localStorage.getItem('username') + " left #" + data + "! ***",
+        user: "FRIENDLY_BOT",
+        timeStamp: date,
+        id: `${socket.id}${Math.random()}`,
+        socketID: socket.id,
+        room: data
+      }
+          socket.emit("leave_room", {room: data, message:message})
+        }
+      }
 
 
 
@@ -50,7 +47,8 @@ const RoomListItem: any = (props: any) => {
                 }),
             }).then(function (response) {
                 if (response.ok) {
-                    alert(`You left room #${props.room.name}!`);
+                    //alert(`You left room #${props.room.name}!`);
+                    leaveSocket(props.room.name)
                 } else {
                     alert(`You've yet to join #${props.room.name}!`);
                 }

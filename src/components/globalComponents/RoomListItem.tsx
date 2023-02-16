@@ -73,7 +73,7 @@ const RoomListItem: any = (props: any) => {
         <span>#</span>
         {props.room.name}
       </div>
-      {isShown && <button> + </button>}
+      {isShown && <span> + </span>}
     </li>
   );
 };

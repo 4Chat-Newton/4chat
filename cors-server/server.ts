@@ -65,6 +65,10 @@ io.on('connection', (socket) => {
     io.to(data.room).emit('messageResponse', data.message)
   })
 
+  socket.on('leave_room', async (data) => {
+    io.to(data.room).emit('messageResponse', data.message)
+  })
+
   // On the server-side
   socket.on("getRoomSockets", (roomName) => {
     const room = io.sockets.adapter.rooms.get(roomName);
