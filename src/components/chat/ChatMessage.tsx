@@ -11,7 +11,6 @@ export default function ChatMessage({socket}:any) {
 
   const handleSendMessage = (e:any) => {
     e.preventDefault();
-    console.log({ message });
     if (message.trim()) {
       socket.emit('message', {
         text: message,
@@ -25,8 +24,6 @@ export default function ChatMessage({socket}:any) {
   };
 
     const handleInput = async () => {
-        //TODO remove console.log
-        console.log("handleInput data:", message)
         Setup(message)
     }
 
