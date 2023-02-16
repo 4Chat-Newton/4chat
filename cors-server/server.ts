@@ -67,6 +67,7 @@ io.on('connection', (socket) => {
 
   socket.on('leave_room', async (data) => {
     io.to(data.room).emit('messageResponse', data.message)
+    socket.leave(data.room)
   })
 
   // On the server-side

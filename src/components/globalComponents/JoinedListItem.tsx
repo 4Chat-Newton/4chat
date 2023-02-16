@@ -5,32 +5,36 @@ import { useNavigate } from "react-router-dom";
 const RoomListItem: any = (props: any) => {
     const navigate = useNavigate()
     const [isShown, setIsShown] = useState(false);
+    const [isActive, setIsActive] = useState(false)
+    const [currentText, setCurrentText] = useState("")
     const [messages, setMessages] = useState<any>([]);
     let socket = props.socketConnection
 
     let date = new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
 
-    const { setActiveRoom } = useContext(activeRoomContext);
+    const { setActiveRoom, activeRoom } = useContext(activeRoomContext);
+
+
     function handleActiveRoom(data: any) {
         setActiveRoom(data);
-        navigate(`/chatroom/${data}`)
+        //handleActive(event)
+        //navigate(`/chatroom/${data}`)
     }
 
-    const leaveSocket = (data:any) => {
+    const leaveSocket = (data: any) => {
         if (data !== "") {
             let message =
-      {
-        text: "*** @" + localStorage.getItem('username') + " left #" + data + "! ***",
-        user: "FRIENDLY_BOT",
-        timeStamp: date,
-        id: `${socket.id}${Math.random()}`,
-        socketID: socket.id,
-        room: data
-      }
-          socket.emit("leave_room", {room: data, message:message})
+            {
+                text: "*** @" + localStorage.getItem('username') + " left #" + data + "! ***",
+                user: "FRIENDLY_BOT",
+                timeStamp: date,
+                id: `${socket.id}${Math.random()}`,
+                socketID: socket.id,
+                room: data
+            }
+            socket.emit("leave_room", { room: data, message: message })
         }
-      }
-
+    }
 
 
     const leaveRoom = async () => {
@@ -59,8 +63,30 @@ const RoomListItem: any = (props: any) => {
         }
     }
 
+    // const handleActive = (event: any) => {
+    //     if (!event.currentTarget.classList.contains(isActive)) {
+    //         event.currentTarget.classList.add(isActive)
+    //         document.querySelector(".isActive")?.add
+    //     }
+    //     event.currentTarget.classList.add(isActive)
+    //     console.log(event.currentTarget)
+    // }
+
+    const handleToggle = () => {
+        console.log(isActive)
+        setIsActive(!isActive);
+        console.log(isActive)
+        handleActiveRoom(props.room.name)
+    };
+
+    // toggleSidenav() {
+    //     var css = (this.props.showHideSidenav === "hidden") ? "show" : "hidden";
+    //     this.setState({"showHideSidenav":css});
+    // }
+
     return (
-        <li className="listItemRoom" onMouseEnter={() => setIsShown(true)} onMouseLeave={() => setIsShown(false)} onClick={() => handleActiveRoom(props.room.name)}>
+         <li className="listItemRoom" onMouseEnter={() => setIsShown(true)} onMouseLeave={() => setIsShown(false)} onClick={(event) => handleActiveRoom(props.room.name)}>
+            {/* <li className={`listItemRoom-${isActive ? "active" : "inactive"}`} onMouseEnter={() => setIsShown(true)} onMouseLeave={() => setIsShown(false)} onClick={handleToggle}> */}
             <div>
                 <span>#</span>
                 {props.room.name}

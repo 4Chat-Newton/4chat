@@ -9,7 +9,8 @@ export default function ChatWindow({messages: socketRespons}:any) {
       <div className="chatWindow">
         <section className="roomName">
           <div className="roomName-header">
-            <h1>{`#${activeRoom}`}</h1>
+            <span>Sending messages to: </span>
+            <h1> {` #${activeRoom}`}</h1>
           </div>
         </section>
         <section className="chat">

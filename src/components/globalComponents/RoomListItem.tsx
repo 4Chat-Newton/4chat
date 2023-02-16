@@ -33,7 +33,7 @@ const RoomListItem: any = (props: any) => {
 
   function handleActiveRoom(data: any) {
     setActiveRoom(data);
-    navigate(`/chatroom/${data}`);
+    //navigate(`/chatroom/${data}`);
     joinSocket(data);
     joinRoom();
   }
