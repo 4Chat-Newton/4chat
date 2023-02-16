@@ -3,6 +3,7 @@ import {Link, useNavigate} from "react-router-dom"; //TODO add "Navigate" when n
 import "./settings.css"
 import ButtonComponent from "../../components/globalComponents/ButtonComponent";
 import {response} from "express";
+import {API_BASE_URL} from "../../consts";
 
 export default function DeleteAccount() {
 
@@ -23,7 +24,7 @@ export default function DeleteAccount() {
     const handleSubmitDelete = async () => {
         if (password === confirmPassword) {
             //TODO fetch should be '/data/register'
-            await fetch('http://localhost:8080/data/settings/delete', {
+            await fetch(API_BASE_URL+ '/data/settings/delete', {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

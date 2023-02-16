@@ -58,7 +58,7 @@ export default function Login() {
 
     const authenticateUser = async () => {
 
-        await fetch('/data/login', {
+        await fetch(`${API_BASE_URL}/data/login`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

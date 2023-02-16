@@ -1,4 +1,5 @@
 import exp from "constants";
+import {API_BASE_URL} from "../../consts";
 
 export const Setup = (data: string) => {
 
@@ -9,7 +10,7 @@ export const Setup = (data: string) => {
     };
 
     const joinRoom = async (roomToJoin: string) => {
-        fetch("/data/room/" + roomToJoin)
+        fetch(`${API_BASE_URL}/data/room/${roomToJoin}`)
             .then((response) => {
                 if (response.ok) {
                     return response.json()
@@ -19,7 +20,7 @@ export const Setup = (data: string) => {
             })
             .then((data) => {
                 if (data) {
-                    fetch("/data/room/join", {
+                    fetch(`${API_BASE_URL}/data/room/join`, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
@@ -46,7 +47,7 @@ export const Setup = (data: string) => {
     switch (data) {
         case findTerm("/create #"):
             let name = data.replace("/create #", "");
-            fetch("/data/room", {
+            fetch(`${API_BASE_URL}/data/room`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

@@ -2,12 +2,13 @@
 // Store a message into the db
 import {useContext} from "react";
 import activeRoomContext from "../../ActiveRoomContext";
+import {API_BASE_URL} from "../../consts";
 
 export const StoreMessage = async (senderId: any, receiverId: number, msg: string, timestamp: string, socketId: string) => {
 
     // Check if receiver id is a room or not (DM)
     // Check if name is # (is a room) or @ (is a user)
-    fetch("/data/message", {
+    fetch(`${API_BASE_URL}/data/message`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -38,7 +39,7 @@ export const StoreMessage = async (senderId: any, receiverId: number, msg: strin
 // GetRoomOnName
 // Get messages from a Room based on room id.
 export const GetMsgFromRoom = (roomId: number) => {
-    return fetch(`/data/message/room-messages/${roomId}`, {
+    return fetch(`${API_BASE_URL}/data/message/room-messages/${roomId}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -60,7 +61,7 @@ export const GetMsgFromRoom = (roomId: number) => {
 // GetRoomOnName
 // Get messages from a Room based on room id.
 export const GetMsgFromJoinedRoom = async () => {
-    return await fetch(`/data/message/user-messages`, {
+    return await fetch(`${API_BASE_URL}/data/message/user-messages`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',

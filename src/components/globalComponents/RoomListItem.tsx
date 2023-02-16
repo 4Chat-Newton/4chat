@@ -2,6 +2,7 @@ import {useContext, useState} from "react";
 
 import activeRoomContext from "../../ActiveRoomContext";
 import {useNavigate} from "react-router-dom";
+import {API_BASE_URL} from "../../consts";
 
 const RoomListItem: any = (props: any) => {
     const navigate = useNavigate()
@@ -17,7 +18,7 @@ const RoomListItem: any = (props: any) => {
 
     const joinRoom = async ()=>{
         if (props.room.id) {
-            fetch("/data/room/join", {
+            fetch(`${API_BASE_URL}/data/room/join`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

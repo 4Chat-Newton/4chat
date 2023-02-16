@@ -1,4 +1,5 @@
 import {useState} from "react"
+import {API_BASE_URL} from "../../consts";
 
 export default function EditAccount() {
 
@@ -37,7 +38,7 @@ export default function EditAccount() {
 
     const updateEmail = async () => {
         if (password === confirmPassword) {
-            await fetch('http://localhost:8080/data/settings/email', {
+            await fetch(`${API_BASE_URL}/data/settings/email`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -59,7 +60,7 @@ export default function EditAccount() {
 
     const updatePassword = async () => {
         if (password === confirmPassword) {
-            await fetch('http://localhost:8080/data/settings/password', {
+            await fetch(`${API_BASE_URL}/data/settings/password`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
