@@ -80,6 +80,7 @@ export default function Register() {
                                 id="username"
                                 name="username"
                                 type="username"
+                                required
                                 placeholder="Username"
                                 autoComplete="username"
                                 onChange={(e) => handleUserInput(e)}
@@ -92,6 +93,7 @@ export default function Register() {
                                 id="email"
                                 name="email"
                                 type="email"
+                                required
                                 placeholder="Email"
                                 autoComplete="email"
                                 onChange={(e) => handleUserInput(e)}
@@ -103,6 +105,7 @@ export default function Register() {
                                 id="password"
                                 name="password"
                                 type="password"
+                                required
                                 autoComplete="current-password"
                                 placeholder="Password"
                                 onChange={(e) => handleUserInput(e)}
@@ -112,6 +115,7 @@ export default function Register() {
                                 id="confirmPassword"
                                 name="password"
                                 type="password"
+                                required
                                 placeholder="Confirm password"
                                 onChange={(e) => handleUserInput(e)}
                                 className="relative block w-full appearance-none rounded-none rounded-b-md border border-none px-3 py-2 text-yellow-400 placeholder-yellow-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"

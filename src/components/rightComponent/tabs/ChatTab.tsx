@@ -22,7 +22,7 @@ const ChatTab = (props:any) => {
     
  
 
-        if(joinedRooms.length > 0) return (<JoinedComponent socketConnection={props.socketConnection} rooms={joinedRooms}/>)
+        if(joinedRooms.length > 0) return (<JoinedComponent socketConnection={props.socketConnection} setRooms={setJoinedRooms} rooms={joinedRooms}/>)
 
 
     return (

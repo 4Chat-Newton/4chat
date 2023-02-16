@@ -54,7 +54,9 @@ const RoomListItem: any = (props: any) => {
         }),
       }).then(function (response) {
         if (response.ok) {
-        //   alert(`You joined room #${props.room.name}!`);
+          const newRoomList = props.rooms.filter((r: any) => r.id !== props.room.id);
+          props.setRooms(newRoomList)
+          //   alert(`You joined room #${props.room.name}!`);
         } else {
           alert(`You've already joined #${props.room.name}!`);
         }

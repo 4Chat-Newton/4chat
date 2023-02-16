@@ -55,7 +55,8 @@ const RoomListItem: any = (props: any) => {
                 }),
             }).then(function (response) {
                 if (response.ok) {
-                    //alert(`You left room #${props.room.name}!`);
+                    const newRoomList = props.rooms.filter((r:any) => r.room_id !== props.room.room_id);
+                    props.setRooms(newRoomList)
                     leaveSocket(props.room.name)
                 } else {
                     alert(`You've yet to join #${props.room.name}!`);

@@ -49,6 +49,12 @@
     cursor: pointer
 }
 
+.tabComponent {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
 
 /*Cooolanimation*/
 
@@ -110,6 +116,8 @@
 
 
 /* Cool animation 2*/
+
+
 .lds-spinner {
     color: official;
     display: inline-block;

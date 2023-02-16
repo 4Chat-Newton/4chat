@@ -19,7 +19,7 @@ const RoomTab = (props:any) => {
                 setRooms(data)
             })
     }, [])
-    if (rooms.length > 0) return (<ListComponent socketConnection={props.socketConnection} rooms={rooms} />)
+    if (rooms.length > 0) return (<ListComponent socketConnection={props.socketConnection} setRooms={setRooms} rooms={rooms} />)
 
 
     return (
