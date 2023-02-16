@@ -5,6 +5,8 @@ import http from "http";
 import {getSignedInUser, signIn, signOut} from "./routes/login";
 import cookieparser from "cookie-parser";
 import {createRoom, getRoom, deleteRoom, getAllRooms, joinRoom, leaveChatRoom, getAllJoinedRooms} from "./routes/room";
+import path from 'path';
+import { BASE_URL } from "./consts";
 import {changeEmail, changePassword, changeUserName, deleteAccount} from "./routes/settings";
 
 const port: Number = 8080;
@@ -13,12 +15,15 @@ export const app: any = express();
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(cors({
-  origin: ["http://localhost:3000"]
+  origin: [`${BASE_URL}`]
 }));
 app.use(cookieparser());
 
 export const db = require("better-sqlite3")("./db/database.db");
 
+app.use(express.static(path.join(__dirname, '../build')))
+app.get('*', async (req, res) => {
+  res.sendFile(path.join(__dirname, '../build', 'index.html'))
 app.get("/data", (req, res) => {
   res.send("NodeJS + Express + Typescript App Up! 👍");
 });
@@ -27,7 +32,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: `${BASE_URL}`,
     methods: ["POST", "GET"],
   },
 });
@@ -67,3 +72,7 @@ changeUserName(app,db)
 changePassword(app,db)
 changeEmail(app,db)
 deleteAccount(app,db)
+
+
+
+})
