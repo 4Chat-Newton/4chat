@@ -3,7 +3,7 @@ import "./rightComponent.css";
 import ChatTab from "./tabs/ChatTab";
 import RoomTab from "./tabs/RoomTab";
 
-export default function Inbox() {
+export default function RightComponent(props:any) {
 
     const[activeTab, setActiveTab] = useState("inbox")
 
@@ -13,8 +13,7 @@ export default function Inbox() {
 
     const handleRoom = () =>{
         setActiveTab("rooms")
-    }
-
+    }    
 
     return (
         <>
@@ -24,7 +23,7 @@ export default function Inbox() {
                     <li className={activeTab === "rooms" ? "active" : ""} onClick={handleRoom}>Browse</li>
                 </ul>
                 <div className="outlet">
-                    {activeTab === "inbox" ? <ChatTab /> : <RoomTab />}
+                    {activeTab === "inbox" ? <ChatTab socketConnection={props.socketConnection} /> : <RoomTab socketConnection={props.socketConnection}/>}
                 </div>
             </section>
         </>

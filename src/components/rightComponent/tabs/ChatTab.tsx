@@ -3,11 +3,11 @@ import JoinedComponent from "../../globalComponents/JoinedListComponent";
 import TabComponent from "../../globalComponents/TabComponent";
 import {API_BASE_URL} from "../../../consts"
 
-const ChatTab = () => {
+const ChatTab = (props:any) => {
     const[joinedRooms, setJoinedRooms] = useState([])
 
         useEffect(() => {
-            fetch(`${API_BASE_URL}/data/room/joined`, {
+            fetch(`http://localhost:8080/data/room/joined`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -22,13 +22,35 @@ const ChatTab = () => {
     
  
 
-        if(joinedRooms.length > 0) return (<JoinedComponent rooms={joinedRooms}/>)
+        if(joinedRooms.length > 0) return (<JoinedComponent socketConnection={props.socketConnection} setRooms={setJoinedRooms} rooms={joinedRooms}/>)
 
 
     return (
         <TabComponent className="InboxTab">
-            <h2>DM</h2>
-            Establish database connection
+            Loading
+            {/*Cool Animation 1*/}
+            {/*<div className="lds-ellipsis">*/}
+            {/*    <div></div>*/}
+            {/*    <div></div>*/}
+            {/*    <div></div>*/}
+            {/*    <div></div>*/}
+            {/*</div>*/}
+
+            {/*Cool Animation 2*/}
+            <div className="lds-spinner">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
         </TabComponent>
     );
 };

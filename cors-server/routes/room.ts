@@ -15,18 +15,18 @@ export const findExistingRoom = async function (name, db) {
     }
     return result;
   } catch (error) {
-    console.error(`${error}`)
+    console.log(`Couldn't find existing room. Error: ${error}`)
     return null;
   }
 }
 
 export const getRoom = async function (server, db) {
   server.get("/data/room/:name", async (req: express.Request, res: express.Response) => {
-    const room = findExistingRoom(req.params, db)
-    if (room !== null) {
+    const roomExist = findExistingRoom(req.params, db)
+    if (roomExist !== null) {
       try {
-        const user = await db.prepare("SELECT * FROM room WHERE name = @name").get(req.params);
-        res.json(user).status(200)
+        const room = await db.prepare("SELECT * FROM room WHERE name = @name").get(req.params);
+        res.json(room).status(200)
       } catch (e) {
         res.status(400).send({ message: "Room not found!" })
       }
@@ -197,4 +197,18 @@ export const checkCreatorId = async (creator_id, db) => {
     console.error(`${error}`)
     return null;
   }
+}
+
+export const getAllJoinedRoomNames = async function (server, db) {
+  server.get("/data/room/joined/names", async (req: express.Request, res: express.Response) => {
+    let user = returnUser(req, res);
+    try {
+      const result = await db
+          .prepare(
+              "SELECT name FROM room JOIN joined_room jr on room.id = jr.room_id WHERE jr.user_id = ?").all(user.id);
+      return res.status(200).send(result)
+    } catch(e) {
+      return res.status(400).send("Failed to retrieve rooms!")
+    }
+  })
 }

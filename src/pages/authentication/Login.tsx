@@ -1,17 +1,18 @@
-import { useState} from "react";
+import {useContext, useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {API_BASE_URL} from "../../consts"
+import activeRoomContext from "../../ActiveRoomContext";
+import {GetMsgFromJoinedRoom} from "../../components/controller/Controller";
 
-export default function Login() {
+export default function Login(props:any) {
 
     const navigate = useNavigate();
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
+    const { setJoinedRooms, joinedRooms, setOldMessages} = useContext(activeRoomContext);
 
-    // const [isLoggedIn, setIsLoggedIn] = useState(false);
+    let socket = props.socketConnection
 
-
-    // const { isLoggedIn } = useContext(GlobalContext) || { isLoggedIn: false}
 
     const handleUserInput = (e: any) => {
         const {id, value} = e.target;
@@ -23,6 +24,7 @@ export default function Login() {
         }
     }
     const signIn = async () => {
+        localStorage.clear()
         //TODO fetch should be '/data/login'
         await fetch(`${API_BASE_URL}/data/login`, {
             method: 'POST',
@@ -51,14 +53,32 @@ export default function Login() {
 
         //TODO swap for a useState, needs some work
         if(localStorage.getItem("isloggedIn") === "true"){
-            authenticateUser();
+            authenticateUser()
+            loadJoinedRooms()
+            setOldMessages(await GetMsgFromJoinedRoom())
             navigate("/chatroom");
         }
     }
 
+    const loadJoinedRooms = async () => {
+        const result = await fetch(`${API_BASE_URL}/data/room/joined/names`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem("token")}`
+            }
+        }).then((data)=>{
+            return data.json()
+
+        }).catch((e)=>{
+            console.log("Error: ", e)
+        })
+        setJoinedRooms(result)
+    }
+
     const authenticateUser = async () => {
 
-        await fetch('/data/login', {
+        await fetch(`${API_BASE_URL}/data/login`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -73,7 +93,10 @@ export default function Login() {
         }).then(data => {
             localStorage.setItem("user_id", data.id)
             localStorage.setItem("username", data.username)
+            // localStorage.setItem("color", data.color)
             // localStorage.setItem("isLoggedIn", data.isLoggedIn)
+        }).catch((e)=>{
+            console.log("Error: ", e)
         })
     }
 
@@ -94,7 +117,7 @@ export default function Login() {
                     <div className="-space-y-px rounded-md shadow-sm">
                         <div>
                             <label htmlFor="email-address" className="sr-only">
-                                email
+                                Email
                             </label>
                             <input
                                 id="email"
@@ -103,7 +126,7 @@ export default function Login() {
                                 autoComplete="email"
                                 required
                                 className="bg-gray-700 mb-3 relative block w-full appearance-none rounded-none rounded-t-md border border-none px-3 py-2 text-lime-400 placeholder-lime-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                                placeholder="email"
+                                placeholder="Email"
                                 onChange={(e) => handleUserInput(e)}
                             />
                         </div>
@@ -118,7 +141,7 @@ export default function Login() {
                                 autoComplete="current-password"
                                 required
                                 className="relative block w-full appearance-none rounded-none rounded-b-md border border-none px-3 py-2 text-yellow-400 placeholder-yellow-300 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                                placeholder="password"
+                                placeholder="Password"
                                 onChange={(e) => handleUserInput(e)}
                             />
                         </div>

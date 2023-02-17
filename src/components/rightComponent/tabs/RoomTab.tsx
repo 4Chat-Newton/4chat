@@ -3,7 +3,7 @@ import ListComponent from "../../globalComponents/ListComponent";
 import TabComponent from "../../globalComponents/TabComponent";
 import {API_BASE_URL} from "../../../consts"
 
-const RoomTab = () => {
+const RoomTab = (props:any) => {
     const [rooms, setRooms] = useState([])
 
     useEffect(() => {
@@ -17,16 +17,37 @@ const RoomTab = () => {
             .then(res => res.json())
             .then(data => {
                 setRooms(data)
-                console.log(rooms)
             })
     }, [])
+    if (rooms.length > 0) return (<ListComponent socketConnection={props.socketConnection} setRooms={setRooms} rooms={rooms} />)
 
-    if (rooms.length > 0) return (<ListComponent rooms={rooms} />)
 
     return (
         <TabComponent className="RoomTab">
-            <h2>Rooms</h2>
-            <p>Establish database connection </p>
+            <p>Loading</p>
+            {/*Cool Animation 1*/}
+            {/*<div className="lds-ellipsis">*/}
+            {/*    <div></div>*/}
+            {/*    <div></div>*/}
+            {/*    <div></div>*/}
+            {/*    <div></div>*/}
+            {/*</div>*/}
+
+            {/*Cool Animation 2*/}
+            <div className="lds-spinner">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
         </TabComponent>
     );
 };

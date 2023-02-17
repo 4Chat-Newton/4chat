@@ -3,6 +3,7 @@ import {Link, useNavigate} from "react-router-dom"; //TODO add "Navigate" when n
 import "./settings.css"
 import ButtonComponent from "../../components/globalComponents/ButtonComponent";
 import {response} from "express";
+import {API_BASE_URL} from "../../consts";
 
 export default function DeleteAccount() {
 
@@ -23,7 +24,7 @@ export default function DeleteAccount() {
     const handleSubmitDelete = async () => {
         if (password === confirmPassword) {
             //TODO fetch should be '/data/register'
-            await fetch('http://localhost:8080/data/settings/delete', {
+            await fetch(API_BASE_URL+ '/data/settings/delete', {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -58,7 +59,7 @@ export default function DeleteAccount() {
     return (
         <div className="settingsBox">
 
-            <h1 className="settingsH1">Delete Profile</h1>
+            <h1 className="settingsH1">Delete profile</h1>
 
                         <div className="settingsFields">
                                 <input className="settingsInputFields"
@@ -66,17 +67,17 @@ export default function DeleteAccount() {
                                         name="password"
                                         type="password"
                                         autoComplete="current-password"
-                                        placeholder="password"
+                                        placeholder="Password"
                                         onChange={(e) => handleUserInput(e)}
                                 />
                                 <input className="settingsInputFields"
                                         id="SettingsConfirmPassword"
                                         name="password"
                                         type="password"
-                                        placeholder="Confirm Password"
+                                        placeholder="Confirm password"
                                         onChange={(e) => handleUserInput(e)}
                                 />
-                                <button id="deleteUpdate_btn" className="Update_btn" onClick={handleSubmitDelete} >Delete Account</button>
+                                <button id="deleteUpdate_btn" className="Update_btn" onClick={handleSubmitDelete} >Delete account</button>
                         </div>
                 </div>
 );
