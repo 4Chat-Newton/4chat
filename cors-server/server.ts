@@ -25,7 +25,7 @@ export const app: any = express();
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(cors({
-  origin: [`${BASE_URL}`]
+  origin: [`${BASE_URL}`, "https://fourchat.onrender.com"]
 }));
 app.use(cookieparser());
 
