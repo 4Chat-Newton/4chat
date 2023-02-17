@@ -1,17 +1,23 @@
-import {useState} from "react"
-import {Link} from "react-router-dom"; //TODO add "Navigate" when needed
-import './style.css'
+import { useState } from "react"
+import { Link, useNavigate } from "react-router-dom";
+import {API_BASE_URL} from "../../consts"
 
-function Register() {
+export default function Register() {
 
+    const navigate = useNavigate();
     const [email, setEmail] = useState(null);
     const [username, setUsername] = useState(null);
     const [password, setPassword] = useState(null);
     const [confirmPassword, setConfirmPassword] = useState(null);
     const [acceptTerms, setAcceptTerms] = useState(false);
 
+    const createColor = () => {
+        const color = "rgba(" + Math.floor(Math.random()*255) + ", " + Math.floor(Math.random()*255) + ", "+ Math.floor(Math.random()*255) + ", 1)"
+        return color
+    }
+
     const handleUserInput = (e: any) => {
-        const {id, value} = e.target;
+        const { id, value } = e.target;
         if (id === "email") {
             setEmail(value);
         }
@@ -27,38 +33,26 @@ function Register() {
     }
 
     const handleSubmit = async () => {
-        if (password === confirmPassword && acceptTerms === true) {
+        if (password === confirmPassword && acceptTerms) {
             //TODO fetch should be '/data/register'
-            await fetch('http://localhost:8080/data/register', {
+            await fetch(`${API_BASE_URL}/data/register`, {
                 method: 'POST',
-                headers: {'Content-Type': 'application/json'},
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     username: username,
                     email: email,
-                    password: password
+                    password: password,
+                    color: createColor(),
                 })
             })
                 .then(function (response) {
                     // TODO remove when no longer needed after testing
                     console.log(response)
-                    if (response.ok === true) {
-                        //TODO add online status to body json
-                        fetch('http://localhost:8080/data/login', {
-                            method: 'POST',
-                            headers: {'Content-Type': 'application/json'},
-                            body: JSON.stringify({
-                                email: email,
-                                password: password,
-                            })
-                        }).then(function (response) {
-                            console.log(response)
-                                if (response.ok === true) {
-                                    alert("User successfully registered!")
-                                } else {
-                                    alert("The username or email is already in use!")
-                                }
-
-                        });//.then(navigate("/room"))
+                    if (response.ok) {
+                        alert("User successfully registered!")//todo om tid finns skapa popup för detta istället som tas automatiskt bort efter typ 2sek
+                        navigate("/login")
+                    }else {
+                        alert("The username or email is already in use!")
                     }
                 });
         } else if (password !== confirmPassword) {
@@ -68,13 +62,12 @@ function Register() {
         }
     }
 
-
     return (
         <>
             <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
                 <div className="w-full max-w-md space-y-8">
                     <div>
-                        <img src="img/4chat.png" className="mx-auto h-20 w-auto" alt="logo"/>
+                        <img src="img/4chat.png" className="mx-auto h-20 w-auto" alt="logo" />
                     </div>
 
 
@@ -87,6 +80,7 @@ function Register() {
                                 id="username"
                                 name="username"
                                 type="username"
+                                required
                                 placeholder="Username"
                                 autoComplete="username"
                                 onChange={(e) => handleUserInput(e)}
@@ -99,6 +93,7 @@ function Register() {
                                 id="email"
                                 name="email"
                                 type="email"
+                                required
                                 placeholder="Email"
                                 autoComplete="email"
                                 onChange={(e) => handleUserInput(e)}
@@ -110,6 +105,7 @@ function Register() {
                                 id="password"
                                 name="password"
                                 type="password"
+                                required
                                 autoComplete="current-password"
                                 placeholder="Password"
                                 onChange={(e) => handleUserInput(e)}
@@ -119,6 +115,7 @@ function Register() {
                                 id="confirmPassword"
                                 name="password"
                                 type="password"
+                                required
                                 placeholder="Confirm password"
                                 onChange={(e) => handleUserInput(e)}
                                 className="relative block w-full appearance-none rounded-none rounded-b-md border border-none px-3 py-2 text-yellow-400 placeholder-yellow-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
@@ -164,5 +161,3 @@ function Register() {
         </>
     )
 }
-
-export default Register

@@ -5,7 +5,7 @@ import {expect} from "chai";
 describe('Testing user functionality', () => {
 
     it('Registering a new user', () => {
-
+        cy.wait(1000)
         cy.visit('http://localhost:3000/register')
         cy.intercept("POST", "/data/register", (req) => {
             req.continue((res) => {
@@ -21,54 +21,57 @@ describe('Testing user functionality', () => {
         cy.get('#terms').click()
         cy.get('#submit_btn').click()
 
-        cy.wait(2000)
-        cy.get('#cancel_btn').click()
+        // cy.wait(2000)
+        // cy.get('#cancel_btn').click()
     }) // end of test
 
-    it('Login a user', () => {
+    it('Login a user and then sign out', () => {
+        cy.session("login-in-user", () => {
+            cy.wait(1000)
+            cy.visit('http://localhost:3000/login')
+            cy.intercept("POST", "/data/login", (req) => {
+                req.continue((res) => {
+                    expect(res.statusCode).to.eq(200)
+                    expect(res.body.loggedIn).to.have.eq(true)
 
-        cy.visit('http://localhost:3000/login')
-        cy.intercept("DELETE", "/data/login", (req)=>{
-            req.continue((res)=>{
-                expect(res.statusCode).to.eq(200)
-                expect(res.body.loggedIn).to.have.eq(true)
+                    //TODO undersök varför token inte hämtas
+
+                    // window.localStorage.setItem('token', res.body.token)
+
+                    window.localStorage.getItem('token')
+                })
             })
-        })
             cy.get('#email').click().type("Test_User@gmail.com")
             cy.get('#password').click().type("12345")
+
             cy.get('#login_btn').click()
-            cy.wait(2000)
-    })
 
-    it('Sign out a user', () => {
+            cy.wait(1000)
+            cy.visit('http://localhost:3000/chatroom')
+            cy.url().should('contain', '/chatroom')
+            cy.wait(1000)
 
-        cy.visit('http://localhost:3000/login')
-        cy.intercept("DELETE", "/data/login", (req)=>{
-            req.continue((res)=>{
-                expect(res.statusCode).to.eq(200)
-                expect(res.body.loggedIn).to.have.eq(false)
+            //TODO checka så den inte hämtar null
+
+            // expect(localStorage.getItem('token')).not.null
+
+            cy.intercept("DELETE", "/data/login", (req) => {
+                req.continue((res) => {
+                    expect(res.statusCode).to.eq(200)
+                    expect(res.body.loggedIn).to.have.eq(false)
+                })
             })
-        })
+            cy.get('#signOut-btn').click()
 
-        cy.request({
-            method: "DELETE",
-            url: "http://localhost:8080/data/login",
-            form: false,
-            body: {
-                email: "Test_User@gmail.com",
-                password: "12345"
-            },
+            cy.url().should('contain', "/login")
         })
-        cy.wait(2000)
-
     })
 
     it('Delete a user', () => {
         // TODO add intercept or something else after the initial create user have been created
         cy.wait(2000)
-        cy.request('DELETE', 'http://localhost:8080/data/register/Test_User').then((response)=> {
+        cy.request('DELETE', 'http://localhost:8080/data/register/Test_User').then((response) => {
             expect(response.status).to.eq(200)
-        } )
+        })
     })
-
 })

@@ -1,14 +1,9 @@
-// import { useEffect, useState } from 'react';
+import Login from "./pages/authentication/Login";
 
 function App() {
-
-  return (
-    <div className='App'>
-      <header >
-        <h1>Hello World</h1>
-      </header>
-    </div>
-  );
+    return (
+        <Login/>
+    )
 }
 
 export default App;
