@@ -1,5 +1,7 @@
 # 4chat
 
+För att köra projektet lokalt måste rad 3 i 4chat/cors-server/consts.ts bli avkommenterad och rad 1 måste bli kommenterad då denna är till för att föra 4chat via https://fourchat.onrender.com
+
 ### Setup
 
 * cd 4chat
