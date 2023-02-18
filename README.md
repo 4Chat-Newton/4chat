@@ -81,4 +81,9 @@ Måns Hammarstrand - Bagubben - mans.hammarstrand@edu.newton.se <br>
 Barkat Ali Rahimi - barkatrahimi - barkatalirahimi.23@gmail.com <br>
 Yusupha Jow - JowCodeX - Jooow_@live.se <br>
 
+
+### (Jira)[https://4chat.atlassian.net/jira/software/projects/GG/boards/1] <br>
+### (Google Drive)[https://drive.google.com/drive/folders/1nuSDqrxUXV8CEjPO8jl4uCDjBkmq_K_N?usp=sharing] <br>
+### (Figma)[https://www.figma.com/file/U3czIzVRxhPYkY5KiYVYk0/4Chat?node-id=0%3A1&t=5sG85LMctrFFgD83-1] <br>
+
  
