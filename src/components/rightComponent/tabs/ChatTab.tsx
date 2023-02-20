@@ -7,7 +7,7 @@ const ChatTab = (props:any) => {
     const[joinedRooms, setJoinedRooms] = useState([])
 
         useEffect(() => {
-            fetch(`http://localhost:8080/data/room/joined`, {
+            fetch(`${API_BASE_URL}/data/room/joined`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

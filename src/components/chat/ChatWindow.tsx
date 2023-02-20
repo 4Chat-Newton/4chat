@@ -4,13 +4,16 @@ import activeRoomContext from "../../ActiveRoomContext";
 import { GetMsgFromJoinedRoom, GetMsgFromRoom } from "../controller/Controller";
 import { Simulate } from "react-dom/test-utils";
 import load = Simulate.load;
+import { API_BASE_URL } from "../../consts";
 
-export default function ChatWindow({ messages: socketRespons }: any) {
-  const { activeRoom, activeRoomId, oldMessages, setOldMessages } = useContext(activeRoomContext);
+export default function ChatWindow({ messages: socketRespons }: any, props: any) {
+  const { activeRoom, activeRoomId, oldMessages, setOldMessages, joinedRooms, setJoinedRooms } = useContext(activeRoomContext);
 
   const chatContainer: any = createRef()
 
   useEffect(() => {
+    loadJoinedRooms()
+    joinSockets()
     getMessages()
   }, [])
 
@@ -21,6 +24,29 @@ export default function ChatWindow({ messages: socketRespons }: any) {
   const getMessages = async () => {
     setOldMessages(await GetMsgFromJoinedRoom())
   }
+
+
+  const loadJoinedRooms = async () => {
+    const result = await fetch(`${API_BASE_URL}/data/room/joined/names`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem("token")}`
+        }
+    }).then((data)=>{
+        return data.json()
+
+    }).catch((e)=>{
+        console.log("Error: ", e)
+    })
+    setJoinedRooms(result)
+}
+
+  const joinSockets = async () => {
+    props.socket.emit("join_all_joined_rooms", joinedRooms);
+  }
+
+
 
   const loadMsgs = () => {
     // setOldMessages( await GetMsgFromJoinedRoom())

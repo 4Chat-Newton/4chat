@@ -28,7 +28,7 @@ const Chat = (props:any) => {
   return (
     <>
     <BoxContainer className="chatContainer">
-        <ChatWindow messages={messages}/>
+        <ChatWindow messages={messages} socket={socket}/>
         {/*<div className="chatSeperator"></div>*/}
         <ChatMessage socket={socket}/>
       </BoxContainer>

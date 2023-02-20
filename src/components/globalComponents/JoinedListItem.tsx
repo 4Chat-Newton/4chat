@@ -14,7 +14,8 @@ const RoomListItem: any = (props: any) => {
 
     let date = new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
 
-    const { setActiveRoom, setActiveRoomId, activeRoomId, activeRoom } = useContext(activeRoomContext);
+    const { setActiveRoom, setActiveRoomId, activeRoomId, activeRoom, joinedRooms } = useContext(activeRoomContext);
+
     function handleActiveRoom(data: any) {
         setActiveRoom(data);
         setActiveRoomId(props.room.room_id) // room id is called "room_id" from props

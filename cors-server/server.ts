@@ -60,13 +60,9 @@ io.on('connection', (socket) => {
   socket.on('message', (data) => {
     if (data.room=== null || data.room === "") {
       return io.emit('messageResponse', data);
+    } else if (data.text !== "/create #") {
+      io.to(data.room).emit('messageResponse', data)
     }
-
-    let socketRoom = io.sockets.adapter.rooms
-
-    console.log("SOCKET_SET: ", socketRoom)
-
-    io.to(data.room).emit('messageResponse', data)
   });
 
   socket.on('join_room', async (data) => {
